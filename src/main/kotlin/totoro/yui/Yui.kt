@@ -57,13 +57,25 @@ object Yui {
             when (words.first()) {
                 "g", "google", "search" -> {
                     val result = Google.search(words.drop(1).joinToString(" "))
-                    if (result.first == null) send("\u0003[${result.second}]\u000F")
+                    if (result.first == null) send("\u000314[${result.second}]\u000F")
                     else send("\u000308[${result.second}]\u000F (${result.first})")
                 }
                 "money" -> send("https://youtu.be/vm2RAFv4pwA")
                 "pirate" -> send(Action.pirate(words.drop(1)))
                 "tt", "tr", "trans", "translit", "transliterate" ->
                     send(Action.transliterate(history.getFromEnd(1)))
+                "rules", "wp", "estimate" -> {
+                    val rawNumber = words.getOrNull(1)
+                    if (rawNumber == null) send("i need a number!")
+                    else {
+                        try {
+                            val number = Integer.parseInt(rawNumber)
+                            send(Action.rules(number))
+                        } catch (e: NumberFormatException) {
+                            send("this is not a number :< gimme a number!")
+                        }
+                    }
+                }
                 else -> send(Dict.NotSure())
             }
         } else send(Dict.NotSure())
