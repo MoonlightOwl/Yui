@@ -9,7 +9,7 @@ object Dict {
         return words[random.nextInt(words.size)]
     }
 
-    private val nicks = arrayOf("yui", "yuki", "yumi")
+    private val nicks = arrayOf("yui", "yuki", "yumi", "ayumi")
     fun Nick() = get(nicks)
 
     private val greets = arrayOf("kawaii", ":3", "nya", "o/")
