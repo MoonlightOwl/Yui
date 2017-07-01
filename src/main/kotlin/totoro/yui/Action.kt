@@ -13,6 +13,7 @@ object Action {
         return Dict.Pirate()
     }
 
+
     private val literation = hashMapOf<Char, Char>(
             'a' to 'ф', 'b' to 'и', 'c' to 'с', 'd' to 'в', 'e' to 'у', 'f' to 'а', 'g' to 'п', 'h' to 'р',
             'i' to 'ш', 'j' to 'о', 'k' to 'л', 'l' to 'д', 'm' to 'ь', 'n' to 'т', 'o' to 'щ', 'p' to 'з',

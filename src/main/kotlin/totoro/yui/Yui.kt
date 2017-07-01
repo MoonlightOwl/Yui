@@ -7,6 +7,8 @@ import org.kitteh.irc.client.library.event.client.ClientConnectedEvent
 
 
 object Yui {
+    val Version = "0.1.0"
+
     val nick = Dict.Nick()
     val name = "Yui the Bot"
     val host = "irc.esper.net"
@@ -53,10 +55,16 @@ object Yui {
 
         if (words.isNotEmpty()) {
             when (words.first()) {
-                "pirate" -> send(Action.pirate(words.drop(1)))
-                "tt", "tr", "trans", "translit", "transliterate" -> {
-                    send(Action.transliterate(history.getFromEnd(1)))
+                "g", "google", "search" -> {
+                    val result = Google.search(words.drop(1).joinToString(" "))
+                    if (result.first == null) send("\u0003[${result.second}]\u000F")
+                    else send("\u000308[${result.second}]\u000F (${result.first})")
                 }
+                "money" -> send("https://youtu.be/vm2RAFv4pwA")
+                "pirate" -> send(Action.pirate(words.drop(1)))
+                "tt", "tr", "trans", "translit", "transliterate" ->
+                    send(Action.transliterate(history.getFromEnd(1)))
+                else -> send(Dict.NotSure())
             }
         } else send(Dict.NotSure())
     }

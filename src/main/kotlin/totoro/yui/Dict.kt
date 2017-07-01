@@ -22,4 +22,8 @@ object Dict {
     private val notsure = arrayOf("?", ":3", "nya", "i'm here", "aye", ":)", "hello there", "huh?",
             "\\o/")
     fun NotSure() = get(notsure)
+
+    private val notfound = arrayOf("nope", "nothing", "empty", "cannot find this",
+            "dead-end", "even google is helpless here")
+    fun NotFound() = get(notfound)
 }
