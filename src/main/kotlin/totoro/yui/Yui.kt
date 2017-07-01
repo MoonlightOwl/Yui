@@ -55,6 +55,7 @@ object Yui {
 
         if (words.isNotEmpty()) {
             when (words.first()) {
+                "call", "phone" -> send(Dict.Phone())
                 "fish" -> send("-fish")
                 "fork" -> send("---E")
                 "g", "google", "search" -> {
@@ -68,7 +69,7 @@ object Yui {
                     else send(Action.lucky(value))
                 }
                 "money" -> send("https://youtu.be/vm2RAFv4pwA")
-                "moo" -> send("moo!")
+                "moo" -> send("to moo or not to moo, that is the question")
                 "pirate" -> send(Action.pirate(words.drop(1)))
                 "tt", "tr", "trans", "translit", "transliterate" ->
                     send(Action.transliterate(history.getFromEnd(1)))

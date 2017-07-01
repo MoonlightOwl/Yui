@@ -33,4 +33,9 @@ object Dict {
     private val notfound = arrayOf("nope", "nothing", "empty", "cannot find this",
             "dead-end", "even google is helpless here")
     fun NotFound() = get(notfound)
+
+    private val phone = arrayOf("hang on a moment, I’ll put you through", "beep-beep-beep...",
+            "sorry, the balance is not enough", "i’m afraid the line is quite bad",
+            "i'm busy at the moment, please leave me a message", "ring ring...", "the phone is broken", "rip", "☎")
+    fun Phone() = get(phone)
 }
