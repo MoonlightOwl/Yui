@@ -12,6 +12,8 @@ object Yui {
     val host = "irc.esper.net"
     val chan = "#meowbeast"
 
+    val history = History(5)
+
     val client = Client.builder()
             .nick(nick)
             .user(nick)
@@ -28,6 +30,7 @@ object Yui {
 
     fun send(message: String) {
         client.sendMessage(chan, message)
+        println("< $message")
     }
 
     @Handler
@@ -37,7 +40,11 @@ object Yui {
 
     @Handler
     fun incoming(event: ChannelMessageEvent) {
+        // log to console
         println("> ${event.actor.nick}: ${event.message}")
+        // log to history
+        history.add(event.message)
+        // process possible commands
         if (event.message.startsWith("~")) process(event.message.drop(1))
     }
 
@@ -47,6 +54,9 @@ object Yui {
         if (words.isNotEmpty()) {
             when (words.first()) {
                 "pirate" -> send(Action.pirate(words.drop(1)))
+                "tt", "tr", "trans", "translit", "transliterate" -> {
+                    send(Action.transliterate(history.getFromEnd(1)))
+                }
             }
         } else send(Dict.NotSure())
     }
