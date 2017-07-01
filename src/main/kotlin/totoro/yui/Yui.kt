@@ -60,6 +60,11 @@ object Yui {
                     if (result.first == null) send("\u000314[${result.second}]\u000F")
                     else send("\u000308[${result.second}]\u000F (${result.first})")
                 }
+                "islucky", "lucky" -> {
+                    val value = words.getOrNull(1)
+                    if (value == null) send("gimme something to estimate")
+                    else send(Action.lucky(value))
+                }
                 "money" -> send("https://youtu.be/vm2RAFv4pwA")
                 "pirate" -> send(Action.pirate(words.drop(1)))
                 "tt", "tr", "trans", "translit", "transliterate" ->

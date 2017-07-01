@@ -9,18 +9,25 @@ object Dict {
         return words[random.nextInt(words.size)]
     }
 
-    private val nicks = arrayOf("yui", "yuki", "yumi", "ayumi")
+    private val nicks = arrayOf("yui`", "yuki`", "yumi`", "ayumi`")
     fun Nick() = get(nicks)
 
     private val greets = arrayOf("kawaii", ":3", "nya", "o/", "oi", "ahoy")
     fun Greets() = get(greets)
+
+    private val nope = arrayOf("nope", "no", "nay", "not", "no way", "of course not", "-")
+    fun Nope() = get(nope)
+
+    private val yeah = arrayOf("yeah", "aye", "yes", "yep", "+", "definitely", "of course", "sure",
+            "sure enough", "surely", "certainly", "naturally", "absolutely", "yea", "yup")
+    fun Yeah() = get(yeah)
 
     private val pirate = arrayOf("arrr!", "yo-ho-ho!", "yo-ho-ho, and a bottle of rum!",
             "new and russian", "ahoy!", "where's my parrot?", "fire in the hole!", "release the kraken!")
     fun Pirate() = get(pirate)
 
     private val notsure = arrayOf("?", ":3", "nya", "i'm here", "aye", ":)", "hello there", "huh?",
-            "\\o/")
+            "\\o/", "\u000304♥\u000F", "(〜￣▽￣)〜")
     fun NotSure() = get(notsure)
 
     private val notfound = arrayOf("nope", "nothing", "empty", "cannot find this",

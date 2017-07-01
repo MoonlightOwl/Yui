@@ -24,7 +24,7 @@ object Action {
             '/' to '.', '?' to ','
     )
 
-    fun transliterate(phrase: String): String {
+    fun transliterate(phrase: String) : String {
         return phrase.map {
             if (literation.contains(it)) literation[it]
             else if (literation.contains(it.toLowerCase())) literation[it.toLowerCase()]?.toUpperCase()
@@ -33,7 +33,7 @@ object Action {
     }
 
 
-    fun rules(wp: Int): String {
+    fun rules(wp: Int) : String {
         return if (wp < 0)
                 "lucky man"
             else when (wp) {
@@ -53,5 +53,18 @@ object Action {
                 in 35..40 -> "one month ban"
                 else -> "banned forever"
             }
+    }
+
+
+    private fun summ(value: String): Int {
+        return value.fold(0, { summ, ch -> summ + ch.toInt() })
+    }
+
+    fun lucky(value: String) : String {
+        val half = Math.ceil(value.length / 2.0).toInt()
+        return if (summ(value.dropLast(half)) == summ(value.drop(half)))
+            Dict.Yeah()
+        else
+            Dict.Nope()
     }
 }
