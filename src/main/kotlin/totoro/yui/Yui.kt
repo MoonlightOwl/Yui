@@ -55,6 +55,8 @@ object Yui {
 
         if (words.isNotEmpty()) {
             when (words.first()) {
+                "fish" -> send("-fish")
+                "fork" -> send("---E")
                 "g", "google", "search" -> {
                     val result = Google.search(words.drop(1).joinToString(" "))
                     if (result.first == null) send("\u000314[${result.second}]\u000F")
@@ -66,6 +68,7 @@ object Yui {
                     else send(Action.lucky(value))
                 }
                 "money" -> send("https://youtu.be/vm2RAFv4pwA")
+                "moo" -> send("moo!")
                 "pirate" -> send(Action.pirate(words.drop(1)))
                 "tt", "tr", "trans", "translit", "transliterate" ->
                     send(Action.transliterate(history.getFromEnd(1)))

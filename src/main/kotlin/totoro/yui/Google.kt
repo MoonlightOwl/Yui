@@ -12,6 +12,7 @@ object Google {
     fun search(request: String): Pair<String?, String> {
         val links = Jsoup.connect(url + URLEncoder.encode(request, charset))
                 .userAgent(useragent).get().select(".g>.r>a")
+                .filter { it.absUrl("href").startsWith("http://www.google.ru/url?q=") }  // get rid of images box
         if (links.isNotEmpty()) {
             val first = links.first()
             val title = first.text()
