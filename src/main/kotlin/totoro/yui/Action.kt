@@ -1,6 +1,10 @@
 package totoro.yui
 
+import java.util.*
+
 object Action {
+    private val random = Random(System.currentTimeMillis())
+
     fun pirate(words: List<String>) : String {
         if (words.isNotEmpty()) {
             val name = words.first()
@@ -66,5 +70,17 @@ object Action {
             Dict.Yeah()
         else
             Dict.Nope()
+    }
+
+
+    fun attack(aggressor: String, action: String, victims: List<String>): String {
+        val victim = victims[random.nextInt(victims.size)]
+        return when(action) {
+            "fire" -> "POW! $aggressor punches a hole in $victim!"
+            "shoot" -> "$aggressor shooted $victim from machine gun!"
+            "kick" -> "a mighty kick from $aggressor almost knocked off $victim!"
+            "stab" -> "$aggressor stabbed unavare $victim in the back!"
+            else -> "$aggressor turns its malevolent gaze towards $victim"
+        }
     }
 }

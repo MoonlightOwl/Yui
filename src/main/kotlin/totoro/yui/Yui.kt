@@ -47,10 +47,10 @@ object Yui {
         // log to history
         history.add(event.message)
         // process possible commands
-        if (event.message.startsWith("~")) process(event.message.drop(1))
+        if (event.message.startsWith("~")) process(event.actor.nick, event.message.drop(1))
     }
 
-    fun process(message: String) {
+    fun process(nick: String, message: String) {
         val words = message.split(' ', '\t', '\r', '\n').filterNot { it.isNullOrEmpty() }
 
         if (words.isNotEmpty()) {
@@ -84,6 +84,11 @@ object Yui {
                             send("this is not a number :< gimme a number!")
                         }
                     }
+                }
+                "shoot", "fire", "kick", "stab", "gaze", "attack", "glare", "stare" -> {
+                    val victim = words.getOrNull(1)
+                    val nicks = client.getChannel(chan).get().nicknames
+                    send(Action.attack(nick, words.first(), if (victim != null) listOf(victim) else nicks))
                 }
                 else -> send(Dict.NotSure())
             }
