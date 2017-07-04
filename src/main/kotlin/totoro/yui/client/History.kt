@@ -1,7 +1,6 @@
-package totoro.yui
+package totoro.yui.client
 
 import java.util.*
-
 
 class History(val size: Int) {
     val history = LinkedList<String>()

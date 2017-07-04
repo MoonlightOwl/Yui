@@ -1,98 +1,43 @@
 package totoro.yui
 
-import net.engio.mbassy.listener.Handler
-import org.kitteh.irc.client.library.Client
-import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent
-import org.kitteh.irc.client.library.event.client.ClientConnectedEvent
+import totoro.yui.actions.*
+import totoro.yui.client.IRCClient
+import totoro.yui.util.Dict
+import java.util.*
 
+/**
+ * Entry point of the bot
+ */
 
 object Yui {
+    // do not forget to change version in build.gradle
     val Version = "0.1.0"
-
-    val nick = Dict.Nick()
-    val name = "Yui the Bot"
-    val host = "irc.esper.net"
-    val chan = "#meowbeast"
-
-    val history = History(5)
-
-    val client = Client.builder()
-            .nick(nick)
-            .user(nick)
-            .name(nick)
-            .realName(name)
-            .serverHost(host)
-            .build()
+    val Random = Random(System.currentTimeMillis())
 
     fun run() {
-        client.addChannel(chan)
-        send(Dict.Greets())
-        client.eventManager.registerEventListener(this)
-    }
+        val config = Config("config.properties")
+        config.load()
 
-    fun send(message: String) {
-        client.sendMessage(chan, message)
-        println("< $message")
-    }
+        val client = IRCClient(config)
+        client.register(EmptyAction())
+        client.register(SearchAction())
+        client.register(TranslitAction())
+        client.register(PirateAction())
+        client.register(SimpleAction(listOf("call", "phone"), Dict.of(
+                "hang on a moment, I’ll put you through", "beep-beep-beep...", "rip", "☎",
+                "sorry, the balance is not enough", "i’m afraid the line is quite bad",
+                "i'm busy at the moment, please leave me a message", "ring ring...", "the phone is broken")))
+        client.register(SimpleAction(listOf("fish", "minusfish", "-fish"), Dict.of("-fish", "-><>")))
+        client.register(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
+        client.register(SimpleAction(listOf("money", "balance", "uu"), Dict.of("https://youtu.be/vm2RAFv4pwA")))
+        client.register(SimpleAction(listOf("moo", "cow", "cowpowers"),
+                Dict.of("to moo or not to moo, that is the question")))
+        client.register(SimpleAction(listOf("rip", "rippo"), Dict.of("rip", "rippo", "rip rip", "rust in peppers")))
+        client.register(LuckyAction())
+        client.register(RulesAction())
+        client.register(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
 
-    @Handler
-    fun meow(event: ClientConnectedEvent) {
-        println("I am connected!")
-    }
-
-    @Handler
-    fun incoming(event: ChannelMessageEvent) {
-        // log to console
-        println("> ${event.actor.nick}: ${event.message}")
-        // log to history
-        history.add(event.message)
-        // process possible commands
-        if (event.message.startsWith("~")) process(event.actor.nick, event.message.drop(1))
-    }
-
-    fun process(nick: String, message: String) {
-        val words = message.split(' ', '\t', '\r', '\n').filterNot { it.isNullOrEmpty() }
-
-        if (words.isNotEmpty()) {
-            when (words.first()) {
-                "call", "phone" -> send(Dict.Phone())
-                "fish" -> send("-fish")
-                "fork" -> send("---E")
-                "g", "google", "search" -> {
-                    val result = Google.search(words.drop(1).joinToString(" "))
-                    if (result.first == null) send("\u000314[${result.second}]\u000F")
-                    else send("\u000308[${result.second}]\u000F (${result.first})")
-                }
-                "islucky", "lucky" -> {
-                    val value = words.getOrNull(1)
-                    if (value == null) send("gimme something to estimate")
-                    else send(Action.lucky(value))
-                }
-                "money" -> send("https://youtu.be/vm2RAFv4pwA")
-                "moo" -> send("to moo or not to moo, that is the question")
-                "pirate" -> send(Action.pirate(words.drop(1)))
-                "tt", "tr", "trans", "translit", "transliterate" ->
-                    send(Action.transliterate(history.getFromEnd(1)))
-                "rules", "wp", "estimate" -> {
-                    val rawNumber = words.getOrNull(1)
-                    if (rawNumber == null) send("i need a number!")
-                    else {
-                        try {
-                            val number = Integer.parseInt(rawNumber)
-                            send(Action.rules(number))
-                        } catch (e: NumberFormatException) {
-                            send("this is not a number :< gimme a number!")
-                        }
-                    }
-                }
-                "shoot", "fire", "kick", "stab", "gaze", "attack", "glare", "stare" -> {
-                    val victim = words.getOrNull(1)
-                    val nicks = client.getChannel(chan).get().nicknames
-                    send(Action.attack(nick, words.first(), if (victim != null) listOf(victim) else nicks))
-                }
-                else -> send(Dict.NotSure())
-            }
-        } else send(Dict.NotSure())
+        client.send(Dict.Greets())
     }
 }
 
