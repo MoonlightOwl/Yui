@@ -9,5 +9,10 @@ import totoro.yui.client.IRCClient
  */
 
 interface Action {
+    /**
+     * This method must decide, whether given command corresponds to the action.
+     * If true, it must `consume` the command, and return null.
+     * Otherwise, it must return the same action back, so the next action processor in the queue can process it.
+     */
     fun process(client: IRCClient, command: Command): Command?
 }

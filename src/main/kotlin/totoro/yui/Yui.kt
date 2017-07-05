@@ -3,7 +3,12 @@ package totoro.yui
 import totoro.yui.actions.*
 import totoro.yui.client.IRCClient
 import totoro.yui.util.Dict
+import java.security.GeneralSecurityException
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
 import java.util.*
+import javax.net.ssl.*
+
 
 /**
  * Entry point of the bot
@@ -11,16 +16,42 @@ import java.util.*
 
 object Yui {
     // do not forget to change version in build.gradle
-    val Version = "0.1.0"
+    val Version = "0.2.0"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
+        // turn off SSL certificate checking
+        // yeah, yeah, I know, this is bad, very bad =)
+        val trustAllCertificates = arrayOf<TrustManager>(object : X509TrustManager {
+            override fun getAcceptedIssuers(): Array<X509Certificate>? {
+                return null
+            }
+            override fun checkClientTrusted(p0: Array<out X509Certificate>?, p1: String?) { }
+            override fun checkServerTrusted(p0: Array<out X509Certificate>?, p1: String?) { }
+        })
+
+        val trustAllHostnames = HostnameVerifier { _, _ -> true }
+
+        try {
+            System.setProperty("jsse.enableSNIExtension", "false")
+            val sc = SSLContext.getInstance("SSL")
+            sc.init(null, trustAllCertificates, SecureRandom())
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.socketFactory)
+            HttpsURLConnection.setDefaultHostnameVerifier(trustAllHostnames)
+        } catch (e: GeneralSecurityException) {
+            throw ExceptionInInitializerError(e)
+        }
+
+
+        // load configuration if available
         val config = Config("config.properties")
         config.load()
 
+        // register action processors
         val client = IRCClient(config)
         client.register(EmptyAction())
         client.register(SearchAction())
+        client.register(TitleAction())
         client.register(TranslitAction())
         client.register(PirateAction())
         client.register(SimpleAction(listOf("call", "phone"), Dict.of(
@@ -37,9 +68,12 @@ object Yui {
         client.register(RulesAction())
         client.register(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
         client.register(SimpleAction(Dict.Hello.variants, Dict.Greets))
+        client.register(BroteAction())
+        // if no messages hit the command, then show uncertainty
+        client.register(UnsureAction())
 
+        // let's go!
         client.send(Dict.Greets())
-
         client.login(config.pass)
     }
 }

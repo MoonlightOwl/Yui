@@ -45,6 +45,10 @@ class IRCClient(val config: Config) {
         }
     }
 
+    fun isBroteOnline(): Boolean {
+        return client.getChannel(config.chan).get().nicknames.contains("brote")
+    }
+
     fun send(message: String) {
         client.sendMessage(config.chan, message)
         Log.outgoing(message)
@@ -78,6 +82,8 @@ class IRCClient(val config: Config) {
             event.message.startsWith(nick) -> process(event.actor.nick, event.message.drop(nick.length))
             event.message.startsWith("$nick:") -> process(event.actor.nick, event.message.drop(nick.length + 1))
             event.message.startsWith("$nick,") -> process(event.actor.nick, event.message.drop(nick.length + 1))
+            // special case, when we must show url titles instead of brote
+            event.message.startsWith("http") && !isBroteOnline() -> process(event.actor.nick, event.message)
         }
     }
 }

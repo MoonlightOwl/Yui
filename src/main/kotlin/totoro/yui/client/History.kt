@@ -2,6 +2,10 @@ package totoro.yui.client
 
 import java.util.*
 
+/**
+ * Stores some amount of last chat messages for actions to use them.
+ */
+
 class History(val size: Int) {
     val history = LinkedList<String>()
 
