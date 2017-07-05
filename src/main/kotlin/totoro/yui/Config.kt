@@ -8,6 +8,7 @@ class Config(val filepath: String) {
 
     lateinit var host: String
     lateinit var chan: String
+    var pass: String? = null
 
     fun load() {
         try {
@@ -15,6 +16,7 @@ class Config(val filepath: String) {
                 prop.load(it)
                 host = prop.getProperty("host")
                 chan = prop.getProperty("chan")
+                pass = prop.getProperty("pass")
             }
         } catch (e: Exception) {
             Log.warn("Cannot load properties file, seting default values.")

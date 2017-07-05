@@ -38,6 +38,8 @@ object Yui {
         client.register(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
 
         client.send(Dict.Greets())
+
+        client.login(config.pass)
     }
 }
 

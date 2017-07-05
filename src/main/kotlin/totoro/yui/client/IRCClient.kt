@@ -38,9 +38,16 @@ class IRCClient(val config: Config) {
         actions.add(action)
     }
 
+    fun login(pass: String?) {
+        if (pass != null) {
+            client.sendMessage("nickserv", "identify $pass")
+            Log.info("Logged in.")
+        }
+    }
+
     fun send(message: String) {
-        Log.outgoing(message)
         client.sendMessage(config.chan, message)
+        Log.outgoing(message)
     }
 
     fun process(user: String, rawCommand: String) {
@@ -70,6 +77,7 @@ class IRCClient(val config: Config) {
             event.message.startsWith("~") -> process(event.actor.nick, event.message.drop(1))
             event.message.startsWith(nick) -> process(event.actor.nick, event.message.drop(nick.length))
             event.message.startsWith("$nick:") -> process(event.actor.nick, event.message.drop(nick.length + 1))
+            event.message.startsWith("$nick,") -> process(event.actor.nick, event.message.drop(nick.length + 1))
         }
     }
 }
