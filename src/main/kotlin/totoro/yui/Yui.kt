@@ -36,6 +36,7 @@ object Yui {
         client.register(LuckyAction())
         client.register(RulesAction())
         client.register(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
+        client.register(SimpleAction(Dict.Hello.variants, Dict.Greets))
 
         client.send(Dict.Greets())
 
