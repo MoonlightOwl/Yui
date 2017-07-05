@@ -32,7 +32,7 @@ object Yui {
         client.register(SimpleAction(listOf("money", "balance", "uu"), Dict.of("https://youtu.be/vm2RAFv4pwA")))
         client.register(SimpleAction(listOf("moo", "cow", "cowpowers"),
                 Dict.of("to moo or not to moo, that is the question")))
-        client.register(SimpleAction(listOf("rip", "rippo"), Dict.of("rip", "rippo", "rip rip", "rust in peppers")))
+        client.register(RipAction())
         client.register(LuckyAction())
         client.register(RulesAction())
         client.register(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
