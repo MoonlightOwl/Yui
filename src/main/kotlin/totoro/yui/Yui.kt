@@ -16,7 +16,7 @@ import javax.net.ssl.*
 
 object Yui {
     // do not forget to change version in build.gradle
-    val Version = "0.2.0"
+    val Version = "0.2.1"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -52,8 +52,11 @@ object Yui {
         client.register(EmptyAction())
         client.register(SearchAction())
         client.register(TitleAction())
+        client.register(RipAction())
         client.register(TranslitAction())
         client.register(PirateAction())
+        client.register(LuckyAction())
+        client.register(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope)))
         client.register(SimpleAction(listOf("call", "phone"), Dict.of(
                 "hang on a moment, I’ll put you through", "beep-beep-beep...", "rip", "☎",
                 "sorry, the balance is not enough", "i’m afraid the line is quite bad",
@@ -63,8 +66,8 @@ object Yui {
         client.register(SimpleAction(listOf("money", "balance", "uu"), Dict.of("https://youtu.be/vm2RAFv4pwA")))
         client.register(SimpleAction(listOf("moo", "cow", "cowpowers"),
                 Dict.of("to moo or not to moo, that is the question")))
-        client.register(RipAction())
-        client.register(LuckyAction())
+        client.register(SimpleAction(listOf("exit", "quit", "q"),
+                Dict.of("try /quit", "there's no exit here") + Dict.Nope + RipAction.RipDict))
         client.register(RulesAction())
         client.register(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
         client.register(SimpleAction(Dict.Hello.variants, Dict.Greets))
