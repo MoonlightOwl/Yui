@@ -4,6 +4,7 @@ import net.engio.mbassy.listener.Handler
 import org.kitteh.irc.client.library.Client
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent
 import org.kitteh.irc.client.library.event.client.ClientConnectedEvent
+import org.kitteh.irc.client.library.event.user.PrivateMessageEvent
 import totoro.yui.Config
 import totoro.yui.Log
 import totoro.yui.actions.Action
@@ -94,5 +95,11 @@ class IRCClient(val config: Config) {
             event.message.startsWith("http") && !isBroteOnline() ->
                 process(event.channel.name, event.actor.nick, event.message)
         }
+    }
+
+    @Handler
+    fun private(event: PrivateMessageEvent) {
+        Log.incoming("[PM] ${event.actor.nick}: ${event.message}")
+        process(event.actor.nick, event.actor.nick, event.message)
     }
 }
