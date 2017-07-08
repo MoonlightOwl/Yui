@@ -8,11 +8,15 @@ class Dict<T>(val variants: List<T>) {
         val Hello = Dict.of("o/", "oi", "ahoy", "hey", "hi", "hello",
                             "anyoung", "ohayou", "ohayou gozaimasu", "nyanpasu~")
         val Greets = Kawaii + Hello
-        val Nope = Dict.of("nope", "no", "nay", "not", "no way", "of course not", "-")
+        val Nope = Dict.of("nope", "no", "nay", "not", "no way", "of course not", "-", "i don't think so")
         val Yeah = Dict.of("yeah", "aye", "yes", "yep", "+", "definitely", "of course", "sure",
                            "sure enough", "surely", "certainly", "naturally", "absolutely", "yea", "yup")
+        val Maybe = Dict.of("maybe", "perhaps", "possibly", "it could be", "mayhap", "most likely", "there is a chance",
+                "you don't want to know this", "you can say so", "depending on circumstances", "")
         val NotSure = Dict.of("?", "huh?", "i don't understand", "i don't know", "...", ":<",
-                              "gimme something to work with", "what is this?", "wtf?")
+                              "gimme something to work with", "what is this?", "wtf?", "desu")
+        val Offended = Dict.of("baka", ":<", "...")
+        val Excited = Dict.of("doki doki shiteru", "\\o/", "yay")
 
         fun <T> of(vararg variants: T): Dict<T> {
             return Dict(variants.asList())

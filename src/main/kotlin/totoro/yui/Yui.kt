@@ -56,7 +56,7 @@ object Yui {
         client.register(TranslitAction())
         client.register(PirateAction())
         client.register(LuckyAction())
-        client.register(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope)))
+        client.register(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
         client.register(SimpleAction(listOf("call", "phone"), Dict.of(
                 "hang on a moment, I’ll put you through", "beep-beep-beep...", "rip", "☎",
                 "sorry, the balance is not enough", "i’m afraid the line is quite bad",
@@ -67,7 +67,8 @@ object Yui {
         client.register(SimpleAction(listOf("moo", "cow", "cowpowers"),
                 Dict.of("to moo or not to moo, that is the question")))
         client.register(SimpleAction(listOf("exit", "quit", "q"),
-                Dict.of("try /quit", "there's no exit here") + Dict.Nope + RipAction.RipDict))
+                Dict.of("try /quit", "there's no exit here")
+                + Dict.Nope + RipAction.RipDict + Dict.Offended))
         client.register(RulesAction())
         client.register(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
         client.register(SimpleAction(Dict.Hello.variants, Dict.Greets))
