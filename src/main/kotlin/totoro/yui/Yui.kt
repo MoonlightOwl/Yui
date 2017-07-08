@@ -49,37 +49,37 @@ object Yui {
 
         // register action processors
         val client = IRCClient(config)
-        client.register(EmptyAction())
-        client.register(SearchAction())
-        client.register(TitleAction())
-        client.register(RipAction())
-        client.register(TranslitAction())
-        client.register(PirateAction())
-        client.register(SimpleAction(listOf("cookie", "cake"), Dict.Kawaii + Dict.Excited + Dict.Thanks
+        client.registerAction(EmptyAction())
+        client.registerAction(SearchAction())
+        client.registerAction(TitleAction())
+        client.registerAction(RipAction())
+        client.registerAction(TranslitAction())
+        client.registerAction(PirateAction())
+        client.registerAction(SimpleAction(listOf("cookie", "cake"), Dict.Kawaii + Dict.Excited + Dict.Thanks
                 + Dict.of("oishii", "yummy")))
-        client.register(LuckyAction())
-        client.register(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
-        client.register(SimpleAction(listOf("call", "phone"), Dict.of(
+        client.registerAction(LuckyAction())
+        client.registerAction(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
+        client.registerAction(SimpleAction(listOf("call", "phone"), Dict.of(
                 "hang on a moment, I’ll put you through", "beep-beep-beep...", "rip", "☎",
                 "sorry, the balance is not enough", "i’m afraid the line is quite bad",
                 "i'm busy at the moment, please leave me a message", "ring ring...", "the phone is broken")))
-        client.register(SimpleAction(listOf("fish", "minusfish", "-fish"), Dict.of("-fish", "-><>")))
-        client.register(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
-        client.register(SimpleAction(listOf("money", "balance", "uu"), Dict.of("https://youtu.be/vm2RAFv4pwA")))
-        client.register(SimpleAction(listOf("moo", "cow", "cowpowers"),
+        client.registerAction(SimpleAction(listOf("fish", "minusfish", "-fish"), Dict.of("-fish", "-><>")))
+        client.registerAction(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
+        client.registerAction(SimpleAction(listOf("money", "balance", "uu"), Dict.of("https://youtu.be/vm2RAFv4pwA")))
+        client.registerAction(SimpleAction(listOf("moo", "cow", "cowpowers"),
                 Dict.of("to moo or not to moo, that is the question")))
-        client.register(SimpleAction(listOf("exit", "quit", "q"),
+        client.registerAction(SimpleAction(listOf("exit", "quit", "q"),
                 Dict.of("try /quit", "there's no exit here")
                 + Dict.Nope + RipAction.RipDict + Dict.Offended))
-        client.register(RulesAction())
-        client.register(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
-        client.register(SimpleAction(Dict.Hello.variants, Dict.Greets))
-        client.register(BroteAction())
+        client.registerAction(RulesAction())
+        client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
+        client.registerAction(SimpleAction(Dict.Hello.variants, Dict.Greets))
+        client.registerAction(BroteAction())
         // if no messages hit the command, then show uncertainty
-        client.register(UnsureAction())
+        client.registerAction(UnsureAction())
 
         // let's go!
-        client.send(Dict.Greets())
+        client.broadcast(Dict.Greets())
         client.login(config.pass)
     }
 }

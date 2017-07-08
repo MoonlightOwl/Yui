@@ -30,13 +30,13 @@ class RulesAction: Action {
             when (command.words.first()) {
                 "rules", "wp", "estimate" -> {
                     val rawNumber = command.words.getOrNull(1)
-                    if (rawNumber == null) client.send("i need a number!")
+                    if (rawNumber == null) client.send(command.chan, "i need a number!")
                     else {
                         try {
                             val number = Integer.parseInt(rawNumber)
-                            client.send(rules(number))
+                            client.send(command.chan, rules(number))
                         } catch (e: NumberFormatException) {
-                            client.send("this is not a number :< gimme a number!")
+                            client.send(command.chan, "this is not a number :< gimme a number!")
                         }
                     }
                     return null

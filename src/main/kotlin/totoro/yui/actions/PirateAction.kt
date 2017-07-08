@@ -16,12 +16,12 @@ class PirateAction : Action {
             if (name != null) {
                 // search for 'r'
                 if (name.contains('r', true)) {
-                    client.send(name.replace("r", "rrr", true) + "!")
+                    client.send(command.chan, name.replace("r", "rrr", true) + "!")
                     return null
                 }
             }
             // or just be a pirate
-            client.send(dict())
+            client.send(command.chan, dict())
             return null
         } else return command
     }

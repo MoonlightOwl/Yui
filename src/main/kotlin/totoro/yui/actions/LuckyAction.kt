@@ -20,8 +20,8 @@ class LuckyAction: Action {
             when (command.words.first()) {
                 "islucky", "lucky" -> {
                     val value = command.words.getOrNull(1)
-                    if (value == null) client.send("gimme something to estimate")
-                    else client.send(lucky(value))
+                    if (value == null) client.send(command.chan, "gimme something to estimate")
+                    else client.send(command.chan, lucky(value))
                     return null
                 }
             }

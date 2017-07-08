@@ -8,7 +8,7 @@ class EmptyAction: Action {
 
     override fun process(client: IRCClient, command: Command): Command? {
         if (command.words.isEmpty()) {
-            client.send(dict())
+            client.send(command.chan, dict())
             return null
         } else return command
     }

@@ -25,7 +25,7 @@ class TranslitAction: Action {
         if (command.words.isNotEmpty()) {
             when (command.words.first()) {
                     "tt", "tr", "trans", "translit", "transliterate" -> {
-                        client.send(transliterate(client.history.getFromEnd(1)))
+                        client.send(command.chan, transliterate(client.history.getFromEnd(1)))
                         return null
                 }
             }

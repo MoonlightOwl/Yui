@@ -13,7 +13,10 @@ class RipAction: Action {
         if (command.words.isNotEmpty()) {
             when (command.words.first()) {
                 "rip", "rippo" -> {
-                    client.send((0..(Yui.Random.nextInt(7))).map { RipDict() }.joinToString(" "))
+                    client.send(
+                            command.chan,
+                            (0..(Yui.Random.nextInt(7))).map { RipDict() }.joinToString(" ")
+                    )
                     return null
                 }
             }

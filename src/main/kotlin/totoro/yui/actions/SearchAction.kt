@@ -13,8 +13,8 @@ class SearchAction: Action {
             when (command.words.first()) {
                 "g", "google", "search" -> {
                     val result = Google.search(command.words.drop(1).joinToString(" "))
-                    if (result == null) client.send("\u000314[${dict()}]\u000F")
-                    else client.send("\u000308[${result.second}]\u000F (${result.first})")
+                    if (result == null) client.send(command.chan, "\u000314[${dict()}]\u000F")
+                    else client.send(command.chan, "\u000308[${result.second}]\u000F (${result.first})")
                     return null
                 }
             }

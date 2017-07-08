@@ -30,12 +30,7 @@ class IRCClient(val config: Config) {
 
     init {
         client.eventManager.registerEventListener(this)
-        client.addChannel(config.chan)
-    }
-
-
-    fun register(action: Action) {
-        actions.add(action)
+        config.chan.forEach { client.addChannel(it) }
     }
 
     fun login(pass: String?) {
@@ -45,17 +40,26 @@ class IRCClient(val config: Config) {
         }
     }
 
-    fun isBroteOnline(): Boolean {
-        return client.getChannel(config.chan).get().nicknames.contains("brote")
+    fun registerAction(action: Action) {
+        actions.add(action)
     }
 
-    fun send(message: String) {
-        client.sendMessage(config.chan, message)
+    fun isBroteOnline(): Boolean {
+        return config.chan.map { client.getChannel(it) }.flatMap { it.get().nicknames }.contains("brote")
+    }
+
+    fun broadcast(message: String) {
+        config.chan.forEach { client.sendMessage(it, message) }
         Log.outgoing(message)
     }
 
-    fun process(user: String, rawCommand: String) {
-        val command = Command(user, rawCommand)
+    fun send(chan: String, message: String) {
+        client.sendMessage(chan, message)
+        Log.outgoing("[$chan] $message")
+    }
+
+    fun process(chan: String, user: String, message: String) {
+        val command = Command(chan, user, message)
         // call registered action processors
         @Suppress("LoopToCallChain")
         for (action in actions) {
@@ -73,17 +77,22 @@ class IRCClient(val config: Config) {
 
     @Handler
     fun incoming(event: ChannelMessageEvent) {
-        Log.incoming("${event.actor.nick}: ${event.message}")
+        Log.incoming("[${event.channel.name}] ${event.actor.nick}: ${event.message}")
         // log to history
         history.add(event.message)
         // detect and process commands
         when {
-            event.message.startsWith("~") -> process(event.actor.nick, event.message.drop(1))
-            event.message.startsWith(nick) -> process(event.actor.nick, event.message.drop(nick.length))
-            event.message.startsWith("$nick:") -> process(event.actor.nick, event.message.drop(nick.length + 1))
-            event.message.startsWith("$nick,") -> process(event.actor.nick, event.message.drop(nick.length + 1))
+            event.message.startsWith("~") ->
+                process(event.channel.name, event.actor.nick, event.message.drop(1))
+            event.message.startsWith(nick) ->
+                process(event.channel.name, event.actor.nick, event.message.drop(nick.length))
+            event.message.startsWith("$nick:") ->
+                process(event.channel.name, event.actor.nick, event.message.drop(nick.length + 1))
+            event.message.startsWith("$nick,") ->
+                process(event.channel.name, event.actor.nick, event.message.drop(nick.length + 1))
             // special case, when we must show url titles instead of brote
-            event.message.startsWith("http") && !isBroteOnline() -> process(event.actor.nick, event.message)
+            event.message.startsWith("http") && !isBroteOnline() ->
+                process(event.channel.name, event.actor.nick, event.message)
         }
     }
 }
