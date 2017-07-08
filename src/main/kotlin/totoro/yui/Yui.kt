@@ -16,7 +16,7 @@ import javax.net.ssl.*
 
 object Yui {
     // do not forget to change version in build.gradle
-    val Version = "0.2.2"
+    val Version = "0.2.3"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -57,6 +57,7 @@ object Yui {
         client.registerAction(PirateAction())
         client.registerAction(SimpleAction(listOf("cookie", "cake"), Dict.Kawaii + Dict.Excited + Dict.Thanks
                 + Dict.of("oishii", "yummy")))
+        client.registerAction(CorrectAction())
         client.registerAction(LuckyAction())
         client.registerAction(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
         client.registerAction(SimpleAction(listOf("call", "phone"), Dict.of(
