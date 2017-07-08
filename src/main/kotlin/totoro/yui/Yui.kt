@@ -55,7 +55,8 @@ object Yui {
         client.register(RipAction())
         client.register(TranslitAction())
         client.register(PirateAction())
-        client.register(SimpleAction(listOf("cookie", "cake"), Dict.Kawaii + Dict.Excited + Dict.Thanks))
+        client.register(SimpleAction(listOf("cookie", "cake"), Dict.Kawaii + Dict.Excited + Dict.Thanks
+                + Dict.of("oishii", "yummy")))
         client.register(LuckyAction())
         client.register(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
         client.register(SimpleAction(listOf("call", "phone"), Dict.of(
