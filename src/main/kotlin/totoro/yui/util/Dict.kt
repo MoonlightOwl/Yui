@@ -17,6 +17,7 @@ class Dict<T>(val variants: List<T>) {
                               "gimme something to work with", "what is this?", "wtf?", "desu")
         val Offended = Dict.of("baka", ":<", "...")
         val Excited = Dict.of("doki doki shiteru", "\\o/", "yay")
+        val Thanks = Dict.of("thanks", "thanks", "thank you", "thx", "thanks a lot", "cheers")
 
         fun <T> of(vararg variants: T): Dict<T> {
             return Dict(variants.asList())
