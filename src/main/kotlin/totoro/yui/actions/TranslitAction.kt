@@ -24,9 +24,11 @@ class TranslitAction: Action {
     override fun process(client: IRCClient, command: Command): Command? {
         if (command.words.isNotEmpty()) {
             when (command.words.first()) {
-                    "tt", "tr", "trans", "translit", "transliterate" -> {
-                        client.send(command.chan, transliterate(client.history.getFromEnd(1)))
-                        return null
+                "tt", "tr", "trans", "translit", "transliterate" -> {
+                    val lastPhrase = client.history.getFromEnd(command.chan, 1)
+                    if (lastPhrase != null) client.send(command.chan, transliterate(lastPhrase))
+                    else client.send(command.chan, "what do i need to tt?")
+                    return null
                 }
             }
         }

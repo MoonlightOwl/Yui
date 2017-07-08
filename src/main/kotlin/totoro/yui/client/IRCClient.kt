@@ -80,7 +80,7 @@ class IRCClient(val config: Config) {
     fun incoming(event: ChannelMessageEvent) {
         Log.incoming("[${event.channel.name}] ${event.actor.nick}: ${event.message}")
         // log to history
-        history.add(event.message)
+        history.add(event.channel.name, event.message)
         // detect and process commands
         when {
             event.message.startsWith("~") ->
@@ -100,6 +100,7 @@ class IRCClient(val config: Config) {
     @Handler
     fun private(event: PrivateMessageEvent) {
         Log.incoming("[PM] ${event.actor.nick}: ${event.message}")
+        history.add(event.actor.nick, event.message)
         process(event.actor.nick, event.actor.nick, event.message)
     }
 }
