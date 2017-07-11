@@ -60,7 +60,7 @@ class IRCClient(val config: Config) {
     }
 
     fun process(chan: String, user: String, message: String) {
-        val command = Command(chan, user, message)
+        val command = Command(chan, user, message.toLowerCase())
         // call registered action processors
         @Suppress("LoopToCallChain")
         for (action in actions) {

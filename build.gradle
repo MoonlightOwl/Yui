@@ -35,10 +35,11 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
     compile group: 'org.kitteh.irc', name: 'client-lib', version: '3.1.0'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.10.3'
+    compile 'com.github.kittinunf.fuel:fuel:1.8.0'
     compile "com.beust:klaxon:0.31"
 }
 
-version = '0.2.3'  // do not forget to change version in Yui.kt
+version = '0.2.4'  // do not forget to change version in Yui.kt
 jar {
     manifest {
         attributes 'Implementation-Title': 'yui',
