@@ -65,7 +65,7 @@ object Yui {
                 "sorry, the balance is not enough", "i’m afraid the line is quite bad",
                 "i'm busy at the moment, please leave me a message", "ring ring...", "the phone is broken")))
         client.registerAction(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
-        client.registerAction(SimpleAction(listOf("fish", "minusfish", "-fish"), Dict.of("-fish", "-><>")))
+        client.registerAction(FishAction())
         client.registerAction(SimpleAction(listOf("money", "balance", "uu"), Dict.of("https://youtu.be/vm2RAFv4pwA")))
         client.registerAction(SimpleAction(listOf("moo", "cow", "cowpowers"),
                 Dict.of("to moo or not to moo, that is the question")))
