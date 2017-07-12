@@ -4,7 +4,7 @@ import com.beust.klaxon.*
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.github.kittinunf.result.getAs
-import java.net.URLDecoder
+import org.jsoup.Jsoup
 
 object Chuck {
     private val charset = "UTF-8"
@@ -14,7 +14,7 @@ object Chuck {
             when (result) {
                 is Result.Failure -> failure()
                 is Result.Success -> {
-                    val raw = URLDecoder.decode(result.getAs<String>())
+                    val raw = Jsoup.parse(result.getAs<String>()).text()
                     val json = Parser().parse(StringBuilder(raw)) as JsonObject
                     val quote = json.obj("value")?.string("joke")
                     if (quote != null) success(quote)

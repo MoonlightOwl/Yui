@@ -72,8 +72,12 @@ object Yui {
         client.registerAction(SimpleAction(listOf("exit", "quit", "q"),
                 Dict.of("try /quit", "there's no exit here")
                 + Dict.Nope + RipAction.RipDict + Dict.Offended))
+        client.registerAction(SimpleAction(listOf("calmdown", "cooldown"),
+                Dict.of("https://meduza.io/feature/2017/07/03/vse-besit-kak-perestat-besitsya-po-lyubomu-povodu-instruktsiya")))
         client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
         client.registerAction(SimpleAction(Dict.Hello.variants, Dict.Greets))
+        client.registerAction(SimpleAction(Dict.Yeah.variants, Dict.Nope))
+        client.registerAction(SimpleAction(Dict.Nope.variants, Dict.Yeah))
         client.registerAction(LuckyAction())
         client.registerAction(RulesAction())
         client.registerAction(BroteAction())
