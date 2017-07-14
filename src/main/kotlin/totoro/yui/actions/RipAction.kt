@@ -12,7 +12,7 @@ class RipAction: Action {
     override fun process(client: IRCClient, command: Command): Command? {
         if (command.words.isNotEmpty()) {
             when (command.words.first()) {
-                "rip", "rippo" -> {
+                "rip", "rippo", "ripped" -> {
                     client.send(
                             command.chan,
                             (0..(Yui.Random.nextInt(7))).map { RipDict() }.joinToString(" ")

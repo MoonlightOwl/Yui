@@ -59,15 +59,16 @@ class IRCClient(val config: Config) {
         Log.outgoing("[$chan] $message")
     }
 
-    fun process(chan: String, user: String, message: String) {
+    fun process(chan: String, user: String, message: String): Boolean {
         val command = Command(chan, user, message.toLowerCase())
         // call registered action processors
         @Suppress("LoopToCallChain")
         for (action in actions) {
             // command can be consumed by one of processors
             // in this case we do not need to try the rest of actions
-            if (action.process(this, command) == null) break;
+            if (action.process(this, command) == null) return true
         }
+        return false
     }
 
 
@@ -79,10 +80,8 @@ class IRCClient(val config: Config) {
     @Handler
     fun incoming(event: ChannelMessageEvent) {
         Log.incoming("[${event.channel.name}] ${event.actor.nick}: ${event.message}")
-        // log to history
-        history.add(event.channel.name, event.message)
         // detect and process commands
-        when {
+        if (!when {
             event.message.startsWith("~") ->
                 process(event.channel.name, event.actor.nick, event.message.drop(1))
             event.message.startsWith(nick) ->
@@ -94,13 +93,15 @@ class IRCClient(val config: Config) {
             // special case, when we must show url titles instead of brote
             event.message.startsWith("http") && !isBroteOnline() ->
                 process(event.channel.name, event.actor.nick, event.message)
-        }
+            // if this was not a command - then log to the history
+            else -> false
+        }) history.add(event.channel.name, event.message)
     }
 
     @Handler
     fun private(event: PrivateMessageEvent) {
         Log.incoming("[PM] ${event.actor.nick}: ${event.message}")
-        history.add(event.actor.nick, event.message)
-        process(event.actor.nick, event.actor.nick, event.message)
+        if (!process(event.actor.nick, event.actor.nick, event.message))
+            history.add(event.actor.nick, event.message)
     }
 }

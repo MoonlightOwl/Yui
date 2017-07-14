@@ -6,7 +6,7 @@ import totoro.yui.util.Dict
 
 class FishAction: Action {
     companion object {
-        val FishDict = Dict.of("-fish", "><>", "<><", "<>><", "><>>", "---E", "><_>", "<_><")
+        val FishDict = Dict.of("-fish", "><>", "<><", "<>><", "><>>", "---E", "><*>", "<*><")
     }
 
     override fun process(client: IRCClient, command: Command): Command? {

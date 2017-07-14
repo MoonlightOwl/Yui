@@ -4,7 +4,7 @@ import totoro.yui.Yui
 
 class Dict<T>(val variants: List<T>) {
     companion object {
-        val Kawaii = Dict.of("kawaii", ":3", "nya", "\u000304♥\u000F", "(〜￣▽￣)〜", "nyanpasu~")
+        val Kawaii = Dict.of("kawaii", ":3", "nya", "\u000304♥\u000F", "(〜￣▽￣)〜")
         val Hello = Dict.of("o/", "oi", "ahoy", "hey", "hi", "hello",
                             "anyoung", "ohayou", "ohayou gozaimasu", "nyanpasu~")
         val Greets = Kawaii + Hello

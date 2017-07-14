@@ -25,7 +25,7 @@ class TranslitAction: Action {
         if (command.words.isNotEmpty()) {
             when (command.words.first()) {
                 "tt", "tr", "trans", "translit", "transliterate" -> {
-                    val lastPhrase = client.history.getFromEnd(command.chan, 1)
+                    val lastPhrase = client.history.last(command.chan)
                     if (lastPhrase != null) client.send(command.chan, transliterate(lastPhrase))
                     else client.send(command.chan, "what do i need to tt?")
                     return null

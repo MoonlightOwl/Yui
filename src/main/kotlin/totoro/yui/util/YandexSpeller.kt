@@ -16,8 +16,11 @@ object YandexSpeller {
         array.forEach { json ->
             val word = json.string("word")
             val variants = json.array<String>("s")
-            if (word != null && variants != null && variants.isNotEmpty()) {
-                result = result.replace(word, variants.first(), true)
+            if (word != null) {
+                if (variants != null && variants.isNotEmpty())
+                    result = result.replace(word, variants.first(), true)
+                else
+                    result = result.replace(word, "<rip>", true)
             }
         }
         return result
