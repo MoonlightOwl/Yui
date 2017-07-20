@@ -2,8 +2,8 @@ package totoro.yui.actions
 
 import totoro.yui.client.IRCClient
 
-class RulesAction: Action {
-    private fun rules(wp: Int) : String {
+class WPAction : Action {
+    private fun estimate(wp: Int) : String {
         return if (wp < 0)
             "lucky man"
         else when (wp) {
@@ -28,13 +28,13 @@ class RulesAction: Action {
     override fun process(client: IRCClient, command: Command): Command? {
         if (command.words.isNotEmpty()) {
             when (command.words.first()) {
-                "rules", "wp", "estimate" -> {
+                "wp", "estimate", "howmuch" -> {
                     val rawNumber = command.words.getOrNull(1)
                     if (rawNumber == null) client.send(command.chan, "i need a number!")
                     else {
                         try {
                             val number = Integer.parseInt(rawNumber)
-                            client.send(command.chan, rules(number))
+                            client.send(command.chan, estimate(number))
                         } catch (e: NumberFormatException) {
                             client.send(command.chan, "this is not a number :< gimme a number!")
                         }

@@ -16,7 +16,7 @@ import javax.net.ssl.*
 
 object Yui {
     // do not forget to change version in build.gradle
-    val Version = "0.2.5"
+    val Version = "0.3.0"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -67,7 +67,7 @@ object Yui {
         client.registerAction(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
         client.registerAction(FishAction())
         client.registerAction(SimpleAction(listOf("money", "balance", "uu"), Dict.of("https://youtu.be/vm2RAFv4pwA")))
-        client.registerAction(SimpleAction(listOf("moo", "cow", "cowpowers"),
+        client.registerAction(SimpleAction(listOf("moo", "cow", "cowpowers", "cowsay"),
                 Dict.of("to moo or not to moo, that is the question")))
         client.registerAction(SimpleAction(listOf("exit", "quit", "q"),
                 Dict.of("try /quit", "there's no exit here")
@@ -80,8 +80,29 @@ object Yui {
         client.registerAction(SimpleAction(Dict.Hello.variants, Dict.Greets))
         client.registerAction(SimpleAction(Dict.Yeah.variants, Dict.Nope))
         client.registerAction(SimpleAction(Dict.Nope.variants, Dict.Yeah))
+        client.registerAction(InstallAction())
+        client.registerAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
+        client.registerAction(SimpleAction(listOf("powered", "poweredby", "credits"),
+                Dict.of("i'm created with the power of Kotlin, Kitteh IRC lib, Debian and the forest spirits :3")))
+        client.registerAction(SimpleAction(listOf("anarchy", "rules", "constitution"),
+                Dict.of("https://git.io/vwLXq", "sabotage the system!", "no gods, no masters!", "raise hell!",
+                        "get ready for anarchy!", "welcome to #cc.ru", "there's no government", "don't forget to " +
+                        "eat your lunch, and make some trouble", "hierarchy is chaos, anarchy is solidarity",
+                        "keep calm and be an anarchist", "power to the users!", "to have free minds, we must have " +
+                        "free tea", "chaos & anarchy", "one direction: insurrection, one solution: revolution",
+                        "i suppose what I believe in is peaceful anarchy", "if I can't dance to it, it's not " +
+                        "my revolution", "what is important is to spread confusion, not eliminate it", "in a world " +
+                        "like this one, only the random makes sense", "anarchism is democracy taken seriously")))
+        client.registerAction(SimpleAction(listOf("compile", "make", "cmake", "gcc", "build"), Dict.of(
+                "irc.cpp:8:28: missing terminating \" character", "moo.cpp: ld returned 1 exit status",
+                "E2066: Invalid MOM inheritance", "E2502: Error resolving #import: Rust is too rusted",
+                "E2497: No GUID associated with type: 'fish'", "E2427: 'fork' cannot be a template function",
+                "E2252: 'catch' expected", "E2323: Illegal number suffix", "E2370: Simple type name expected",
+                "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo' ")))
+        client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall"),
+                Dict.of("https://vk.com/hashccru")))
         client.registerAction(LuckyAction())
-        client.registerAction(RulesAction())
+        client.registerAction(WPAction())
         client.registerAction(BroteAction())
         // if no messages hit the command, then show uncertainty
         client.registerAction(UnsureAction())

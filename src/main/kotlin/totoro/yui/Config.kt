@@ -1,6 +1,5 @@
 package totoro.yui
 
-import com.sun.xml.internal.fastinfoset.util.StringArray
 import java.io.FileInputStream
 import java.util.*
 
