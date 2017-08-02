@@ -12,14 +12,14 @@ object Google {
             "Chrome/60.0.3112.78 Safari/537.36"
 
     fun search(request: String): Pair<String, String>? {
-        val links = Jsoup.connect(url + URLEncoder.encode(request, charset))
-                .userAgent(useragent).get().select(".g>.r>a")
-                .filter { it.absUrl("href").startsWith("http://www.google.ru/url?q=") }  // get rid of images box
+        val document = Jsoup.connect(url + URLEncoder.encode(request, charset))
+                .userAgent(useragent).get();
+        val links = document.select(".rc>.r>a")
         if (links.isNotEmpty()) {
             val first = links.first()
             val title = first.text()
             val rawUrl = first.absUrl("href")
-            val url = URLDecoder.decode(rawUrl.substring(rawUrl.indexOf('=') + 1, rawUrl.indexOf('&')), charset)
+            val url = URLDecoder.decode(rawUrl, charset)
             return Pair(url, title)
         } else return null
     }
