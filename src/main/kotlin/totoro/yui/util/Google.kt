@@ -8,7 +8,8 @@ import java.net.URLEncoder
 object Google {
     private val url = "http://www.google.com/search?q="
     private val charset = "UTF-8"
-    private val useragent = "Yui the Bot v${Yui.Version} (+https://github.com/MoonlightOwl/Yui)"
+    private val useragent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " +
+            "Chrome/60.0.3112.78 Safari/537.36"
 
     fun search(request: String): Pair<String, String>? {
         val links = Jsoup.connect(url + URLEncoder.encode(request, charset))

@@ -16,7 +16,7 @@ import javax.net.ssl.*
 
 object Yui {
     // do not forget to change version in build.gradle
-    val Version = "0.3.0"
+    val Version = "0.3.1"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -93,6 +93,8 @@ object Yui {
                         "i suppose what I believe in is peaceful anarchy", "if I can't dance to it, it's not " +
                         "my revolution", "what is important is to spread confusion, not eliminate it", "in a world " +
                         "like this one, only the random makes sense", "anarchism is democracy taken seriously")))
+        client.registerAction(WPAction())
+        client.registerAction(BroteAction())
         client.registerAction(SimpleAction(listOf("compile", "make", "cmake", "gcc", "build"), Dict.of(
                 "irc.cpp:8:28: missing terminating \" character", "moo.cpp: ld returned 1 exit status",
                 "E2066: Invalid MOM inheritance", "E2502: Error resolving #import: Rust is too rusted",
@@ -101,9 +103,8 @@ object Yui {
                 "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo' ")))
         client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall"),
                 Dict.of("https://vk.com/hashccru")))
+        client.registerAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))
         client.registerAction(LuckyAction())
-        client.registerAction(WPAction())
-        client.registerAction(BroteAction())
         // if no messages hit the command, then show uncertainty
         client.registerAction(UnsureAction())
 
