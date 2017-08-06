@@ -17,7 +17,7 @@ import javax.net.ssl.*
 object Yui {
     @Suppress("MemberVisibilityCanPrivate")
     // do not forget to change version in build.gradle
-    val Version = "0.3.4"
+    val Version = "0.3.5"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -88,6 +88,7 @@ object Yui {
                 + Dict.Nope + RipAction.RipDict + Dict.Offended))
         client.registerAction(WPAction())
         client.registerAction(BroteAction())
+        client.registerAction(SimpleAction(listOf("nohello"), Dict.of("http://www.nohello.com/")))
         client.registerAction(SimpleAction(listOf("roll", "rr"),
                 Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "misfire!", "miss!")))
         client.registerAction(SimpleAction(listOf("calmdown", "cooldown"),

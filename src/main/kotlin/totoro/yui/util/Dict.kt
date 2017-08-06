@@ -6,7 +6,7 @@ class Dict<T>(val variants: List<T>) {
     companion object {
         val Kawaii = Dict.of("kawaii", ":3", "nya", "\u000304♥\u000F", "(〜￣▽￣)〜")
         val Hello = Dict.of("o/", "oi", "ahoy", "hey", "hi", "hello",
-                            "anyoung", "ohayou", "ohayou gozaimasu", "nyanpasu~")
+                            "anyoung", "ohayou", "ohayou gozaimasu", "nyanpasu~", "nyanpasu")
         val Greets = Kawaii + Hello
         val Nope = Dict.of("nope", "no", "nay", "not", "no way", "of course not", "-", "i don't think so")
         val Yeah = Dict.of("yeah", "aye", "yes", "yep", "+", "definitely", "of course", "sure",
