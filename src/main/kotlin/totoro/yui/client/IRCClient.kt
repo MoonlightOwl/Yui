@@ -62,13 +62,23 @@ class IRCClient(private val config: Config) {
     }
 
     fun process(chan: String, user: String, message: String): Boolean {
-        val command = Command(chan, user, message.toLowerCase())
-        // call registered action processors
-        @Suppress("LoopToCallChain")
-        for (action in actions) {
-            // command can be consumed by one of processors
-            // in this case we do not need to try the rest of actions
-            if (action.process(this, command) == null) return true
+        // check user blacklist
+        if (config.blackusers.contains(user))
+            send(chan, "$user: totoro says you are baka " + Dict.Offended())
+        else {
+            val command = Command(chan, user, message.toLowerCase())
+            // check commands blacklist
+            if (command.words.isNotEmpty() && config.blackcommands.contains(command.words.first()))
+                send(chan, "totoro says - don't use the ~${command.words.first()} command " + Dict.Upset())
+            else {
+                // call registered action processors
+                @Suppress("LoopToCallChain")
+                for (action in actions) {
+                    // command can be consumed by one of processors
+                    // in this case we do not need to try the rest of actions
+                    if (action.process(this, command) == null) return true
+                }
+            }
         }
         return false
     }

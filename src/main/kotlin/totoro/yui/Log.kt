@@ -10,7 +10,7 @@ object Log {
     }
 
     fun info(message: String) = log("INFO", message)
-    fun warn(message: String) = log("WARNNG", message)
+    fun warn(message: String) = log("WARNING", message)
     fun error(message: String) = log("ERROR", message)
     fun incoming(message: String) = log(">", message)
     fun outgoing(message: String) = log("<", message)
