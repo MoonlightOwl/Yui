@@ -5,7 +5,7 @@ package totoro.yui
  */
 
 object Log {
-    fun log(prefix: String, message: String) {
+    private fun log(prefix: String, message: String) {
         println("[$prefix]: $message")
     }
 

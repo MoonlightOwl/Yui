@@ -7,12 +7,12 @@ object Title {
             "Chrome/59.0.3071.115 Safari/537.36"
 
     fun get(url: String): String? {
-        try {
+        return try {
             val links = Jsoup.connect(url).userAgent(useragent).get().select("title")
-            if (links.isNotEmpty()) return links.first().text()
-            else return null
+            if (links.isNotEmpty()) links.first().text()
+            else null
         } catch (e: Exception) {
-            return null
+            null
         }
     }
 }

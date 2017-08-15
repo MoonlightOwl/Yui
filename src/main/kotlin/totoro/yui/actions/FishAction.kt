@@ -15,7 +15,7 @@ class FishAction: Action {
                 "fish", "-fish", "" -> {
                     client.send(
                             command.chan,
-                            (0..(Yui.Random.nextInt(7))).map { FishDict() }.joinToString(" ")
+                            (0..(Yui.Random.nextInt(7))).joinToString(" ") { FishDict() }
                     )
                     return null
                 }

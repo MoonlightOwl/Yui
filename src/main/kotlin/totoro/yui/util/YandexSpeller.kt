@@ -17,10 +17,10 @@ object YandexSpeller {
             val word = json.string("word")
             val variants = json.array<String>("s")
             if (word != null) {
-                if (variants != null && variants.isNotEmpty())
-                    result = result.replace(word, variants.first(), true)
+                result = if (variants != null && variants.isNotEmpty())
+                    result.replace(word, variants.first(), true)
                 else
-                    result = result.replace(word, "<rip>", true)
+                    result.replace(word, "<rip>", true)
             }
         }
         return result

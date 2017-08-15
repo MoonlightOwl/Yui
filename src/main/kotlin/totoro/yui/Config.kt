@@ -3,8 +3,8 @@ package totoro.yui
 import java.io.FileInputStream
 import java.util.*
 
-class Config(val filepath: String) {
-    val prop = Properties()
+class Config(private val filepath: String) {
+    private val prop = Properties()
 
     lateinit var host: String
     lateinit var chan: List<String>

@@ -10,8 +10,6 @@ import com.github.kittinunf.result.getAs
 import org.jsoup.Jsoup
 
 object Chuck {
-    private val charset = "UTF-8"
-
     fun quote(success: (String) -> Unit, failure: () -> Unit) {
         "http://api.icndb.com/jokes/random".httpGet().responseString { _, _, result ->
             when (result) {

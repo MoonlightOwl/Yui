@@ -4,6 +4,7 @@ import totoro.yui.Yui
 import totoro.yui.client.IRCClient
 import totoro.yui.util.Dict
 
+
 class RipAction: Action {
     companion object {
         val RipDict = Dict.of("rip", "rippo", "rip rip", "rust in peppers", "✝", "✞", "ripped rippo")
@@ -15,7 +16,7 @@ class RipAction: Action {
                 "rip", "rippo", "ripped" -> {
                     client.send(
                             command.chan,
-                            (0..(Yui.Random.nextInt(7))).map { RipDict() }.joinToString(" ")
+                            (0..(Yui.Random.nextInt(7))).joinToString(" ") { RipDict() }
                     )
                     return null
                 }

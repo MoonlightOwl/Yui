@@ -7,9 +7,9 @@ class EmptyAction: Action {
     val dict = Dict.Kawaii + Dict.NotSure
 
     override fun process(client: IRCClient, command: Command): Command? {
-        if (command.words.isEmpty()) {
+        return if (command.words.isEmpty()) {
             client.send(command.chan, dict())
-            return null
-        } else return command
+            null
+        } else command
     }
 }

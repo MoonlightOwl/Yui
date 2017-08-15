@@ -37,12 +37,12 @@ object Google {
         println(document)
 
         val links = document.select(".rc>.r>a")
-        if (links.isNotEmpty()) {
+        return if (links.isNotEmpty()) {
             val first = links.first()
             val title = first.text()
             val rawUrl = first.absUrl("href")
             val url = URLDecoder.decode(rawUrl, charset)
-            return Pair(url, title)
-        } else return null
+            Pair(url, title)
+        } else null
     }
 }

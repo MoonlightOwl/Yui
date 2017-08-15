@@ -2,6 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.IRCClient
 
+
 class WPAction : Action {
     private fun estimate(wp: Int) : String {
         return if (wp < 0)

@@ -4,6 +4,7 @@ import net.engio.mbassy.listener.Handler
 import org.kitteh.irc.client.library.Client
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent
 import org.kitteh.irc.client.library.event.client.ClientConnectedEvent
+import org.kitteh.irc.client.library.event.client.ClientConnectionClosedEvent
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent
 import totoro.yui.Config
 import totoro.yui.Log
@@ -12,13 +13,14 @@ import totoro.yui.actions.Command
 import totoro.yui.util.Dict
 
 
-class IRCClient(val config: Config) {
+@Suppress("unused")
+class IRCClient(private val config: Config) {
     private val dict = Dict.of("yui`", "yuki`", "yumi`", "ayumi`")
 
-    val nick = dict()
-    val realname = "Yui the Bot"
+    private val nick = dict()
+    private val realname = "Yui the Bot"
 
-    val history = History(5)
+    val history = History(100)
     private val client = Client.builder()
             .nick(nick)
             .user(nick)
@@ -74,7 +76,18 @@ class IRCClient(val config: Config) {
 
     @Handler
     fun meow(event: ClientConnectedEvent) {
-        Log.info("I'm connected!")
+        when (event.client.nick) {
+            nick -> Log.info("I'm connected!")
+            else -> Log.info("[${event.client.nick} has joined]")
+        }
+    }
+
+    @Handler
+    fun kawaii(event: ClientConnectionClosedEvent) {
+        when (event.client.nick) {
+            nick -> Log.info("I'm disconnected! ${Dict.Upset()}")
+            else -> Log.info("[${event.client.nick} has quit]")
+        }
     }
 
     @Handler
@@ -95,13 +108,13 @@ class IRCClient(val config: Config) {
                 process(event.channel.name, event.actor.nick, event.message)
             // if this was not a command - then log to the history
             else -> false
-        }) history.add(event.channel.name, event.message)
+        }) history.add(event.channel.name, event.actor.nick, event.message)
     }
 
     @Handler
     fun private(event: PrivateMessageEvent) {
         Log.incoming("[PM] ${event.actor.nick}: ${event.message}")
         if (!process(event.actor.nick, event.actor.nick, event.message))
-            history.add(event.actor.nick, event.message)
+            history.add(event.actor.nick, event.actor.nick, event.message)
     }
 }

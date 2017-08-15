@@ -8,8 +8,11 @@ class T9Action : Action {
         if (command.words.isNotEmpty()) {
             when(command.words.first()) {
                 "*", "sp", "sc", "spell", "spellcheck", "gramar", "correct", "t9", "9" -> {
-                    val phrase = client.history.last(command.chan) ?: ""
-                    client.send(command.chan, YandexSpeller.correct(phrase))
+                    val phrase = client.history.last(command.chan)?.message
+                    when (phrase) {
+                        null -> client.send(command.chan, "i do not remember, what i need to correct?")
+                        else -> client.send(command.chan, YandexSpeller.correct(phrase))
+                    }
                     return null
                 }
             }

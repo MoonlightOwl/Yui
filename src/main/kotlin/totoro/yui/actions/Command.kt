@@ -5,5 +5,5 @@ package totoro.yui.actions
  */
 
 class Command(val chan: String, val user: String, val command: String) {
-    val words = command.split(' ', '\t', '\r', '\n').filterNot { it.isNullOrEmpty() }
+    val words = command.split(' ', '\t', '\r', '\n').filterNot { it.isEmpty() }
 }
