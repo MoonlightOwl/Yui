@@ -18,7 +18,8 @@ class TranslitAction: Action {
     private fun transliterate(phrase: String) : String {
         return if (phrase.isNotEmpty()) {
             // detect which way we need to transliterate this string
-            val rules = if (reversed.containsKey(phrase[0])) reversed else straight
+            val rules = if (reversed.containsKey(phrase[0]) ||
+                    reversed.containsKey(phrase[0].toLowerCase())) reversed else straight
             // convert
             phrase.map {
                 when {
@@ -34,7 +35,8 @@ class TranslitAction: Action {
         if (command.words.isNotEmpty()) {
             when (command.words.first()) {
                 "tt", "tr", "trans", "translit", "transliterate" -> {
-                    val lastPhrase = client.history.lastByUser(command.chan, command.user)
+                    val nickname = if (command.words.size > 1) command.words[1] else command.user
+                    val lastPhrase = client.history.lastByUser(command.chan, nickname)
                     if (lastPhrase != null) client.send(command.chan, transliterate(lastPhrase.message))
                     else client.send(command.chan, "what do i need to tt?")
                     return null
