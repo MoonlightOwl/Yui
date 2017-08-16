@@ -86,7 +86,7 @@ class IRCClient(private val config: Config) {
 
     @Handler
     fun meow(event: ClientConnectedEvent) = when (event.client.nick) {
-        nick -> Log.info("I'm connected!")
+        nick -> Log.info("I'm connected (today I'm $nick)!")
         else -> Log.info("[${event.client.nick} has joined]")
     }
 
