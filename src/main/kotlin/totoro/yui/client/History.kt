@@ -24,5 +24,5 @@ class History(private val size: Int) {
 
     fun last(chan: String) = history[chan]?.last
 
-    fun lastByUser(chan: String, user: String) = history[chan]?.last { it.user == user }
+    fun lastByUser(chan: String, user: String) = history[chan]?.lastOrNull { it.user == user }
 }

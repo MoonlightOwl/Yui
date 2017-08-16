@@ -9,3 +9,6 @@ out/
 
 # Test database
 *.db
+
+# Configuration files
+*.properties
