@@ -12,6 +12,8 @@ object Log {
     fun info(message: String) = log("INFO", message)
     fun warn(message: String) = log("WARNING", message)
     fun error(message: String) = log("ERROR", message)
+    fun debug(message: String) = log("DEBUG", message)
+    fun debug(e: Exception) = e.printStackTrace()
     fun incoming(message: String) = log(">", message)
     fun outgoing(message: String) = log("<", message)
 }

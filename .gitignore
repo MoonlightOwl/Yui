@@ -1,5 +1,11 @@
+# Project files
 .gradle/
 .idea/
+*.iml
+
+# Builds
 build/
 out/
-*.iml
+
+# Test database
+*.db
