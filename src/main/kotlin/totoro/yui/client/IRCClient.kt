@@ -66,7 +66,7 @@ class IRCClient(private val config: Config) {
         if (config.blackusers.contains(user))
             send(chan, "$user: totoro says you are baka " + Dict.Offended())
         else {
-            val command = Command(chan, user, message.toLowerCase())
+            val command = Command(chan, user, message)
             // check commands blacklist
             if (command.words.isNotEmpty() && config.blackcommands.contains(command.words.first()))
                 send(chan, "totoro says - don't use the ~${command.words.first()} command " + Dict.Upset())

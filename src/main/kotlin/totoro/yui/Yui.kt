@@ -2,6 +2,7 @@ package totoro.yui
 
 import totoro.yui.actions.*
 import totoro.yui.client.IRCClient
+import totoro.yui.db.Database
 import totoro.yui.util.Dict
 import java.security.GeneralSecurityException
 import java.security.SecureRandom
@@ -17,7 +18,7 @@ import javax.net.ssl.*
 object Yui {
     @Suppress("MemberVisibilityCanPrivate")
     // do not forget to change version in build.gradle
-    val Version = "0.3.8-rc1"
+    val Version = "0.3.9"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -46,6 +47,11 @@ object Yui {
         val config = Config("config.properties")
         config.load()
 
+        // connect to database
+        val database = Database("yui.db")
+        database.connect()
+
+
         // register action processors
         val client = IRCClient(config)
         client.registerAction(EmptyAction())
@@ -61,10 +67,9 @@ object Yui {
         client.registerAction(TitleAction())
         client.registerAction(SimpleAction(listOf("cookie", "cake"), Dict.Kawaii + Dict.Excited + Dict.Thanks
                 + Dict.of("oishii", "yummy")))
-        client.registerAction(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
         client.registerAction(FishAction())
         client.registerAction(T9Action())
-        client.registerAction(PirateAction())
+        client.registerAction(QuoteAction(database))
         client.registerAction(SimpleAction(listOf("anarchy", "rules", "constitution"),
                 Dict.of("https://git.io/vwLXq", "sabotage the system!", "no gods, no masters!", "raise hell!",
                         "get ready for anarchy!", "welcome to #cc.ru", "there's no government", "don't forget to " +
@@ -75,19 +80,22 @@ object Yui {
                         "my revolution", "what is important is to spread confusion, not eliminate it", "in a world " +
                         "like this one, only the random makes sense", "anarchism is democracy taken seriously")))
         client.registerAction(ChuckAction())
+        client.registerAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))
+        client.registerAction(WPAction())
+        client.registerAction(BroteAction())
+        client.registerAction(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
+        client.registerAction(PirateAction())
         client.registerAction(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
         client.registerAction(SimpleAction(listOf("call", "phone"), Dict.of(
                 "hang on a moment, I’ll put you through", "beep-beep-beep...", "rip", "☎",
                 "sorry, the balance is not enough", "i’m afraid the line is quite bad",
                 "i'm busy at the moment, please leave me a message", "ring ring...", "the phone is broken")))
         client.registerAction(SimpleAction(listOf("money", "balance", "uu"), Dict.of("https://youtu.be/vm2RAFv4pwA")))
-        client.registerAction(SimpleAction(listOf("moo", "cow", "cowpowers", "cowsay"),
+        client.registerAction(SimpleAction(listOf("moo", "cow", "cowpowers", "cowsay", "cowsays"),
                 Dict.of("to moo or not to moo, that is the question")))
-        client.registerAction(SimpleAction(listOf("exit", "quit", "q"),
+        client.registerAction(SimpleAction(listOf("exit", "quit"),
                 Dict.of("try /quit", "there's no exit here")
                 + Dict.Nope + RipAction.RipDict + Dict.Offended))
-        client.registerAction(WPAction())
-        client.registerAction(BroteAction())
         client.registerAction(SimpleAction(listOf("nohello"), Dict.of("http://www.nohello.com/")))
         client.registerAction(SimpleAction(listOf("roll", "rr"),
                 Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "misfire!", "miss!")))
@@ -95,7 +103,7 @@ object Yui {
                 Dict.of("https://meduza.io/feature/2017/07/03/vse-besit-kak-perestat-besitsya-po-lyubomu-povodu-instruktsiya")))
         client.registerAction(InstallAction())
         client.registerAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
-        client.registerAction(SimpleAction(listOf("cat", "kote", "meow", "catpowers", "catsay"),
+        client.registerAction(SimpleAction(listOf("cat", "kote", "meow", "catpowers", "catsay", "catsays"),
                 Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow")))
         client.registerAction(SimpleAction(listOf("powered", "poweredby", "credits"),
                 Dict.of("i'm created with the power of Kotlin, Kitteh IRC lib, Debian and the forest spirit :3")))
@@ -107,7 +115,6 @@ object Yui {
                 "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo' ")))
         client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall"),
                 Dict.of("https://vk.com/hashccru")))
-        client.registerAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))
         client.registerAction(LuckyAction())
         // if no messages hit the command, then show uncertainty
         client.registerAction(UnsureAction())

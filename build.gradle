@@ -40,10 +40,10 @@ dependencies {
     compile group: 'org.jsoup', name: 'jsoup', version: '1.10.3'
     compile 'com.github.kittinunf.fuel:fuel:1.8.0'
     compile "com.beust:klaxon:0.31"
-    compile 'org.jetbrains.exposed:exposed:0.8.2'
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.20.0'
 }
 
-version = '0.3.8'  // do not forget to change version in Yui.kt
+version = '0.3.9'  // do not forget to change version in Yui.kt
 jar {
     manifest {
         attributes 'Implementation-Title': 'yui',

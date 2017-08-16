@@ -10,12 +10,11 @@ class RipOrNotAction : Action {
             0 -> Dict.Yeah()
             1 -> Dict.Maybe()
             2 -> Dict.Nope()
-            else -> { println("!!! ${data.hashCode() % 3}"); Dict.Kawaii() }
+            else -> Dict.Kawaii()
         }
 
     override fun process(client: IRCClient, command: Command): Command? {
         if (command.words.isNotEmpty()) {
-            println(command.words.first())
             when (command.words.first()) {
                 "rip?", "rippo?", "ripped?" -> {
                     client.send(
