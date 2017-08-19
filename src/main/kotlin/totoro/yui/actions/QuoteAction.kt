@@ -8,9 +8,9 @@ import totoro.yui.util.Dict
 
 class QuoteAction(private val database: Database) : SensitivityAction("q", "quote") {
     override fun handle(client: IRCClient, command: Command): Boolean {
-        if (command.words.size > 2) {
+        if (command.args.isNotEmpty()) {
             // if this is new quote
-            val quote = Quote(0, command.words.drop(1).joinToString(" "))
+            val quote = Quote(0, command.args.joinToString(" "))
             val index = database.quotes?.add(quote)
             val text = index?.let { "i'll remember this" } ?: "something went wrong with my storage " + Dict.Upset()
             client.send(command.chan, text)

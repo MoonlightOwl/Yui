@@ -9,7 +9,7 @@ private val responses = Dict.of("nope", "nothing", "empty", "cannot find this",
 
 class SearchAction : SensitivityAction("g", "google", "search") {
     override fun handle(client: IRCClient, command: Command): Boolean {
-        val result = Google.search(command.words.drop(1).joinToString(" "))
+        val result = Google.search(command.args.joinToString(" "))
         if (result == null) client.send(command.chan, "\u000314[${responses()}]\u000F")
         else client.send(command.chan, "\u000308[${result.second}]\u000F (${result.first})")
         return true

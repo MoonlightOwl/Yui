@@ -6,7 +6,7 @@ import java.util.*
 
 class RipOrNotAction : SensitivityAction("rip?", "rippo?", "ripped?") {
     override fun handle(client: IRCClient, command: Command): Boolean {
-        val text = check(command.words.joinToString(" ") + (Date().time / 3600000))
+        val text = check(command.original + (Date().time / 3600000))
         client.send(command.chan, text)
         return true
     }

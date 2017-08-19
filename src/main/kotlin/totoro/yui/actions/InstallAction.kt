@@ -16,8 +16,8 @@ private val tutor_pages = mapOf(
 
 class InstallAction : SensitivityAction("install") {
     override fun handle(client: IRCClient, command: Command): Boolean {
-        if (command.words.size <= 1) return false
-        val os = command.words[1]
+        if (command.args.isEmpty()) return false
+        val os = command.args.first()
         val message = tutor_pages.getOrDefault(os, "try \"~search install $os\"")
         client.send(command.chan, message)
         return true

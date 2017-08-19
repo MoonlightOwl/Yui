@@ -5,7 +5,7 @@ import totoro.yui.client.IRCClient
 
 class TranslitAction : SensitivityAction("tt", "tr", "trans", "translit", "transliterate") {
     override fun handle(client: IRCClient, command: Command): Boolean {
-        val nickname = if (command.words.size > 1) command.words[1] else command.user
+        val nickname = if (command.args.isNotEmpty()) command.args.first() else command.user
         val lastPhrase = client.history.lastByUser(command.chan, nickname)
         val text = lastPhrase?.let { transliterate(it.message) } ?: "what do i need to tt?"
         client.send(command.chan, text)

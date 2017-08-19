@@ -5,7 +5,7 @@ import totoro.yui.client.IRCClient
 
 class WPAction : SensitivityAction("wp", "estimate", "howmuch") {
     override fun handle(client: IRCClient, command: Command): Boolean {
-        val text = command.words.getOrNull(1)?.let {
+        val text = command.args.firstOrNull()?.let {
             it.toIntOrNull()?.let {
                 estimate(it)
             } ?: "this is not a number :< gimme a number!"

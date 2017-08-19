@@ -5,8 +5,8 @@ import totoro.yui.util.Dict
 
 class LuckyAction : SensitivityAction("islucky", "lucky") {
     override fun handle(client: IRCClient, command: Command): Boolean {
-        val value = command.words.getOrNull(1)
-        val text = value?.let { lucky(value) } ?: "gimme something to estimate"
+        val value = command.args.firstOrNull()
+        val text = value?.let { lucky(it) } ?: "gimme something to estimate"
         client.send(command.chan, text)
         return true
     }

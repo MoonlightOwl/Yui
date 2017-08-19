@@ -13,7 +13,7 @@ private val appeals = Dict.of(
 class PirateAction : SensitivityAction("pirate") {
     override fun handle(client: IRCClient, command: Command): Boolean {
         // try to piratify nickname
-        val name = command.words.getOrNull(1)
+        val name = command.args.firstOrNull()
         val text = if (name?.contains('r') == true)
         // search for 'r'
             name.replace("r", "rrr") + "!"

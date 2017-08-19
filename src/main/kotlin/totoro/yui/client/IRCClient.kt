@@ -68,8 +68,8 @@ class IRCClient(private val config: Config) {
         else {
             val command = Command(chan, user, message)
             // check commands blacklist
-            if (command.words.isNotEmpty() && config.blackcommands.contains(command.words.first()))
-                send(chan, "totoro says - don't use the ~${command.words.first()} command " + Dict.Upset())
+            if (command.name in config.blackcommands)
+                send(chan, "totoro says - don't use the ~${command.name} command " + Dict.Upset())
             else {
                 // call registered action processors
                 @Suppress("LoopToCallChain")
