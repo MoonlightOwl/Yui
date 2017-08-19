@@ -3,29 +3,19 @@ package totoro.yui.actions
 import totoro.yui.client.IRCClient
 import totoro.yui.util.Dict
 
-class LuckyAction: Action {
-    private fun summ(value: String): Int {
-        return value.fold(0, { summ, ch -> summ + ch.toInt() })
-    }
-    private fun lucky(value: String) : String {
-        val half = Math.ceil(value.length / 2.0).toInt()
-        return if (summ(value.dropLast(half)) == summ(value.drop(half)))
-            Dict.Yeah()
-        else
-            Dict.Nope()
+class LuckyAction : SensitivityAction("islucky", "lucky") {
+    override fun handle(client: IRCClient, command: Command): Boolean {
+        val value = command.args.firstOrNull()
+        val text = value?.let { lucky(it) } ?: "gimme something to estimate"
+        client.send(command.chan, text)
+        return true
     }
 
-    override fun process(client: IRCClient, command: Command): Command? {
-        if (command.words.isNotEmpty()) {
-            when (command.words.first()) {
-                "islucky", "lucky" -> {
-                    val value = command.words.getOrNull(1)
-                    if (value == null) client.send(command.chan, "gimme something to estimate")
-                    else client.send(command.chan, lucky(value))
-                    return null
-                }
-            }
-        }
-        return command
+    private fun sum(value: String) = value.fold(0) { acc, ch -> acc + ch.toInt() }
+
+    private fun lucky(value: String): String {
+        val half = value.length / 2
+        val success = sum(value.dropLast(half)) == sum(value.drop(half))
+        return if (success) Dict.Yeah() else Dict.Nope()
     }
 }

@@ -5,23 +5,13 @@ import totoro.yui.client.IRCClient
 import totoro.yui.util.Dict
 
 
-class RipAction: Action {
+class RipAction : SensitivityAction("rip", "rippo", "ripped") {
     companion object {
         val RipDict = Dict.of("rip", "rippo", "rip rip", "rust in peppers", "✝", "✞", "ripped rippo")
     }
 
-    override fun process(client: IRCClient, command: Command): Command? {
-        if (command.words.isNotEmpty()) {
-            when (command.words.first()) {
-                "rip", "rippo", "ripped" -> {
-                    client.send(
-                            command.chan,
-                            (0..(Yui.Random.nextInt(7))).joinToString(" ") { RipDict() }
-                    )
-                    return null
-                }
-            }
-        }
-        return command
+    override fun handle(client: IRCClient, command: Command): Boolean {
+        client.send(command.chan, RipDict(Yui.Random.nextInt(7)).joinToString(" "))
+        return true
     }
 }

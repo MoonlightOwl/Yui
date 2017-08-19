@@ -2,19 +2,10 @@ package totoro.yui.actions
 
 import totoro.yui.client.IRCClient
 
-class BroteAction: Action {
-    override fun process(client: IRCClient, command: Command): Command? {
-        if (command.words.isNotEmpty()) {
-            when (command.words.first()) {
-                "brote" -> {
-                    client.send(
-                            command.chan,
-                            if (client.isBroteOnline()) "\u000303[online]\u000F" else "\u000304[broken]\u000F"
-                    )
-                    return null
-                }
-            }
-        }
-        return command
+class BroteAction : SensitivityAction("brote") {
+    override fun handle(client: IRCClient, command: Command): Boolean {
+        val text = if (client.isBroteOnline()) "03[online]" else "04[broken]"
+        client.send(command.chan, "\u0003$text\u000F")
+        return true
     }
 }
