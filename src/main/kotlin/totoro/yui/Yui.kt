@@ -18,7 +18,7 @@ import javax.net.ssl.*
 object Yui {
     @Suppress("MemberVisibilityCanPrivate")
     // do not forget to change version in build.gradle
-    val Version = "0.3.10"
+    val Version = "0.3.11"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
