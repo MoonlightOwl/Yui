@@ -3,7 +3,6 @@ package totoro.yui.actions
 import totoro.yui.client.IRCClient
 import totoro.yui.util.Dict
 
-
 private val appeals = Dict.of(
         "arrr!", "yo-ho-ho!", "yo-ho-ho, and a bottle of rum!",
         "new and russian", "ahoy!", "where's my parrot?",
