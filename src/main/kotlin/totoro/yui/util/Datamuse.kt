@@ -28,4 +28,11 @@ object Datamuse {
             } else null
         } else null
     }
+
+    fun thesaurus(word: String): List<String> {
+        val raw = URL("https://api.datamuse.com/words?rel_syn=${URLEncoder.encode(word, charset)}").readText()
+        @Suppress("UNCHECKED_CAST")
+        val array = Parser().parse(StringBuilder(raw)) as JsonArray<JsonObject>
+        return array.mapNotNull { it.string("word") }
+    }
 }
