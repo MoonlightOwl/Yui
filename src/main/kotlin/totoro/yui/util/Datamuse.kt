@@ -7,18 +7,25 @@ import java.net.URLEncoder
 object Datamuse {
     private val charset = "UTF-8"
 
-    fun thesaurus(word: String): String {
+    fun definition(word: String, partOfSpeech: List<String>): Definition? {
         val raw = URL("https://api.datamuse.com/words?sp=${URLEncoder.encode(word, charset)}&md=d").readText()
         @Suppress("UNCHECKED_CAST")
         val array = Parser().parse(StringBuilder(raw)) as JsonArray<JsonObject>
-        val json = array.first()
-        val subj = json.string("word")
-        val defs = json.array<String>("defs")
-        return (
+        return if (array.isNotEmpty()) {
+            val json = array.first()
+            val subj = json.string("word")
+            val defs = json.array<String>("defs")
             if (defs != null && defs.isNotEmpty()) {
-                val def = defs[Math.round(Math.random() * (defs.size - 1)).toInt()]
-                "\u000308$subj\u000F: ${def.first()}  \u001D${def.drop(2)}\u000F"
-            } else "no definitions found"
-        )
+                val filteredDefs = (
+                    if (partOfSpeech.isEmpty()) defs
+                    else defs.filter { def -> partOfSpeech.any { part -> def.startsWith(part) } }
+                )
+                if (filteredDefs.isNotEmpty()) {
+                    val def = filteredDefs[Math.round(Math.random() * (filteredDefs.size - 1)).toInt()]
+                            .split("\t")
+                    Definition(subj.orEmpty(), def[0], def[1])
+                } else null
+            } else null
+        } else null
     }
 }
