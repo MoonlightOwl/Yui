@@ -35,4 +35,11 @@ object Datamuse {
         val array = Parser().parse(StringBuilder(raw)) as JsonArray<JsonObject>
         return array.mapNotNull { it.string("word") }
     }
+
+    fun word(definition: String): List<String> {
+        val raw = URL("https://api.datamuse.com/words?ml=${URLEncoder.encode(definition, charset)}").readText()
+        @Suppress("UNCHECKED_CAST")
+        val array = Parser().parse(StringBuilder(raw)) as JsonArray<JsonObject>
+        return array.mapNotNull { it.string("word") }
+    }
 }
