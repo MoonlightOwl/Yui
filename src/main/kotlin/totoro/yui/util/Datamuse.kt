@@ -38,7 +38,11 @@ object Datamuse {
 
     fun thesaurus(word: String): List<String> = searchfor("rel_syn", word)
 
+    fun antonyms(word: String): List<String> = searchfor("rel_ant", word)
+
     fun word(definition: String): List<String> = searchfor("ml", definition)
 
     fun rhyme(word: String): List<String> = searchfor("rel_rhy", word)
+
+    fun describe(word: String): List<String> = searchfor("rel_jjb", word)
 }
