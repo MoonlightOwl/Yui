@@ -18,7 +18,7 @@ import javax.net.ssl.*
 object Yui {
     @Suppress("MemberVisibilityCanPrivate")
     // do not forget to change version in build.gradle
-    val Version = "0.3.19"
+    val Version = "0.3.20"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -111,6 +111,8 @@ object Yui {
         client.registerAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
         client.registerAction(SimpleAction(listOf("cat", "kote", "meow", "catpowers", "catsay", "catsays"),
                 Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow", "=^._.^=", "/ᐠ｡ꞈ｡ᐟ\\", "*:･ﾟ✧(=✪ ᆺ ✪=)*:･ﾟ✧")))
+        client.registerAction(SimpleAction(listOf("flip", "table"),
+                Dict.of("(╯°□°）╯︵ ┻━┻", "(ノಠ益ಠ)ノ彡┻━┻", "(╯°□°）╯︵ ┻━┻")))
         client.registerAction(SimpleAction(listOf("powered", "poweredby", "credits"),
                 Dict.of("i'm created with the power of Kotlin, Kitteh IRC lib, Debian and the forest spirit :3")))
         client.registerAction(SimpleAction(listOf("compile", "make", "cmake", "gcc", "build"),
