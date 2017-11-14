@@ -11,4 +11,4 @@ out/
 *.db
 
 # Configuration files
-*.properties
+config.properties
