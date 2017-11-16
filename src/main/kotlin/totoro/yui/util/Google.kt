@@ -37,7 +37,6 @@ object Google {
 
         // search
         val document = connect.cookies(cookies).get()
-        println(document)
         val links = document.select(".g>.r>a")
         return if (links.isNotEmpty()) {
             val first = links.first()

@@ -9,7 +9,6 @@ import org.kitteh.irc.client.library.event.user.PrivateMessageEvent
 import totoro.yui.Config
 import totoro.yui.Log
 import totoro.yui.actions.Action
-import totoro.yui.actions.Command
 import totoro.yui.util.Dict
 
 
@@ -47,9 +46,8 @@ class IRCClient(private val config: Config) {
         actions.add(action)
     }
 
-    fun isBroteOnline(): Boolean {
-        return config.chan.map { client.getChannel(it) }.flatMap { it.get().nicknames }.contains("brote")
-    }
+    fun isBroteOnline(): Boolean =
+            config.chan.map { client.getChannel(it) }.flatMap { it.get().nicknames }.contains("brote")
 
     fun broadcast(message: String) {
         config.chan.forEach { client.sendMessage(it, message) }
@@ -61,7 +59,7 @@ class IRCClient(private val config: Config) {
         Log.outgoing("[$chan] $message")
     }
 
-    fun process(chan: String, user: String, message: String): Boolean {
+    private fun process(chan: String, user: String, message: String): Boolean {
         // check user blacklist
         if (config.blackusers.contains(user))
             send(chan, "$user: totoro says you are baka " + Dict.Offended())

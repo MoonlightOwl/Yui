@@ -1,5 +1,6 @@
 package totoro.yui.actions
 
+import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 
 private val tutor_pages = mapOf(

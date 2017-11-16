@@ -16,6 +16,9 @@ apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'com.github.johnrengelman.plugin-shadow'
+apply plugin: 'application'
+
+mainClassName = "totoro.yui.YuiKt"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -49,7 +52,7 @@ task copyShadowedLibs(type: Copy) {
 }
 tasks.shadowJar.dependsOn(copyShadowedLibs)
 
-version = '0.3.20'  // do not forget to change version in Yui.kt
+version = '0.3.21'  // do not forget to change version in Yui.kt
 jar {
     manifest {
         attributes 'Implementation-Title': 'yui',

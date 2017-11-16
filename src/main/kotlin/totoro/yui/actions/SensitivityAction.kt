@@ -1,5 +1,6 @@
 package totoro.yui.actions
 
+import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 
 abstract class SensitivityAction(private val sensitivities: List<String>) : Action {
@@ -7,7 +8,7 @@ abstract class SensitivityAction(private val sensitivities: List<String>) : Acti
     constructor(vararg sensitivities: String) : this(sensitivities.toList())
 
     override fun process(client: IRCClient, command: Command): Command? {
-        val success = command.name in sensitivities && handle(client, command)
+        val success = command.name?.toLowerCase() in sensitivities && handle(client, command)
         return if (success) null else command
     }
 

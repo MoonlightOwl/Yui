@@ -1,5 +1,6 @@
 package totoro.yui.actions
 
+import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 import totoro.yui.db.Database
 import totoro.yui.db.Quote

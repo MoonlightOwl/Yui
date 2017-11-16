@@ -1,6 +1,7 @@
 package totoro.yui.actions
 
 import totoro.yui.Yui
+import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 import totoro.yui.util.Dict
 

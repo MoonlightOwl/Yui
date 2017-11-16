@@ -18,7 +18,7 @@ import javax.net.ssl.*
 object Yui {
     @Suppress("MemberVisibilityCanPrivate")
     // do not forget to change version in build.gradle
-    val Version = "0.3.20"
+    val Version = "0.3.21"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -124,7 +124,7 @@ object Yui {
         client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall"),
                 Dict.of("https://vk.com/hashccru")))
         client.registerAction(LuckyAction())
-        // if no messages hit the command, then show uncertainty
+        // if the command does not ring any bells, then show uncertainty
         client.registerAction(UnsureAction())
 
         // let's go!
@@ -135,4 +135,5 @@ object Yui {
 
 fun main(args: Array<String>) {
     Yui.run()
+    //println(""".*/(?<id>[A-Za-z0-9\-]*).*""".toRegex().matchEntire("https://youtu.be/14pf5sQUA-E&test")!!.groups["id"]!!.value)
 }
