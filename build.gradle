@@ -52,7 +52,7 @@ task copyShadowedLibs(type: Copy) {
 }
 tasks.shadowJar.dependsOn(copyShadowedLibs)
 
-version = '0.3.21'  // do not forget to change version in Yui.kt
+version = '0.3.22'  // do not forget to change version in Yui.kt
 jar {
     manifest {
         attributes 'Implementation-Title': 'yui',

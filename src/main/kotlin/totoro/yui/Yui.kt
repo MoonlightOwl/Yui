@@ -18,7 +18,7 @@ import javax.net.ssl.*
 object Yui {
     @Suppress("MemberVisibilityCanPrivate")
     // do not forget to change version in build.gradle
-    val Version = "0.3.21"
+    val Version = "0.3.22"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -55,11 +55,13 @@ object Yui {
         // register action processors
         val client = IRCClient(config)
         client.registerAction(EmptyAction())
-        client.registerAction(RipAction())
-        client.registerAction(RipOrNotAction())
-        client.registerAction(SearchAction())
-        client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
+        client.registerAction(TitleAction())
         client.registerAction(SimpleAction(Dict.Hello.variants, Dict.Greets))
+        client.registerAction(SearchAction())
+        client.registerAction(RipAction())
+        client.registerAction(SimpleAction(listOf("cookie", "cake"),
+                Dict.Kawaii + Dict.Excited + Dict.Thanks + Dict.of("oishii", "yummy")))
+        client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
         client.registerAction(TranslitAction())
         client.registerAction(DefinitionAction())
         client.registerAction(ThesaurusAction())
@@ -67,14 +69,13 @@ object Yui {
         client.registerAction(RhymeAction())
         client.registerAction(DescribeAction())
         client.registerAction(AntonymsAction())
+        client.registerAction(UnicodeAction())
+        client.registerAction(T9Action())
         client.registerAction(SimpleAction(Dict.Yeah.variants, Dict.Nope))
         client.registerAction(SimpleAction(Dict.Nope.variants, Dict.Yeah))
         client.registerAction(SimpleAction(Dict.Offended.variants, Dict.Offended))
-        client.registerAction(TitleAction())
-        client.registerAction(SimpleAction(listOf("cookie", "cake"),
-                Dict.Kawaii + Dict.Excited + Dict.Thanks + Dict.of("oishii", "yummy")))
         client.registerAction(FishAction())
-        client.registerAction(T9Action())
+        client.registerAction(RipOrNotAction())
         client.registerAction(QuoteAction(database))
         client.registerAction(SimpleAction(listOf("anarchy", "rules", "constitution"),
                 Dict.of("https://git.io/vwLXq", "sabotage the system!", "no gods, no masters!", "raise hell!",

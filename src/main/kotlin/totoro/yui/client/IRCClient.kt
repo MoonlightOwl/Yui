@@ -108,7 +108,7 @@ class IRCClient(private val config: Config) {
             event.message.startsWith(nick) ->
                 process(event.channel.name, event.actor.nick, event.message.drop(nick.length))
         // special case, when we must show url titles instead of brote
-            event.message.startsWith("http") && !isBroteOnline() ->
+            event.message.contains("http") && !isBroteOnline() ->
                 process(event.channel.name, event.actor.nick, event.message)
         // if this was not a command - then log to the history
             else -> false
