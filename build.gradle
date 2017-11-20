@@ -39,6 +39,9 @@ repositories {
 
 dependencies {
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jre8'
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-compiler'
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-script-util'
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-script-runtime'
     compile group: 'org.kitteh.irc', name: 'client-lib', version: '3.1.0'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.10.3'
     compile group: 'com.github.kittinunf.fuel', name: 'fuel', version: '1.8.0'
@@ -52,7 +55,7 @@ task copyShadowedLibs(type: Copy) {
 }
 tasks.shadowJar.dependsOn(copyShadowedLibs)
 
-version = '0.3.22'  // do not forget to change version in Yui.kt
+version = '0.3.23'  // do not forget to change version in Yui.kt
 jar {
     manifest {
         attributes 'Implementation-Title': 'yui',

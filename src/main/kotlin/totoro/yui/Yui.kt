@@ -18,7 +18,7 @@ import javax.net.ssl.*
 object Yui {
     @Suppress("MemberVisibilityCanPrivate")
     // do not forget to change version in build.gradle
-    val Version = "0.3.22"
+    val Version = "0.3.23"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -62,6 +62,7 @@ object Yui {
         client.registerAction(SimpleAction(listOf("cookie", "cake"),
                 Dict.Kawaii + Dict.Excited + Dict.Thanks + Dict.of("oishii", "yummy")))
         client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
+        client.registerAction(KotlinAction())
         client.registerAction(TranslitAction())
         client.registerAction(DefinitionAction())
         client.registerAction(ThesaurusAction())
