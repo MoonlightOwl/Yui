@@ -5,8 +5,11 @@ import totoro.yui.Yui
 class Dict<T>(val variants: List<T>) {
     companion object {
         val Kawaii = Dict.of("kawaii", ":3", "nya", "\u000304♥\u000F", "(〜￣▽￣)〜")
-        val Hello = Dict.of("o/", "oi", "ahoy", "hey", "hi", "hello",
-                "anyoung", "ohayou", "ohayou gozaimasu", "nyanpasu~", "nyanpasu")
+        val Hello = Dict.of("o/", "oi", "ahoy", "hey", "hi", "hello", "aloha",
+                "anyoung", "ohayou", "ohayou gozaimasu", "nyanpasu~", "nyanpasu", "howdy", "wazzup", "shalom")
+        val Bye = Dict.of("bye", "goodbye", "farewell", "au revoir", "o/", "ciao", "sayonara", "shalom",
+                "bon voyage", "auf Wiedersehen", "aloha", "have a good day", "take care", "bye bye", "later",
+                "see you later", "peace")
         val Greets = Kawaii + Hello
         val Nope = Dict.of("nope", "no", "nay", "not", "no way", "of course not", "-", "i don't think so")
         val Yeah = Dict.of("yeah", "aye", "yes", "yep", "+", "definitely", "of course", "sure",
@@ -20,9 +23,7 @@ class Dict<T>(val variants: List<T>) {
         val Offended = Dict.of("baka") + Upset
         val Thanks = Dict.of("thanks", "thanks", "thank you", "thx", "thanks a lot", "cheers", "arigatou")
 
-        fun <T> of(vararg variants: T): Dict<T> {
-            return Dict(variants.asList())
-        }
+        fun <T> of(vararg variants: T): Dict<T> = Dict(variants.asList())
     }
 
     operator fun plus(new: List<T>) = Dict(variants + new)

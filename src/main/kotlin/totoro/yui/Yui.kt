@@ -10,15 +10,13 @@ import java.security.cert.X509Certificate
 import java.util.*
 import javax.net.ssl.*
 
-
 /**
  * Entry point of the bot
  */
 
 object Yui {
-    @Suppress("MemberVisibilityCanPrivate")
     // do not forget to change version in build.gradle
-    val Version = "0.3.23"
+    private val Version = "0.3.24"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -57,36 +55,39 @@ object Yui {
         client.registerAction(EmptyAction())
         client.registerAction(TitleAction())
         client.registerAction(SimpleAction(Dict.Hello.variants, Dict.Greets))
+        client.registerAction(SimpleAction(Dict.Bye.variants, Dict.Bye))
         client.registerAction(SearchAction())
         client.registerAction(RipAction())
         client.registerAction(SimpleAction(listOf("cookie", "cake"),
                 Dict.Kawaii + Dict.Excited + Dict.Thanks + Dict.of("oishii", "yummy")))
         client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
-        client.registerAction(KotlinAction())
-        client.registerAction(TranslitAction())
         client.registerAction(DefinitionAction())
+        client.registerAction(TranslitAction())
         client.registerAction(ThesaurusAction())
         client.registerAction(WordAction())
         client.registerAction(RhymeAction())
         client.registerAction(DescribeAction())
         client.registerAction(AntonymsAction())
         client.registerAction(UnicodeAction())
+        client.registerAction(CirclifyAction())
         client.registerAction(T9Action())
+        client.registerAction(KotlinAction())
         client.registerAction(SimpleAction(Dict.Yeah.variants, Dict.Nope))
         client.registerAction(SimpleAction(Dict.Nope.variants, Dict.Yeah))
         client.registerAction(SimpleAction(Dict.Offended.variants, Dict.Offended))
         client.registerAction(FishAction())
+        client.registerAction(SmileAction())
         client.registerAction(RipOrNotAction())
         client.registerAction(QuoteAction(database))
-        client.registerAction(SimpleAction(listOf("anarchy", "rules", "constitution"),
-                Dict.of("https://git.io/vwLXq", "sabotage the system!", "no gods, no masters!", "raise hell!",
-                        "get ready for anarchy!", "welcome to #cc.ru", "there's no government", "don't forget to " +
-                        "eat your lunch, and make some trouble", "hierarchy is chaos, anarchy is solidarity",
-                        "keep calm and be an anarchist", "power to the users!", "to have free minds, we must have " +
-                        "free tea", "chaos & anarchy", "one direction: insurrection, one solution: revolution",
-                        "i suppose what I believe in is peaceful anarchy", "if I can't dance to it, it's not " +
-                        "my revolution", "what is important is to spread confusion, not eliminate it", "in a world " +
-                        "like this one, only the random makes sense", "anarchism is democracy taken seriously")))
+        client.registerAction(SimpleAction(listOf("anarchy", "rules", "constitution"), Dict.of(
+                "https://git.io/vwLXq", "sabotage the system!", "no gods, no masters!", "raise hell!",
+                "get ready for anarchy!", "welcome to #cc.ru", "there's no government", "don't forget to " +
+                "eat your lunch, and make some trouble", "hierarchy is chaos, anarchy is solidarity",
+                "keep calm and be an anarchist", "power to the users!", "to have free minds, we must have " +
+                "free tea", "chaos & anarchy", "one direction: insurrection, one solution: revolution",
+                "i suppose what I believe in is peaceful anarchy", "if I can't dance to it, it's not " +
+                "my revolution", "what is important is to spread confusion, not eliminate it", "in a world " +
+                "like this one, only the random makes sense", "anarchism is democracy taken seriously")))
         client.registerAction(ChuckAction())
         client.registerAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))
         client.registerAction(WPAction())
@@ -102,8 +103,7 @@ object Yui {
         client.registerAction(SimpleAction(listOf("moo", "cow", "cowpowers", "cowsay", "cowsays"),
                 Dict.of("to moo or not to moo, that is the question")))
         client.registerAction(SimpleAction(listOf("exit", "quit"),
-                Dict.of("try /quit", "there's no exit here")
-                        + Dict.Nope + RipAction.RipDict + Dict.Offended))
+                Dict.of("try /quit", "there's no exit here") + Dict.Nope + RipAction.RipDict + Dict.Offended))
         client.registerAction(SimpleAction(listOf("nohello"), Dict.of("http://www.nohello.com/")))
         client.registerAction(SimpleAction(listOf("roll", "rr"),
                 Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "misfire!", "miss!")))
@@ -117,12 +117,12 @@ object Yui {
                 Dict.of("(╯°□°）╯︵ ┻━┻", "(ノಠ益ಠ)ノ彡┻━┻", "(╯°□°）╯︵ ┻━┻")))
         client.registerAction(SimpleAction(listOf("powered", "poweredby", "credits"),
                 Dict.of("i'm created with the power of Kotlin, Kitteh IRC lib, Debian and the forest spirit :3")))
-        client.registerAction(SimpleAction(listOf("compile", "make", "cmake", "gcc", "build"),
-                Dict.of("irc.cpp:8:28: missing terminating \" character", "moo.cpp: ld returned 1 exit status",
-                        "E2066: Invalid MOM inheritance", "E2502: Error resolving #import: Rust is too rusted",
-                        "E2497: No GUID associated with type: 'fish'", "E2427: 'fork' cannot be a template function",
-                        "E2252: 'catch' expected", "E2323: Illegal number suffix", "E2370: Simple type name expected",
-                        "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo' ")))
+        client.registerAction(SimpleAction(listOf("compile", "make", "cmake", "gcc", "build"), Dict.of(
+                "irc.cpp:8:28: missing terminating \" character", "moo.cpp: ld returned 1 exit status",
+                "E2066: Invalid MOM inheritance", "E2502: Error resolving #import: Rust is too rusted",
+                "E2497: No GUID associated with type: 'fish'", "E2427: 'fork' cannot be a template function",
+                "E2252: 'catch' expected", "E2323: Illegal number suffix", "E2370: Simple type name expected",
+                "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo' ")))
         client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall"),
                 Dict.of("https://vk.com/hashccru")))
         client.registerAction(LuckyAction())
@@ -137,5 +137,4 @@ object Yui {
 
 fun main(args: Array<String>) {
     Yui.run()
-    //println(""".*/(?<id>[A-Za-z0-9\-]*).*""".toRegex().matchEntire("https://youtu.be/14pf5sQUA-E&test")!!.groups["id"]!!.value)
 }

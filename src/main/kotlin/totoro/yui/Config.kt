@@ -7,6 +7,7 @@ class Config(private val filepath: String) {
     private val splitRegex = Regex("\\s*,\\s*")
     private val prop = Properties()
 
+    var admins: List<String> = listOf()
     lateinit var host: String
     lateinit var chan: List<String>
     var pass: String? = null
@@ -17,6 +18,7 @@ class Config(private val filepath: String) {
         try {
             FileInputStream(filepath).use {
                 prop.load(it)
+                admins = getList("admins", listOf())
                 host = getString("host", "irc.esper.net")
                 chan = getList("chan", listOf("#meowbeast"))
                 pass = getString("pass", "")

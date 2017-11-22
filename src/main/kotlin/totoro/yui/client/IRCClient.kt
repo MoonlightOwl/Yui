@@ -66,7 +66,7 @@ class IRCClient(private val config: Config) {
         else {
             val command = Command(chan, user, message)
             // check commands blacklist
-            if (command.name in config.blackcommands)
+            if (command.name in config.blackcommands && user !in config.admins)
                 send(chan, "totoro says - don't use the ~${command.name} command " + Dict.Upset())
             else {
                 // call registered action processors

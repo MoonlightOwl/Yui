@@ -3,7 +3,7 @@ package totoro.yui.actions
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 
-abstract class SensitivityAction(private val sensitivities: List<String>) : Action {
+abstract class SensitivityAction(protected val sensitivities: List<String>) : Action {
 
     constructor(vararg sensitivities: String) : this(sensitivities.toList())
 
