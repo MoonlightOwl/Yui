@@ -111,6 +111,7 @@ object Yui {
         client.registerAction(InstallAction())
         client.registerAction(SimpleAction(listOf("cat", "kote", "meow", "catpowers", "catsay", "catsays"),
                 Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow", "=^._.^=", "/ᐠ｡ꞈ｡ᐟ\\", "*:･ﾟ✧(=✪ ᆺ ✪=)*:･ﾟ✧")))
+        client.registerAction(SimpleAction(listOf("totoro"), Dict.of(" _//|\n/oo |\n\\mm_|")))
         client.registerAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
         client.registerAction(SimpleAction(listOf("flip", "table"),
                 Dict.of("(╯°□°）╯︵ ┻━┻", "(ノಠ益ಠ)ノ彡┻━┻", "(╯°□°）╯︵ ┻━┻")))
