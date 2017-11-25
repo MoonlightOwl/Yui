@@ -139,6 +139,5 @@ object Yui {
 }
 
 fun main(args: Array<String>) {
-    //Yui.run()
-    "hello\nworld".split("\n").filter { it.isNotEmpty() }.map { println(it) }
+    Yui.run()
 }
