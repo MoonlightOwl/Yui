@@ -102,7 +102,7 @@ object Yui {
                 "sorry, the balance is not enough", "i’m afraid the line is quite bad",
                 "i'm busy at the moment, please leave me a message", "ring ring...", "the phone is broken")))
         client.registerAction(SimpleAction(listOf("money", "balance", "uu"), Dict.of("https://youtu.be/vm2RAFv4pwA")))
-        client.registerAction(SimpleAction(listOf("moo", "cow", "cowpowers", "cowsay", "cowsays"),
+        client.registerAction(SimpleAction(listOf("!^mooo*$", "cow", "cowpowers", "cowsay", "cowsays"),
                 Dict.of("to moo or not to moo, that is the question")))
         client.registerAction(SimpleAction(listOf("exit", "quit"),
                 Dict.of("try /quit", "there's no exit here") + Dict.Nope + RipAction.RipDict + Dict.Offended))
@@ -110,7 +110,7 @@ object Yui {
         client.registerAction(SimpleAction(listOf("roll", "rr"),
                 Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "misfire!", "miss!")))
         client.registerAction(InstallAction())
-        client.registerAction(SimpleAction(listOf("cat", "kote", "meow", "catpowers", "catsay", "catsays"),
+        client.registerAction(SimpleAction(listOf("cat", "kote", "!^meoo*w$", "catpowers", "catsay", "catsays"),
                 Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow", "=^._.^=", "/ᐠ｡ꞈ｡ᐟ\\", "*:･ﾟ✧(=✪ ᆺ ✪=)*:･ﾟ✧")))
         client.registerAction(SimpleAction(listOf("totoro"), Dict.of(" _//|\n/oo |\n\\mm_|")))
         client.registerAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
