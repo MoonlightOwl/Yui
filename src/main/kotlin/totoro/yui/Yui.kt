@@ -16,7 +16,7 @@ import javax.net.ssl.*
 
 object Yui {
     // do not forget to change version in build.gradle
-    private val Version = "0.3.24"
+    private val Version = "0.3.25"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -70,13 +70,17 @@ object Yui {
         client.registerAction(AntonymsAction())
         client.registerAction(UnicodeAction())
         client.registerAction(CirclifyAction())
+        client.registerAction(PhoneticsAction())
         client.registerAction(T9Action())
-        client.registerAction(KotlinAction())
         client.registerAction(SimpleAction(Dict.Yeah.variants, Dict.Nope))
         client.registerAction(SimpleAction(Dict.Nope.variants, Dict.Yeah))
         client.registerAction(SimpleAction(Dict.Offended.variants, Dict.Offended))
+        client.registerAction(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
         client.registerAction(FishAction())
         client.registerAction(SmileAction())
+        client.registerAction(NeverGonnaAction())
+        client.registerAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))
+        client.registerAction(BroteAction())
         client.registerAction(RipOrNotAction())
         client.registerAction(QuoteAction(database))
         client.registerAction(SimpleAction(listOf("anarchy", "rules", "constitution"), Dict.of(
@@ -88,13 +92,10 @@ object Yui {
                 "i suppose what I believe in is peaceful anarchy", "if I can't dance to it, it's not " +
                 "my revolution", "what is important is to spread confusion, not eliminate it", "in a world " +
                 "like this one, only the random makes sense", "anarchism is democracy taken seriously")))
-        client.registerAction(ChuckAction())
-        client.registerAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))
-        client.registerAction(WPAction())
-        client.registerAction(BroteAction())
         client.registerAction(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
+        client.registerAction(ChuckAction())
+        client.registerAction(WPAction())
         client.registerAction(PirateAction())
-        client.registerAction(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
         client.registerAction(SimpleAction(listOf("call", "phone"), Dict.of(
                 "hang on a moment, I’ll put you through", "beep-beep-beep...", "rip", "☎",
                 "sorry, the balance is not enough", "i’m afraid the line is quite bad",
@@ -107,14 +108,15 @@ object Yui {
         client.registerAction(SimpleAction(listOf("nohello"), Dict.of("http://www.nohello.com/")))
         client.registerAction(SimpleAction(listOf("roll", "rr"),
                 Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "misfire!", "miss!")))
-        client.registerAction(SimpleAction(listOf("calmdown", "cooldown"),
-                Dict.of("https://meduza.io/feature/2017/07/03/vse-besit-kak-perestat-besitsya-po-lyubomu-povodu-instruktsiya")))
         client.registerAction(InstallAction())
-        client.registerAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
         client.registerAction(SimpleAction(listOf("cat", "kote", "meow", "catpowers", "catsay", "catsays"),
                 Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow", "=^._.^=", "/ᐠ｡ꞈ｡ᐟ\\", "*:･ﾟ✧(=✪ ᆺ ✪=)*:･ﾟ✧")))
+        client.registerAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
         client.registerAction(SimpleAction(listOf("flip", "table"),
                 Dict.of("(╯°□°）╯︵ ┻━┻", "(ノಠ益ಠ)ノ彡┻━┻", "(╯°□°）╯︵ ┻━┻")))
+        client.registerAction(PjylsAction())
+        client.registerAction(SimpleAction(listOf("calmdown", "cooldown"),
+                Dict.of("https://meduza.io/feature/2017/07/03/vse-besit-kak-perestat-besitsya-po-lyubomu-povodu-instruktsiya")))
         client.registerAction(SimpleAction(listOf("powered", "poweredby", "credits"),
                 Dict.of("i'm created with the power of Kotlin, Kitteh IRC lib, Debian and the forest spirit :3")))
         client.registerAction(SimpleAction(listOf("compile", "make", "cmake", "gcc", "build"), Dict.of(
@@ -126,6 +128,7 @@ object Yui {
         client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall"),
                 Dict.of("https://vk.com/hashccru")))
         client.registerAction(LuckyAction())
+        client.registerAction(KotlinAction())
         // if the command does not ring any bells, then show uncertainty
         client.registerAction(UnsureAction())
 
@@ -136,5 +139,6 @@ object Yui {
 }
 
 fun main(args: Array<String>) {
-    Yui.run()
+    //Yui.run()
+    "hello\nworld".split("\n").filter { it.isNotEmpty() }.map { println(it) }
 }

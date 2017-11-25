@@ -55,8 +55,10 @@ class IRCClient(private val config: Config) {
     }
 
     fun send(chan: String, message: String) {
-        client.sendMessage(chan, message)
-        Log.outgoing("[$chan] $message")
+        message.split("\n").filter { it.isNotEmpty() }.map {
+            client.sendMessage(chan, message)
+            Log.outgoing("[$chan] $message")
+        }
     }
 
     private fun process(chan: String, user: String, message: String): Boolean {

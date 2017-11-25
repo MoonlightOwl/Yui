@@ -45,4 +45,19 @@ object Datamuse {
     fun rhyme(word: String): List<String> = searchfor("rel_rhy", word)
 
     fun describe(word: String): List<String> = searchfor("rel_jjb", word)
+
+    fun phonetics(word: String): Phonetics? {
+        val raw = URL("https://api.datamuse.com/words?sp=${URLEncoder.encode(word, charset)}&md=r&ipa=1").readText()
+        @Suppress("UNCHECKED_CAST")
+        val array = Parser().parse(StringBuilder(raw)) as JsonArray<JsonObject>
+        return if (array.isNotEmpty()) {
+            val json = array.first()
+            val subj = json.string("word")
+            val tags = json.array<String>("tags")
+            if (tags != null && tags.size >= 2) {
+                val phonetics = tags[1].drop(9)
+                return Phonetics(subj.orEmpty(), phonetics)
+            } else null
+        } else null
+    }
 }
