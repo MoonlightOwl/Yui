@@ -5,6 +5,9 @@ import totoro.yui.client.IRCClient
 
 abstract class SensitivityAction(protected val sensitivities: List<String>) : Action {
 
+    private val regexes = sensitivities.filter { it.startsWith("!") }.map { it.drop(1).toRegex() }
+    private val strings = sensitivities.filter { !it.startsWith("!") }
+
     constructor(vararg sensitivities: String) : this(sensitivities.toList())
 
     /**
@@ -15,10 +18,7 @@ abstract class SensitivityAction(protected val sensitivities: List<String>) : Ac
      * or a regex pattern. In the last case the string must begin with `!` sign.
      */
     override fun process(client: IRCClient, command: Command): Command? {
-        val matches = sensitivities.any { pattern ->
-            if (pattern.startsWith("!")) pattern.drop(1).toRegex().matches(command.name.orEmpty())
-            else command.name == pattern
-        }
+        val matches = strings.contains(command.name) || regexes.any { it.matches(command.name.orEmpty()) }
         val success = matches && handle(client, command)
         return if (success) null else command
     }
