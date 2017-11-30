@@ -4,18 +4,19 @@ import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 
 abstract class SensitivityAction(protected val sensitivities: List<String>) : Action {
-
-    private val regexes = sensitivities.filter { it.startsWith("!") }.map { it.drop(1).toRegex() }
+    /**
+     * Sensitivity pattern can be a simple string (without whitespace characters),
+     * or a regex pattern. In the last case the string must begin with `!` sign.
+     */
     private val strings = sensitivities.filter { !it.startsWith("!") }
+    private val regexes = sensitivities.filter { it.startsWith("!") }.map { it.drop(1).toRegex() }
 
     constructor(vararg sensitivities: String) : this(sensitivities.toList())
 
     /**
      * Compares first word of command with given list of sensitivities.
-     * In case of any matches - runs `handle` function.
-     *
-     * Sensitivity pattern can be a simple string (without whitespace characters),
-     * or a regex pattern. In the last case the string must begin with `!` sign.
+     * In case of any matches - runs `handle` function and 'absorb' the command.
+     * Otherwise - returns the command, so the next action handler in queue can try it.
      */
     override fun process(client: IRCClient, command: Command): Command? {
         val matches = strings.contains(command.name) || regexes.any { it.matches(command.name.orEmpty()) }
