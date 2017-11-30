@@ -12,7 +12,7 @@ class AnimeAction : SensitivityAction("a", "anime", "oneme", "animu", "onemu", "
             client.send(command.chan,
                     if (anime.nsfw) "\u000304[NSFW] " else "" +
                     "\u000308${anime.title}\u000F " +
-                    "/ ${anime.episodeCount} episode${if (anime.episodeCount > 1) "s" else ""} ${anime.episodeLength}m " +
+                    "/ ${anime.episodeCount} episode${if (anime.episodeCount != 1) "s" else ""} ${anime.episodeLength}m " +
                     "/ ${anime.status} " +
                     "/ ${anime.rating}"
             )
