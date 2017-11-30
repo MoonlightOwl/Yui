@@ -2,7 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
-import totoro.yui.util.Datamuse
+import totoro.yui.util.api.Datamuse
 
 const val MAX_ANTONYMS = 10
 

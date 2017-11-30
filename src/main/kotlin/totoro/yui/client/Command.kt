@@ -8,6 +8,7 @@ class Command(val chan: String, val user: String, val original: String) {
     @Suppress("MemberVisibilityCanPrivate")
     val words = original.split(' ', '\t', '\r', '\n').filterNot { it.isEmpty() }
     val name = words.getOrNull(0)
+    val content = original.drop(name?.length ?: 0).trim()
     val args = words.drop(1)
     val valid = name != null
 }

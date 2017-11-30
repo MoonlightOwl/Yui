@@ -1,4 +1,4 @@
-package totoro.yui.util
+package totoro.yui.util.api
 
 import org.jsoup.Connection
 import org.jsoup.Jsoup
@@ -39,7 +39,7 @@ object Google {
         val document = connect.cookies(cookies).get()
         val links = document.select(".g>.r>a")
         return if (links.isNotEmpty()) {
-            val first = links.first()
+            val first = links.first { it.attr("href").startsWith("/url?") }
             val title = first.text()
             val rawUrl = first.absUrl("href")
             val url = URLDecoder.decode(rawUrl, charset)

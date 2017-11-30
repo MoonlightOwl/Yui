@@ -1,4 +1,4 @@
-package totoro.yui.util
+package totoro.yui.util.api
 
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser

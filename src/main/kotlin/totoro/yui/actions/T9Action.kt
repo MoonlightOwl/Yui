@@ -2,7 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
-import totoro.yui.util.YandexSpeller
+import totoro.yui.util.api.YandexSpeller
 
 class T9Action : SensitivityAction("*", "spellcheck", "gramar", "correct", "t9") {
     override fun handle(client: IRCClient, command: Command): Boolean {

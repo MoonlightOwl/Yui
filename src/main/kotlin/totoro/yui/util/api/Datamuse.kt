@@ -1,6 +1,8 @@
-package totoro.yui.util
+package totoro.yui.util.api
 
 import com.beust.klaxon.*
+import totoro.yui.util.api.data.Definition
+import totoro.yui.util.api.data.Phonetics
 import java.net.URL
 import java.net.URLEncoder
 

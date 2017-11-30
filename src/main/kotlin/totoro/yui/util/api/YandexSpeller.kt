@@ -1,4 +1,4 @@
-package totoro.yui.util
+package totoro.yui.util.api
 
 import com.beust.klaxon.*
 import java.net.URL
