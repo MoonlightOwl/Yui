@@ -35,6 +35,8 @@ object Kitsu {
             val titleEn = titles?.string("en")
             val titleJp = titles?.string("ja_jp")
             val synopsis = attributes?.string("synopsis")
+                    ?.replace("\n", " ")
+                    ?.replace("\r", "")
             val ageRating = attributes?.string("ageRating")
             val ageRatingGuide = attributes?.string("ageRatingGuide")
             val episodeCount = attributes?.int("episodeCount")
