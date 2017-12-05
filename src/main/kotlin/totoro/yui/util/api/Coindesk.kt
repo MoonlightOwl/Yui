@@ -15,7 +15,7 @@ object Coindesk {
                     val bpi = json.obj("bpi")
                     val code = currency ?: "USD"
                     val price = bpi?.obj(code)
-                    val rate = price?.string("rate")
+                    val rate = price?.double("rate_float")
                     val desc = price?.string("description")
                     if (rate == null || desc == null) failure()
                     else success(Currency(code, rate, desc))
