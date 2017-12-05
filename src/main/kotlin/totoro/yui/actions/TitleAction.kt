@@ -10,8 +10,8 @@ class TitleAction : Action {
         for (word in command.words) {
             if (word.startsWith("http")) {
                 val text = Title.get(word)?.let {
-                    "08[$it]"
-                } ?: "04[this website does not like me :<]"
+                    "08[ $it ]"
+                } ?: "04[ this website does not like me :< ]"
                 client.send(command.chan, "\u0003$text\u000F")
                 hit = true
             }

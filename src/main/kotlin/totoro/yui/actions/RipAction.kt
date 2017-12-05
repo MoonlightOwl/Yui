@@ -12,7 +12,7 @@ class RipAction : SensitivityAction("rip", "rippo", "ripped") {
     }
 
     override fun handle(client: IRCClient, command: Command): Boolean {
-        client.send(command.chan, RipDict(Yui.Random.nextInt(7)).joinToString(" "))
+        client.send(command.chan, RipDict(Yui.Random.nextInt(3)).joinToString(" "))
         return true
     }
 }
