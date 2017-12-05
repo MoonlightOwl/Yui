@@ -65,6 +65,7 @@ object Yui {
         client.registerAction(TimeAction())
         client.registerAction(AnimeAction())
         client.registerAction(XkcdAction())
+        client.registerAction(BitcoinAction())
         client.registerAction(DefinitionAction())
         client.registerAction(ThesaurusAction())
         client.registerAction(TranslitAction())
