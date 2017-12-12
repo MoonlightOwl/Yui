@@ -8,7 +8,10 @@ import totoro.yui.util.Dict
 
 class RipAction : SensitivityAction("rip", "rippo", "ripped") {
     companion object {
-        val RipDict = Dict.of("rip", "rippo", "rip rip", "rust in peppers", "✝", "✞", "ripped rippo")
+        val RipDict = Dict.of(
+                "rip", "rippo", "rip rip", "rust in peppers",
+                "✝", "✞", "ripped rippo", "ＲＩＰ", "rip irc"
+        )
     }
 
     override fun handle(client: IRCClient, command: Command): Boolean {
