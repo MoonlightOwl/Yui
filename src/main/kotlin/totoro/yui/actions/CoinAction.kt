@@ -6,7 +6,7 @@ import totoro.yui.util.api.CryptoCompare
 import java.text.DecimalFormat
 
 
-class CryptoCoinAction : SensitivityAction("coin", "btc", "bitcoin", "eth", "ether", "ethereum",
+class CoinAction : SensitivityAction("coin", "btc", "bitcoin", "eth", "ether", "ethereum",
         "doge", "dogecoin", "neo", "neocoin", "monero", "ripple") {
 
     private val format = DecimalFormat("0.#####################")
@@ -17,6 +17,7 @@ class CryptoCoinAction : SensitivityAction("coin", "btc", "bitcoin", "eth", "eth
             CryptoCompare.get(from.toUpperCase(), to?.toUpperCase(),
                     { currency ->
                         client.send(command.chan,
+                                "1 ${from.toUpperCase()} -> " +
                                 "\u000308${format.format(currency.rate)}\u000F ${currency.code} " +
                                 if (currency.description != null) "\u001D(${currency.description})\u000F" else ""
                         )
