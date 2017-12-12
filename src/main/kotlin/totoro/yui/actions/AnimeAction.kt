@@ -14,7 +14,8 @@ class AnimeAction : SensitivityAction("a", "anime", "oneme", "animu", "onemu", "
                     "\u000308${anime.title}\u000F " +
                     "/ ${anime.episodeCount} episode${if (anime.episodeCount != 1) "s" else ""} ${anime.episodeLength}m " +
                     "/ ${anime.status} " +
-                    "/ ${anime.rating}"
+                    "/ ${anime.rating} " +
+                    "/ https://kitsu.io/anime/${anime.slug}"
             )
             client.send(command.chan,
                     "\u001d(" +

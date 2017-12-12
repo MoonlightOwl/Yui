@@ -12,7 +12,7 @@ object Kitsu {
         return "https://kitsu.io/api/edge/anime" +
                 "?filter[text]=${URLEncoder.encode(text, charset)}" +
                 "&page[limit]=1" +
-                "&fields[anime]=id,titles,synopsis,ageRating,ageRatingGuide,episodeCount,episodeLength,status,nsfw"
+                "&fields[anime]=id,titles,synopsis,ageRating,ageRatingGuide,episodeCount,episodeLength,slug,status,nsfw"
     }
 
     fun search(text: String): Anime? {
@@ -41,6 +41,7 @@ object Kitsu {
             val ageRatingGuide = attributes?.string("ageRatingGuide")
             val episodeCount = attributes?.int("episodeCount")
             val episodeLength = attributes?.int("episodeLength")
+            val slug = attributes?.string("slug")
             val status = attributes?.string("status")
             val nsfw = attributes?.boolean("nsfw")
             Anime (
@@ -52,6 +53,7 @@ object Kitsu {
                     else "G: All Ages"),
                     episodeCount ?: 0,
                     episodeLength ?: 0,
+                    slug ?: "noname",
                     status ?: "finished",
                     nsfw ?: false
             )
