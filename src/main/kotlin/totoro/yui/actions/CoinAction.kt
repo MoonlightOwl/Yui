@@ -18,7 +18,7 @@ class CoinAction : SensitivityAction("coin", "btc", "bitcoin", "eth", "ether", "
             delta > 0 -> "\u000303▴\u000F"
             delta < 0 -> "\u000304▾\u000F"
             else -> ""
-        } + shortFormat.format(delta) + "%)"
+        } + shortFormat.format(Math.abs(delta)) + "%)"
     }
 
     override fun handle(client: IRCClient, command: Command): Boolean {
