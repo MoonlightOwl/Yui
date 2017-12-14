@@ -64,6 +64,7 @@ object Yui {
         client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
         client.registerAction(TimeAction())
         client.registerAction(AnimeAction())
+        client.registerAction(BackronymAction())
         client.registerAction(XkcdAction())
         client.registerAction(CoinAction())
         client.registerAction(DefinitionAction())
