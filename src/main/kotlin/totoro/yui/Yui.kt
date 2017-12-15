@@ -55,37 +55,37 @@ object Yui {
         client.registerAction(EmptyAction())
         client.registerAction(TitleAction())
         client.registerAction(SimpleAction(Dict.Hello.variants, Dict.Greets))
+        client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
         client.registerAction(SimpleAction(Dict.Bye.variants, Dict.Bye))
         client.registerAction(SearchAction())
         client.registerAction(RipAction())
+        client.registerAction(CoinAction())
         client.registerAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))
         client.registerAction(SimpleAction(listOf("cookie", "cake"),
                 Dict.Kawaii + Dict.Excited + Dict.Thanks + Dict.of("oishii", "yummy")))
-        client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
-        client.registerAction(TimeAction())
-        client.registerAction(AnimeAction())
         client.registerAction(BackronymAction())
         client.registerAction(XkcdAction())
-        client.registerAction(CoinAction())
+        client.registerAction(AnimeAction())
+        client.registerAction(TimeAction())
         client.registerAction(DefinitionAction())
         client.registerAction(ThesaurusAction())
+        client.registerAction(AntonymsAction())
         client.registerAction(TranslitAction())
         client.registerAction(WordAction())
         client.registerAction(RhymeAction())
         client.registerAction(DescribeAction())
-        client.registerAction(AntonymsAction())
-        client.registerAction(UnicodeAction())
-        client.registerAction(CirclifyAction())
         client.registerAction(PhoneticsAction())
+        client.registerAction(UnicodeAction())
+        client.registerAction(T9Action())
         client.registerAction(SimpleAction(Dict.Yeah.variants, Dict.Nope))
         client.registerAction(SimpleAction(Dict.Nope.variants, Dict.Yeah))
         client.registerAction(SimpleAction(Dict.Offended.variants, Dict.Offended))
         client.registerAction(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
+        client.registerAction(BroteAction())
+        client.registerAction(CirclifyAction())
         client.registerAction(FishAction())
         client.registerAction(SmileAction())
         client.registerAction(NeverGonnaAction())
-        client.registerAction(BroteAction())
-        client.registerAction(T9Action())
         client.registerAction(RipOrNotAction())
         client.registerAction(QuoteAction(database))
         client.registerAction(SimpleAction(listOf("anarchy", "rules", "constitution"), Dict.of(
@@ -112,27 +112,35 @@ object Yui {
                 Dict.of("try /quit", "there's no exit here") + Dict.Nope + RipAction.RipDict + Dict.Offended))
         client.registerAction(SimpleAction(listOf("nohello"), Dict.of("http://www.nohello.com/")))
         client.registerAction(SimpleAction(listOf("roll", "rr"),
-                Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "misfire!", "miss!")))
-        client.registerAction(InstallAction())
+                Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "miss!", "miss!")))
         client.registerAction(SimpleAction(listOf("cat", "kote", "!^meoo*w$", "catpowers", "catsay", "catsays"),
-                Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow", "=^._.^=", "/ᐠ｡ꞈ｡ᐟ\\", "*:･ﾟ✧(=✪ ᆺ ✪=)*:･ﾟ✧")))
+                Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow", "=^._.^=", "/ᐠ｡ꞈ｡ᐟ\\")))
         client.registerAction(SimpleAction(listOf("totoro"), Dict.of(" _//|\n/oo |\n\\mm_|")))
-        client.registerAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
+        client.registerAction(PjylsAction())
         client.registerAction(SimpleAction(listOf("flip", "table"),
                 Dict.of("(╯°□°）╯︵ ┻━┻", "(ノಠ益ಠ)ノ彡┻━┻", "(╯°□°）╯︵ ┻━┻")))
-        client.registerAction(PjylsAction())
         client.registerAction(SimpleAction(listOf("calmdown", "cooldown"),
                 Dict.of("https://meduza.io/feature/2017/07/03/vse-besit-kak-perestat-besitsya-po-lyubomu-povodu-instruktsiya")))
         client.registerAction(SimpleAction(listOf("powered", "poweredby", "credits"),
-                Dict.of("i'm created with the power of Kotlin, Kitteh IRC lib, Debian and the forest spirit :3")))
+                Dict.of("i'm created with the power of Kotlin, Kitteh IRC lib, Debian and also the forest spirit power :3")))
+        client.registerAction(InstallAction())
+        client.registerAction(SimpleAction(listOf("upgrade"), Dict.of("https://www.youtube.com/watch?v=rzLSmY7c9dY")))
+        client.registerAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
         client.registerAction(SimpleAction(listOf("compile", "make", "cmake", "gcc", "build"), Dict.of(
                 "irc.cpp:8:28: missing terminating \" character", "moo.cpp: ld returned 1 exit status",
                 "E2066: Invalid MOM inheritance", "E2502: Error resolving #import: Rust is too rusted",
                 "E2497: No GUID associated with type: 'fish'", "E2427: 'fork' cannot be a template function",
                 "E2252: 'catch' expected", "E2323: Illegal number suffix", "E2370: Simple type name expected",
                 "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo' ")))
-        client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall"),
+        client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall", "news"),
                 Dict.of("https://vk.com/hashccru")))
+        client.registerAction(SimpleAction(listOf("h", "help"), Dict.of(
+                "please, somebody, give this man some help!", "sorry, I cannot help", "ask totoro")))
+        client.registerAction(SimpleAction(listOf("source", "sources", "src"), Dict.of(
+                "hey! it's indecent - to ask such things from a girl",
+                "hey! it's indecent - to ask such things from a bot",
+                "I'd prefer not to answer that", "that's too private thing - my source code",
+                "do you even know Kotlin?", "show me your own sources first")))
         client.registerAction(LuckyAction())
         client.registerAction(KotlinAction())
         // if the command does not ring any bells, then show uncertainty
