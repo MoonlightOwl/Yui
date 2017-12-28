@@ -2,6 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
+import totoro.yui.util.F
 import javax.script.ScriptEngineManager
 
 class KotlinAction : SensitivityAction("kotlin") {
@@ -18,7 +19,7 @@ class KotlinAction : SensitivityAction("kotlin") {
                 client.send(command.chan, "i don't know how to evaluate this :<")
         } catch (e: Exception) {
             e.localizedMessage.split("\n").filter { it.isNotEmpty() }.forEach {
-                client.send(command.chan, "\u000304$it\u000F")
+                client.send(command.chan, F.Red + it + F.Reset)
             }
         }
 

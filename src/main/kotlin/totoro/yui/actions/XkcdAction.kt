@@ -2,6 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
+import totoro.yui.util.F
 import totoro.yui.util.api.Xkcd
 
 class XkcdAction : SensitivityAction("x", "xkcd") {
@@ -10,17 +11,17 @@ class XkcdAction : SensitivityAction("x", "xkcd") {
                 command.content,
                 { comics ->
                     client.send(command.chan,
-                            "\u000308${comics.title}\u000F " +
-                            "/ https://xkcd.com/${comics.id}/"
+                            F.Yellow + comics.title + F.Reset +
+                            " / https://xkcd.com/${comics.id}/"
                     )
                     client.send(command.chan,
-                            "\u001d(" +
+                            F.Italic + "(" +
                             (if (comics.titleText.length > 350) comics.titleText.take(350) + "..." else comics.titleText) +
-                            ")\u000F"
+                            ")" + F.Reset
                     )
                 },
                 {
-                    client.send(command.chan, "\u000314no xkcd for this\u000F")
+                    client.send(command.chan, F.Gray + "no xkcd for this" + F.Reset)
                 }
         )
         return true

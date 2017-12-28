@@ -4,7 +4,9 @@ import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 import totoro.yui.util.Dict
 
+
 class SmileAction : SensitivityAction("smile", "sweet", "sister", "sadistic", "surprise", "service") {
+    @Suppress("PrivatePropertyName")
     private val MaxProgressStackSize = 10
     private val progress: LinkedHashMap<String, Int> = linkedMapOf()
 

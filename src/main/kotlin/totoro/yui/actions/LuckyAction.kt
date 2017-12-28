@@ -3,11 +3,12 @@ package totoro.yui.actions
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 import totoro.yui.util.Dict
+import totoro.yui.util.F
 
 class LuckyAction : SensitivityAction("islucky", "lucky") {
     override fun handle(client: IRCClient, command: Command): Boolean {
         val value = command.args.firstOrNull()
-        val text = value?.let { lucky(it) } ?: "gimme something to estimate"
+        val text = value?.let { lucky(it) } ?: F.Gray + "gimme something to estimate" + F.Reset
         client.send(command.chan, text)
         return true
     }

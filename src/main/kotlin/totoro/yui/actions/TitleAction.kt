@@ -2,6 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
+import totoro.yui.util.F
 import totoro.yui.util.Title
 
 class TitleAction : Action {
@@ -10,9 +11,9 @@ class TitleAction : Action {
         for (word in command.words) {
             if (word.startsWith("http")) {
                 val text = Title.get(word)?.let {
-                    "08[ $it ]"
-                } ?: "04[ this website does not like me :< ]"
-                client.send(command.chan, "\u0003$text\u000F")
+                    F.Yellow + "[ $it ]"
+                } ?: F.Red + "[ this website does not like me :< ]"
+                client.send(command.chan, text + F.Reset)
                 hit = true
             }
         }

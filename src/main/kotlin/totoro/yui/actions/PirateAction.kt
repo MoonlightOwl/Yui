@@ -23,5 +23,4 @@ class PirateAction : SensitivityAction("pirate") {
         client.send(command.chan, text)
         return true
     }
-
 }

@@ -2,6 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
+import totoro.yui.util.F
 import totoro.yui.util.api.Datamuse
 
 const val MAX_ANTONYMS = 10
@@ -12,9 +13,9 @@ class AntonymsAction : SensitivityAction("ant", "antonym", "antonyms", "opposite
             val word = command.args.joinToString(" ")
             val antonyms = Datamuse.antonyms(word)
             if (antonyms.isNotEmpty())
-                client.send(command.chan, "\u000308$word\u000F: " +
+                client.send(command.chan, F.Yellow + word + F.Reset + ": " +
                         antonyms.take(MAX_ANTONYMS).joinToString(", "))
-            else client.send(command.chan, "\u000314no antonyms found\u000F")
+            else client.send(command.chan, F.Gray + "no antonyms found" + F.Reset)
             true
         } else false
     }

@@ -2,6 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
+import totoro.yui.util.F
 import totoro.yui.util.api.UnicodeTable
 
 class UnicodeAction : SensitivityAction("u", "char", "unicode") {
@@ -19,12 +20,12 @@ class UnicodeAction : SensitivityAction("u", "char", "unicode") {
                                 .joinToString(", ")
                                 { symbol ->
                                     "${symbol.description} " +
-                                    "(\u000308${symbol.code}: ${symbol.symbol}\u000F${if (symbol.symbol.length > 1) "  " else " "})"
+                                    "(" + F.Yellow + "${symbol.code}: ${symbol.symbol}" + F.Reset + (if (symbol.symbol.length > 1) "  " else " ") + ")"
                                 }
                         )
                     },
                     {
-                        client.send(command.chan, "\u000314no characters found\u000F")
+                        client.send(command.chan, F.Gray + "no characters found" + F.Reset)
                     }
             )
         }

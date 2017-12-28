@@ -2,13 +2,14 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
+import totoro.yui.util.F
 import totoro.yui.util.api.CryptoCompare
 import java.text.DecimalFormat
 import java.time.Duration
 
 
 class CoinAction : SensitivityAction("coin", "cur", "currency",
-        "btc", "bitcoin", "eth", "ether", "ethereum",
+        "btc", "bitcoin", "eth", "ether", "ethereum", "fcn", "fantom", "fantomcoin",
         "doge", "dogecoin", "neo", "neocoin", "monero", "xmr", "ripple") {
 
     private val longFormat = DecimalFormat("0.#####################")
@@ -28,8 +29,8 @@ class CoinAction : SensitivityAction("coin", "cur", "currency",
 
     private fun formatDelta(delta: Double): String {
         return "(" + when {
-            delta > 0 -> "\u000303▴\u000F"
-            delta < 0 -> "\u000304▾\u000F"
+            delta > 0 -> F.Green + "▴" + F.Reset
+            delta < 0 -> F.Red + "▾" + F.Reset
             else -> ""
         } + shortFormat.format(Math.abs(delta)) + "%)"
     }
@@ -44,7 +45,7 @@ class CoinAction : SensitivityAction("coin", "cur", "currency",
             val finalAmount = amount ?: 1.0
 
             if (range != null && duration == null) {
-                client.send(command.chan, "\u000314try ISO 8601 for time duration\u000F")
+                client.send(command.chan, F.Gray + "try ISO 8601 for time duration" + F.Reset)
             } else {
                 CryptoCompare.get(
                         from.toUpperCase(),
@@ -53,13 +54,13 @@ class CoinAction : SensitivityAction("coin", "cur", "currency",
                         { currency ->
                             client.send(command.chan,
                                     "$finalAmount ${from.toUpperCase()} -> " +
-                                    "\u000308${longFormat.format(currency.price * finalAmount)}\u000F ${currency.code}" +
-                                    if (currency.description != null) " \u001D(${currency.description})\u000F" else "" +
+                                    F.Yellow + longFormat.format(currency.price * finalAmount) + F.Reset + " ${currency.code}" +
+                                    if (currency.description != null) F.Italic + " (${currency.description})" + F.Reset else "" +
                                     if (range != null) "  " + formatDelta(currency.delta) else ""
                             )
                         },
                         {
-                            client.send(command.chan, "\u000314cannot get the rate for this\u000F")
+                            client.send(command.chan, F.Gray + "cannot get the rate for this" + F.Reset)
                         }
                 )
             }
@@ -76,6 +77,7 @@ class CoinAction : SensitivityAction("coin", "cur", "currency",
             "neo", "neocoin" -> get("NEO", codes.first, delta, amount)
             "monero", "xmr" -> get("XMR", codes.first, delta, amount)
             "ripple" -> get("XRP", codes.first, delta, amount)
+            "fcn", "fantom", "fantomcoin" -> get("FCN", codes.first, delta, amount)
             else -> get(codes.first ?: "BTC", codes.second, delta, amount)
         }
 

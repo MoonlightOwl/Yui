@@ -2,6 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
+import totoro.yui.util.F
 import totoro.yui.util.api.Backronym
 
 class BackronymAction : SensitivityAction("ba", "back", "backronym", "ac", "acronym") {
@@ -11,16 +12,16 @@ class BackronymAction : SensitivityAction("ba", "back", "backronym", "ac", "acro
             Backronym.generate(
                     word,
                     {
-                        client.send(command.chan, "\u000308${word.toUpperCase()}\u000F: " + it.map { char ->
-                              if (char.isUpperCase()) "\u0002$char\u000F" else char.toString()
+                        client.send(command.chan, F.Yellow + word.toUpperCase() + F.Reset + ": " + it.map { char ->
+                              if (char.isUpperCase()) F.Bold + char + F.Reset else char.toString()
                         }.joinToString(""))
                     },
                     {
-                        client.send(command.chan, "\u000314cannot think of anything funny\u000F")
+                        client.send(command.chan, F.Gray + "cannot think of anything funny" + F.Reset)
                     }
             )
         } else {
-            client.send(command.chan, "\u000314gimme a word\u000F")
+            client.send(command.chan, F.Gray + "gimme a word" + F.Reset)
         }
         return true
     }

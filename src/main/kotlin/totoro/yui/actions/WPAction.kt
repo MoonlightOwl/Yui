@@ -2,6 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
+import totoro.yui.util.F
 
 
 class WPAction : SensitivityAction("wp", "estimate", "howmuch") {
@@ -9,8 +10,8 @@ class WPAction : SensitivityAction("wp", "estimate", "howmuch") {
         val text = command.args.firstOrNull()?.let {
             it.toIntOrNull()?.let {
                 estimate(it)
-            } ?: "this is not a number :< gimme a number!"
-        } ?: "i need a number!"
+            } ?: F.Gray + "this is not a number :< gimme a number!" + F.Reset
+        } ?: F.Gray + "i need a number!" + F.Reset
         client.send(command.chan, text)
         return true
     }

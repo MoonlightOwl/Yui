@@ -5,11 +5,11 @@ import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 import totoro.yui.util.Dict
 
-private val fishes = Dict.of("-fish", "><>", "<><", "<>><", "><>>", "---E", "><*>", "<*><")
+private val fishes = Dict.of("><>", "<><", "<>><", "><>>", "---E", "><*>", "<*><")
 
 class FishAction : SensitivityAction("fish", "-fish") {
     override fun handle(client: IRCClient, command: Command): Boolean {
-        client.send(command.chan, fishes(Yui.Random.nextInt(7)).joinToString(" "))
+        client.send(command.chan, fishes(Yui.Random.nextInt(5)).joinToString(" "))
         return true
     }
 }

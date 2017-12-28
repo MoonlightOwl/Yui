@@ -3,7 +3,7 @@ package totoro.yui.actions
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 
-private val tutor_pages = mapOf(
+private val installationGuide = mapOf(
         "debian" to "https://www.debian.org/releases/stable/amd64/",
         "gentoo" to "https://wiki.gentoo.org/wiki/Handbook:AMD64#Installing_Gentoo",
         "arch" to "https://wiki.archlinux.org/index.php/installation_guide",
@@ -19,7 +19,7 @@ class InstallAction : SensitivityAction("install") {
     override fun handle(client: IRCClient, command: Command): Boolean {
         if (command.args.isEmpty()) return false
         val os = command.args.first()
-        val message = tutor_pages.getOrDefault(os, "try \"~search install $os\"")
+        val message = installationGuide.getOrDefault(os, "try \"~search install $os\"")
         client.send(command.chan, message)
         return true
     }

@@ -2,6 +2,7 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
+import totoro.yui.util.F
 import totoro.yui.util.api.Datamuse
 
 class DefinitionAction : SensitivityAction("d", "def", "define", "definition",
@@ -20,9 +21,9 @@ class DefinitionAction : SensitivityAction("d", "def", "define", "definition",
             val word = filteredArgs.joinToString(" ")
             val definition = Datamuse.definition(word, partOfSpeech)
             if (definition != null)
-                client.send(command.chan, "\u000308${definition.word}\u000F: " +
-                        "${definition.partOfSpeech}  \u001D${definition.definition}\u000F")
-            else client.send(command.chan, "\u000314no definitions found\u000F")
+                client.send(command.chan, F.Yellow + definition.word + F.Reset + ": " +
+                        "${definition.partOfSpeech}  " + F.Italic + definition.definition + F.Reset)
+            else client.send(command.chan, F.Gray + "no definitions found" + F.Reset)
             true
         } else false
     }
