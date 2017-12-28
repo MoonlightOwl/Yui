@@ -7,8 +7,9 @@ import java.text.DecimalFormat
 import java.time.Duration
 
 
-class CoinAction : SensitivityAction("coin", "btc", "bitcoin", "eth", "ether", "ethereum",
-        "doge", "dogecoin", "neo", "neocoin", "monero", "ripple") {
+class CoinAction : SensitivityAction("coin", "cur", "currency",
+        "btc", "bitcoin", "eth", "ether", "ethereum",
+        "doge", "dogecoin", "neo", "neocoin", "monero", "xmr", "ripple") {
 
     private val longFormat = DecimalFormat("0.#####################")
     private val shortFormat = DecimalFormat("0.###")
@@ -50,12 +51,13 @@ class CoinAction : SensitivityAction("coin", "btc", "bitcoin", "eth", "ether", "
         }
 
         when (command.name) {
-            "coin" -> get(command.args.getOrElse(0, { "BTC" }), command.args.getOrNull(1), command.args.getOrNull(2))
+            "coin", "cur", "currency" ->
+                get(command.args.getOrElse(0, { "BTC" }), command.args.getOrNull(1), command.args.getOrNull(2))
             "btc", "bitcoin" -> get("BTC", command.args.firstOrNull(), command.args.getOrNull(1))
             "eth", "ether", "ethereum" -> get("ETH", command.args.firstOrNull(), command.args.getOrNull(1))
             "doge", "dogecoin" -> get("DOGE", command.args.firstOrNull(), command.args.getOrNull(1))
             "neo", "neocoin" -> get("NEO", command.args.firstOrNull(), command.args.getOrNull(1))
-            "monero" -> get("XMR", command.args.firstOrNull(), command.args.getOrNull(1))
+            "monero", "xmr" -> get("XMR", command.args.firstOrNull(), command.args.getOrNull(1))
             "ripple" -> get("XRP", command.args.firstOrNull(), command.args.getOrNull(1))
             else -> client.send(command.chan, "\u000314impossibru!\u000F")
         }
