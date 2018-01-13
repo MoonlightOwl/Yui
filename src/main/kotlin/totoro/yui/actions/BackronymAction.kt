@@ -5,7 +5,7 @@ import totoro.yui.client.IRCClient
 import totoro.yui.util.F
 import totoro.yui.util.api.Backronym
 
-class BackronymAction : SensitivityAction("ba", "back", "backronym", "ac", "acronym") {
+class BackronymAction : SensitivityAction("ba", "back", "backronym", "ac", "acr", "acronym") {
     override fun handle(client: IRCClient, command: Command): Boolean {
         if (!command.args.isEmpty()) {
             val word = command.args.first()
