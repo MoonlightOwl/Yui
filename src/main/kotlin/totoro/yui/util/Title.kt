@@ -4,6 +4,7 @@ import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
 import com.beust.klaxon.string
 import org.jsoup.Jsoup
+import totoro.yui.Log
 import java.net.URL
 
 object Title {
@@ -17,6 +18,7 @@ object Title {
                 else -> fromHtmlTag(url)
             }
         } catch (e: Exception) {
+            Log.debug(e)
             null
         }
     }
@@ -32,6 +34,6 @@ object Title {
             val raw = URL("http://www.youtube.com/oembed?url=$url&format=json").readText()
             val video = Parser().parse(StringBuilder(raw)) as JsonObject
             "YouTube: " + video.string("title")
-        } catch (e: Exception) { println("Exception"); null }
+        } catch (e: Exception) { Log.debug(e); null }
     }
 }
