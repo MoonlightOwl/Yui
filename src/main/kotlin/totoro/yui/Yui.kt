@@ -136,12 +136,14 @@ object Yui {
         client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall", "news"),
                 Dict.of("https://vk.com/hashccru")))
         client.registerAction(SimpleAction(listOf("h", "help"), Dict.of(
-                "please, somebody, give this man some help!", "sorry, I cannot help", "ask totoro")))
+                "please, somebody, give this man some help!", "sorry, I cannot help", "ask totoro",
+                "a little help definitely would not hurt", "if only I can")))
         client.registerAction(SimpleAction(listOf("source", "sources", "src"), Dict.of(
                 "hey! it's indecent - to ask such things from a girl",
                 "hey! it's indecent - to ask such things from a bot",
                 "I'd prefer not to answer that", "that's too private thing - my source code",
                 "do you even know Kotlin?", "show me your own sources first")))
+        client.registerAction(SimpleAction(listOf("birth", "birthday", "bd"), Dict.of("6/6/17 at 12:07 AM UTC+02")))
         client.registerAction(LuckyAction())
         client.registerAction(KotlinAction())
         // if the command does not ring any bells, then show uncertainty
