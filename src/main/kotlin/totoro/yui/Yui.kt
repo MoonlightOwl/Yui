@@ -57,9 +57,9 @@ object Yui {
         client.registerAction(SimpleAction(Dict.Hello.variants, Dict.Greets))
         client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
         client.registerAction(SimpleAction(Dict.Bye.variants, Dict.Bye))
-        client.registerAction(SearchAction())
-        client.registerAction(RipAction())
+        client.registerAction(HackerNewsAction())
         client.registerAction(CoinAction())
+        client.registerAction(SearchAction())
         client.registerAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))
         client.registerAction(SimpleAction(listOf("cookie", "cake"),
                 Dict.Kawaii + Dict.Excited + Dict.Thanks + Dict.of("oishii", "yummy")))
@@ -67,16 +67,17 @@ object Yui {
         client.registerAction(DefinitionAction())
         client.registerAction(ThesaurusAction())
         client.registerAction(AntonymsAction())
+        client.registerAction(StatsAction())
         client.registerAction(AnimeAction())
-        client.registerAction(XkcdAction())
         client.registerAction(WikiAction())
-        client.registerAction(HackerNewsAction())
-        client.registerAction(TimeAction())
         client.registerAction(TranslitAction())
+        client.registerAction(T9Action())
         client.registerAction(WordAction())
+        client.registerAction(XkcdAction())
+        client.registerAction(TimeAction())
         client.registerAction(PhoneticsAction())
         client.registerAction(UnicodeAction())
-        client.registerAction(T9Action())
+        client.registerAction(RipAction())
         client.registerAction(DescribeAction())
         client.registerAction(RhymeAction())
         client.registerAction(SimpleAction(Dict.Yeah.variants, Dict.Nope))
@@ -84,12 +85,9 @@ object Yui {
         client.registerAction(SimpleAction(Dict.Offended.variants, Dict.Offended))
         client.registerAction(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
         client.registerAction(BroteAction())
-        client.registerAction(CirclifyAction())
         client.registerAction(FishAction())
         client.registerAction(SmileAction())
         client.registerAction(NeverGonnaAction())
-        client.registerAction(RipOrNotAction())
-        client.registerAction(QuoteAction(database))
         client.registerAction(SimpleAction(listOf("anarchy", "rules", "constitution"), Dict.of(
                 "https://git.io/vwLXq", "sabotage the system!", "no gods, no masters!", "raise hell!",
                 "get ready for anarchy!", "welcome to #cc.ru", "there's no government", "don't forget to " +
@@ -99,10 +97,13 @@ object Yui {
                 "i suppose what I believe in is peaceful anarchy", "if I can't dance to it, it's not " +
                 "my revolution", "what is important is to spread confusion, not eliminate it", "in a world " +
                 "like this one, only the random makes sense", "anarchism is democracy taken seriously")))
-        client.registerAction(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
         client.registerAction(ChuckAction())
+        client.registerAction(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
         client.registerAction(WPAction())
         client.registerAction(PirateAction())
+        client.registerAction(RipOrNotAction())
+        client.registerAction(CirclifyAction())
+        client.registerAction(QuoteAction(database))
         client.registerAction(SimpleAction(listOf("call", "phone"), Dict.of(
                 "hang on a moment, I’ll put you through", "beep-beep-beep...", "rip", "☎",
                 "sorry, the balance is not enough", "i’m afraid the line is quite bad",
