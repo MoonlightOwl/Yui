@@ -68,6 +68,7 @@ object Yui {
         client.registerAction(ThesaurusAction())
         client.registerAction(AntonymsAction())
         client.registerAction(StatsAction())
+        client.registerAction(PlasmaAction())
         client.registerAction(AnimeAction())
         client.registerAction(WikiAction())
         client.registerAction(TranslitAction())

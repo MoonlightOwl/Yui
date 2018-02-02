@@ -29,4 +29,12 @@ object F {
     val Silver = "\u000315"
 
     val Reset = "\u000F"
+
+    fun mix(foreground: String, background: String): String {
+        return foreground + "," + background.drop(1)
+    }
+    val colors = arrayOf(
+            White, Black, Blue, Green, Red, Brown, Purple, Orange,
+            Yellow, Lime, Teal, Cyan, Royal, Pink, Gray, Silver
+    )
 }
