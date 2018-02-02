@@ -119,7 +119,7 @@ object Yui {
                 Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "miss!", "miss!")))
         client.registerAction(SimpleAction(listOf("cat", "kote", "!^meoo*w$", "catpowers", "catsay", "catsays"),
                 Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow", "=^._.^=", "/ᐠ｡ꞈ｡ᐟ\\")))
-        client.registerAction(SimpleAction(listOf("totoro"), Dict.of(" _//|\n/oo |\n\\mm_|")))
+        client.registerAction(TotoroAction())
         client.registerAction(PjylsAction())
         client.registerAction(SimpleAction(listOf("flip", "table"),
                 Dict.of("(╯°□°）╯︵ ┻━┻", "(ノಠ益ಠ)ノ彡┻━┻", "(╯°□°）╯︵ ┻━┻")))
