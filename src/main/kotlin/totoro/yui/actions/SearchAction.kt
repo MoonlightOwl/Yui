@@ -7,7 +7,7 @@ import totoro.yui.util.F
 import totoro.yui.util.api.Google
 
 private val responses = Dict.of("nope", "nothing", "empty", "cannot find this",
-        "dead-end", "even google is helpless here")
+        "try something else maybe", "even google is helpless here")
 
 class SearchAction : SensitivityAction("g", "google", "search") {
     override fun handle(client: IRCClient, command: Command): Boolean {
