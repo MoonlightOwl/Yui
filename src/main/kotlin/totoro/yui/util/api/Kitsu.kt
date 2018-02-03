@@ -1,12 +1,13 @@
 package totoro.yui.util.api
 
-import com.beust.klaxon.*
+import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Parser
 import com.github.kittinunf.fuel.httpGet
 import totoro.yui.util.api.data.Anime
 import java.net.URLEncoder
 
 object Kitsu {
-    private val charset = "UTF-8"
+    private const val charset = "UTF-8"
 
     private fun buildUrl(text: String): String {
         return "https://kitsu.io/api/edge/anime" +

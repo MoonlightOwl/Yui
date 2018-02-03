@@ -1,6 +1,7 @@
 package totoro.yui.util.api
 
-import com.beust.klaxon.*
+import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Parser
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.result.Result
 import totoro.yui.util.api.data.Comics

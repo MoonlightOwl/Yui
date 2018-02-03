@@ -5,6 +5,7 @@ import java.sql.Connection
 import java.sql.DriverManager
 
 
+@Suppress("unused")
 class Database(private val filename: String) {
     private var connection: Connection? = null
 

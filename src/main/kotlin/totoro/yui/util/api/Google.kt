@@ -7,8 +7,8 @@ import java.net.URLDecoder
 import java.net.URLEncoder
 
 object Google {
-    private val charset = "UTF-8"
-    private val useragent = "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+    private const val charset = "UTF-8"
+    private const val useragent = "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
 
     private var cookies: Map<String, String>? = null
 

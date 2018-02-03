@@ -1,11 +1,13 @@
 package totoro.yui.util.api
 
-import com.beust.klaxon.*
+import com.beust.klaxon.JsonArray
+import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Parser
 import java.net.URL
 import java.net.URLEncoder
 
 object YandexSpeller {
-    private val charset = "UTF-8"
+    private const val charset = "UTF-8"
 
     fun correct(phrase: String): String {
         var result = phrase

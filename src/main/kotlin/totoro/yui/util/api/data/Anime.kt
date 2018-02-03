@@ -1,5 +1,6 @@
 package totoro.yui.util.api.data
 
+@Suppress("unused")
 class Anime (
     val id: String,
     val title: String,

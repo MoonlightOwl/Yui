@@ -7,13 +7,14 @@ import kotlin.collections.HashMap
  * Stores some amount of last chat messages for actions to use them.
  */
 
+@Suppress("unused")
 class History(private val size: Int) {
     class Record(val user: String, val message: String)
 
     private val history = HashMap<String, LinkedList<Record>>()
 
     fun add(chan: String, user: String, message: String) {
-        if (!history.contains(chan)) history[chan] = LinkedList<Record>()
+        if (!history.contains(chan)) history[chan] = LinkedList()
         history[chan]?.addLast(Record(user, message))
         if (history[chan]?.size ?: 0 > size) history[chan]?.removeFirst()
     }

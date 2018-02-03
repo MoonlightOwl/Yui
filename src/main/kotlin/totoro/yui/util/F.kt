@@ -4,31 +4,32 @@ package totoro.yui.util
  * IRC text formatting codes
  */
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 object F {
-    val Bold = "\u0002"
-    val Italic = "\u001D"
-    val Underlined = "\u001F"
-    val Reversed = "\u0016"
+    const val Bold = "\u0002"
+    const val Italic = "\u001D"
+    const val Underlined = "\u001F"
+    const val Reversed = "\u0016"
 
-    val Default = "\u000399"
-    val White = "\u000300"
-    val Black = "\u000301"
-    val Blue = "\u000302"
-    val Green = "\u000303"
-    val Red = "\u000304"
-    val Brown = "\u000305"
-    val Purple = "\u000306"
-    val Orange = "\u000307"
-    val Yellow = "\u000308"
-    val Lime = "\u000309"
-    val Teal = "\u000310"
-    val Cyan = "\u000311"
-    val Royal = "\u000312"
-    val Pink = "\u000313"
-    val Gray = "\u000314"
-    val Silver = "\u000315"
+    const val Default = "\u000399"
+    const val White = "\u000300"
+    const val Black = "\u000301"
+    const val Blue = "\u000302"
+    const val Green = "\u000303"
+    const val Red = "\u000304"
+    const val Brown = "\u000305"
+    const val Purple = "\u000306"
+    const val Orange = "\u000307"
+    const val Yellow = "\u000308"
+    const val Lime = "\u000309"
+    const val Teal = "\u000310"
+    const val Cyan = "\u000311"
+    const val Royal = "\u000312"
+    const val Pink = "\u000313"
+    const val Gray = "\u000314"
+    const val Silver = "\u000315"
 
-    val Reset = "\u000F"
+    const val Reset = "\u000F"
 
     fun mix(foreground: String, background: String): String {
         return foreground + "," + background.drop(1)

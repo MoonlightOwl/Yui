@@ -1,5 +1,6 @@
 package totoro.yui.util
 
+@Suppress("unused")
 object DamerauLevenshtein {
     /**
      * Calculates the string distance between source and target strings using

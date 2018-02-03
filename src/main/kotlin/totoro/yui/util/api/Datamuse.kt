@@ -1,13 +1,15 @@
 package totoro.yui.util.api
 
-import com.beust.klaxon.*
+import com.beust.klaxon.JsonArray
+import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Parser
 import totoro.yui.util.api.data.Definition
 import totoro.yui.util.api.data.Phonetics
 import java.net.URL
 import java.net.URLEncoder
 
 object Datamuse {
-    private val charset = "UTF-8"
+    private const val charset = "UTF-8"
 
     fun definition(word: String, partOfSpeech: List<String>): Definition? {
         val raw = URL("https://api.datamuse.com/words?sp=${URLEncoder.encode(word, charset)}&md=d").readText()

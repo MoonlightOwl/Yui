@@ -3,8 +3,9 @@ package totoro.yui.client
 import net.engio.mbassy.listener.Handler
 import org.kitteh.irc.client.library.Client
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent
-import org.kitteh.irc.client.library.event.client.ClientConnectedEvent
 import org.kitteh.irc.client.library.event.client.ClientConnectionClosedEvent
+import org.kitteh.irc.client.library.event.client.ClientConnectionEstablishedEvent
+import org.kitteh.irc.client.library.event.client.ClientNegotiationCompleteEvent
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent
 import totoro.yui.Config
 import totoro.yui.Log
@@ -12,7 +13,7 @@ import totoro.yui.actions.Action
 import totoro.yui.util.Dict
 
 
-@Suppress("unused")
+@Suppress("unused", "UNUSED_PARAMETER")
 class IRCClient(private val config: Config) {
     private val dict = Dict.of("yui`", "yuki`", "yumi`", "ayumi`")
 
@@ -33,6 +34,10 @@ class IRCClient(private val config: Config) {
     init {
         client.eventManager.registerEventListener(this)
         config.chan.forEach { client.addChannel(it) }
+    }
+
+    fun connect() {
+        client.connect()
     }
 
     fun login(pass: String?) {
@@ -85,10 +90,14 @@ class IRCClient(private val config: Config) {
 
 
     @Handler
-    fun meow(event: ClientConnectedEvent) = when (event.client.nick) {
+    fun meow(event: ClientNegotiationCompleteEvent) = when (event.client.nick) {
         nick -> Log.info("I'm connected (today I'm $nick)!")
         else -> Log.info("[${event.client.nick} has joined]")
     }
+
+    @Handler
+    fun ready(event: ClientConnectionEstablishedEvent) =
+            Log.info("I'm ready to chat!")
 
     @Handler
     fun kawaii(event: ClientConnectionClosedEvent) = when (event.client.nick) {

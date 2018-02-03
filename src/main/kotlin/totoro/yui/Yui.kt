@@ -16,7 +16,7 @@ import javax.net.ssl.*
 
 object Yui {
     // do not forget to change version in build.gradle
-    private val Version = "0.4.2"
+    private const val Version = "0.4.2"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
@@ -153,8 +153,9 @@ object Yui {
         client.registerAction(UnsureAction())
 
         // let's go!
-        client.broadcast(Dict.Greets())
+        client.connect()
         client.login(config.pass)
+        client.broadcast(Dict.Greets())
     }
 }
 

@@ -4,6 +4,7 @@ package totoro.yui
  * Handmade logger
  */
 
+@Suppress("unused")
 object Log {
     private fun log(prefix: String, message: String) {
         println("[$prefix]: $message")
