@@ -138,14 +138,15 @@ object Yui {
                 "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo' ")))
         client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall", "news"),
                 Dict.of("https://vk.com/hashccru")))
-        client.registerAction(SimpleAction(listOf("h", "help"), Dict.of(
-                "please, somebody, give this man some help!", "sorry, I cannot help", "ask totoro",
-                "a little help definitely would not hurt", "if only I can")))
+        client.registerAction(SimpleAction(listOf("h", "help"), Dict.Refuse + Dict.of(
+                "please, somebody, give this man some help!", "sorry, I cannot help",
+                "a little help definitely would not hurt")))
         client.registerAction(SimpleAction(listOf("source", "sources", "src"), Dict.of(
                 "hey! it's indecent - to ask such things from a girl",
                 "hey! it's indecent - to ask such things from a bot",
-                "I'd prefer not to answer that", "that's too private thing - my source code",
-                "do you even know Kotlin?", "show me your own sources first")))
+                "I'd prefer not to answer that", "that's too private",
+                "do you even know Kotlin?", "show me your own sources first",
+                "let’s talk about something else", "talk to my lawyer")))
         client.registerAction(SimpleAction(listOf("birth", "birthday", "bd"), Dict.of("6/6/17 at 12:07 AM UTC+02")))
         client.registerAction(LuckyAction())
         client.registerAction(KotlinAction())

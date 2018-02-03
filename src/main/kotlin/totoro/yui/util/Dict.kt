@@ -23,6 +23,11 @@ class Dict<T>(val variants: List<T>) {
         val Upset = Dict.of(":<", "...", "v_v", "-_-")
         val Offended = Dict.of("baka") + Upset
         val Thanks = Dict.of("thanks", "thanks", "thank you", "thx", "thanks a lot", "cheers", "arigatou")
+        val Refuse = Dict.of("ask totoro", "if only I can", "i will put that on my schedule",
+                "gosh, I really wish I could", "I’m focusing on other things right now", "don't think so",
+                "life is too short to do things you don't love", "i would love to, but unfortunately... no",
+                "alas, such a task is no match for my incompetency", "i shall not", "i think not", "offer declined",
+                "I’m trying to see how long I can go without saying yes")
 
         fun <T> of(vararg variants: T): Dict<T> = Dict(variants.asList())
     }
