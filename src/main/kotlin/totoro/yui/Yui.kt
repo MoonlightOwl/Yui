@@ -57,7 +57,7 @@ object Yui {
         client.registerAction(SimpleAction(Dict.Hello.variants, Dict.Greets))
         client.registerAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
         client.registerAction(SimpleAction(Dict.Bye.variants, Dict.Bye))
-        client.registerAction(HackerNewsAction())
+        client.registerAction(NewsAction())
         client.registerAction(CoinAction())
         client.registerAction(SearchAction())
         client.registerAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))

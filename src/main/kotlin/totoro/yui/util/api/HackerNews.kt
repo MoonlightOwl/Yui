@@ -23,7 +23,7 @@ object HackerNews {
         }
     }
 
-    private fun story(id: Long, success: (Story) -> Unit, failure: () -> Unit) {
+    private fun story(id: Long, success: (Story) -> Unit, failure: () -> Unit, then: () -> Unit) {
         "https://hacker-news.firebaseio.com/v0/item/$id.json".httpGet().responseString { _, _, result ->
             when (result) {
                 is Result.Failure -> failure()
@@ -32,37 +32,39 @@ object HackerNews {
                     val score = json.int("score")
                     val title = json.string("title")
                     val url = json.string("url")
-                    if (score != null && title != null && url != null) success(Story(score, title, url))
-                    else failure()
+                    if (score != null && title != null && url != null) {
+                        success(Story(score, title, url))
+                        then()
+                    } else failure()
                 }
             }
         }
     }
 
     private fun firstUnreadStory(filter: String, history: LimitedHashMap<Long, Boolean>,
-                         success: (Story) -> Unit, failure: () -> Unit) {
+                         success: (Story) -> Unit, failure: () -> Unit, then: () -> Unit) {
         stories(filter,
                 { list ->
                     val id = list.first { !history.contains(it) }
                     story(id,
                             { story ->
-                                history.put(id, true)
+                                history[id] = true
                                 success(story)
-                            }, failure
+                            }, failure, then
                     )
                 }, failure
         )
     }
 
     private val topHistory = LimitedHashMap<Long, Boolean>(MAX_HISTORY_SIZE)
-    fun topStory(success: (Story) -> Unit, failure: () -> Unit) =
-        firstUnreadStory("top", topHistory, success, failure)
+    fun topStory(success: (Story) -> Unit, failure: () -> Unit, then: () -> Unit) =
+            firstUnreadStory("top", topHistory, success, failure, then)
 
     private val bestHistory = LimitedHashMap<Long, Boolean>(MAX_HISTORY_SIZE)
-    fun bestStory(success: (Story) -> Unit, failure: () -> Unit) =
-            firstUnreadStory("best", bestHistory, success, failure)
+    fun bestStory(success: (Story) -> Unit, failure: () -> Unit, then: () -> Unit) =
+            firstUnreadStory("best", bestHistory, success, failure, then)
 
     private val newHistory = LimitedHashMap<Long, Boolean>(MAX_HISTORY_SIZE)
-    fun newStory(success: (Story) -> Unit, failure: () -> Unit) =
-            firstUnreadStory("new", newHistory, success, failure)
+    fun newStory(success: (Story) -> Unit, failure: () -> Unit, then: () -> Unit) =
+            firstUnreadStory("new", newHistory, success, failure, then)
 }
