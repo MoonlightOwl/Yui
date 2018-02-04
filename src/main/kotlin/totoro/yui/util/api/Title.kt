@@ -1,4 +1,4 @@
-package totoro.yui.util
+package totoro.yui.util.api
 
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
@@ -13,7 +13,8 @@ object Title {
     fun get(url: String): String? {
         return try {
             when {
-                url.contains("youtu.be") || url.contains("youtube.com") -> fromYoutube(url) ?: fromHtmlTag(url)
+                url.contains("youtu.be") || url.contains("youtube.com") -> fromYoutube(url)
+                        ?: fromHtmlTag(url)
                 else -> fromHtmlTag(url)
             }
         } catch (e: Exception) {
