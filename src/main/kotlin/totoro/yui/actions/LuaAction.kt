@@ -21,7 +21,7 @@ class LuaAction : SensitivityAction("lua", "l", "lua=", "l=", "calc", "c") {
         else {
             val lines = result.split('\n')
             lines.take(maxOutputLines).forEach { line ->
-                client.send(command.chan, "${if (line.matches(errorRegex)) F.Red else F.Yellow}$line${F.Reset}")
+                client.send(command.chan, "lua> ${if (line.matches(errorRegex)) F.Red else F.Yellow}$line${F.Reset}")
             }
             if (lines.size > maxOutputLines)
                 client.send(command.chan, "${F.Yellow}(and ${lines.size - maxOutputLines} more...)${F.Reset}")
