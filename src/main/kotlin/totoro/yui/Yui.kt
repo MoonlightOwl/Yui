@@ -63,6 +63,7 @@ object Yui {
         client.registerAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))
         client.registerAction(SimpleAction(listOf("cookie", "cake"),
                 Dict.Kawaii + Dict.Excited + Dict.Thanks + Dict.of("oishii", "yummy")))
+        client.registerAction(LuaAction())
         client.registerAction(BackronymAction())
         client.registerAction(DefinitionAction())
         client.registerAction(ThesaurusAction())
