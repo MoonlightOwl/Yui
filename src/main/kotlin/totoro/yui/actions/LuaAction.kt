@@ -5,12 +5,13 @@ import totoro.yui.client.IRCClient
 import totoro.yui.util.F
 import totoro.yui.util.api.Lua
 
-class LuaAction : SensitivityAction("lua", "l", "lua=", "l=") {
+class LuaAction : SensitivityAction("lua", "l", "lua=", "l=", "calc", "c") {
     private val maxOutputLines = 3
     private val errorRegex = "^input:\\d*:\\s.*$".toRegex()
 
     override fun handle(client: IRCClient, command: Command): Boolean {
         val code = when {
+            command.name == "calc" || command.name == "c" -> "=(${command.content})"
             command.name?.endsWith('=') == true -> "=${command.content}"
             else -> command.content
         }
