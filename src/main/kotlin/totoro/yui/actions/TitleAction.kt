@@ -9,12 +9,14 @@ class TitleAction : Action {
     private val urlRegex = ".*https?://.*\\..*".toRegex()
 
     override fun process(client: IRCClient, command: Command): Command? {
-        command.words
-                .filter { it.matches(urlRegex) }
-                .mapNotNull { Title.get(it) }
-                .forEach { client.send(command.chan, "${F.Yellow}[ $it ]${F.Reset}") }
-        // always return null, because this action takes unprefixed strings,
-        // and must be the last in the chain of `unprefixed` actions
-        return null
+        return if (!command.prefixed) {
+            val titles =command.words
+                    .filter { it.matches(urlRegex) }
+                    .mapNotNull { Title.get(it) }
+
+            titles.forEach { client.send(command.chan, "${F.Yellow}[ $it ]${F.Reset}") }
+
+            if (titles.isNotEmpty()) null else command
+        } else command
     }
 }

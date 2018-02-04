@@ -19,9 +19,12 @@ abstract class SensitivityAction(protected val sensitivities: List<String>) : Ac
      * Otherwise - returns the command, so the next action handler in queue can try it.
      */
     override fun process(client: IRCClient, command: Command): Command? {
-        val matches = strings.contains(command.name) || regexes.any { it.matches(command.name.orEmpty()) }
-        val success = matches && handle(client, command)
-        return if (success) null else command
+        return if (!command.prefixed) null
+        else {
+            val matches = strings.contains(command.name) || regexes.any { it.matches(command.name.orEmpty()) }
+            val success = matches && handle(client, command)
+            if (success) null else command
+        }
     }
 
     /**

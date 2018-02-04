@@ -66,12 +66,12 @@ class IRCClient(private val config: Config) {
         }
     }
 
-    private fun process(chan: String, user: String, message: String): Boolean {
+    private fun process(chan: String, user: String, message: String, prefixed: Boolean): Boolean {
         // check user blacklist
-        if (config.blackusers.contains(user))
+        if (prefixed && config.blackusers.contains(user))
             send(chan, "$user: totoro says you are baka " + Dict.Offended())
         else {
-            val command = Command(chan, user, message)
+            val command = Command(chan, user, message, prefixed)
             // check commands blacklist
             if (command.name in config.blackcommands && user !in config.admins)
                 send(chan, "totoro says - don't use the ~${command.name} command " + Dict.Upset())
@@ -111,16 +111,16 @@ class IRCClient(private val config: Config) {
         // detect and process commands
         if (!when {
             event.message.startsWith("~") ->
-                process(event.channel.name, event.actor.nick, event.message.drop(1))
+                process(event.channel.name, event.actor.nick, event.message.drop(1), true)
             event.message.startsWith("$nick:") ->
-                process(event.channel.name, event.actor.nick, event.message.drop(nick.length + 1))
+                process(event.channel.name, event.actor.nick, event.message.drop(nick.length + 1), true)
             event.message.startsWith("$nick,") ->
-                process(event.channel.name, event.actor.nick, event.message.drop(nick.length + 1))
+                process(event.channel.name, event.actor.nick, event.message.drop(nick.length + 1), true)
             event.message.startsWith(nick) ->
-                process(event.channel.name, event.actor.nick, event.message.drop(nick.length))
+                process(event.channel.name, event.actor.nick, event.message.drop(nick.length), true)
         // special case, when we must show url titles instead of brote
             event.message.contains("http") && !isBroteOnline() ->
-                process(event.channel.name, event.actor.nick, event.message)
+                process(event.channel.name, event.actor.nick, event.message, false)
         // if this was not a command - then log to the history
             else -> false
         }) history.add(event.channel.name, event.actor.nick, event.message)
@@ -129,7 +129,7 @@ class IRCClient(private val config: Config) {
     @Handler
     fun private(event: PrivateMessageEvent) {
         Log.incoming("[PM] ${event.actor.nick}: ${event.message}")
-        if (!process(event.actor.nick, event.actor.nick, event.message))
+        if (!process(event.actor.nick, event.actor.nick, event.message, true))
             history.add(event.actor.nick, event.actor.nick, event.message)
     }
 }
