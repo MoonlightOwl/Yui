@@ -115,7 +115,7 @@ object Yui {
         client.registerAction(SimpleAction(listOf("!^mooo*$", "cow", "cowpowers", "cowsay", "cowsays"),
                 Dict.of("to moo or not to moo, that is the question")))
         client.registerAction(SimpleAction(listOf("exit", "quit"),
-                Dict.of("try /quit", "there's no exit here") + Dict.Nope + RipAction.RipDict + Dict.Offended))
+                Dict.of("try /quit", "there's no exit here") + Dict.Nope + Dict.Rip + Dict.Offended))
         client.registerAction(SimpleAction(listOf("nohello"), Dict.of("http://www.nohello.com/")))
         client.registerAction(SimpleAction(listOf("roll", "rr"),
                 Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "miss!", "miss!")))
