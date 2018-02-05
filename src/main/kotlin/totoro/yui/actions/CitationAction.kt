@@ -36,7 +36,7 @@ class CitationAction : SensitivityAction("cite", "citation", "excerption", "snip
                 val builder = StringBuilder()
                 while (reader.ready()) {
                     val char = reader.read().toChar()
-                    if (char != ' ' && char != '\n') {
+                    if (char.isLetter()) {
                         builder.append(char)
                         break
                     }
@@ -44,7 +44,7 @@ class CitationAction : SensitivityAction("cite", "citation", "excerption", "snip
                 while (reader.ready()) {
                     val char = reader.read().toChar()
                     if (char != '\n') builder.append(char)
-                    if (char == '.' || char == '\n') break
+                    if ((char == '.' && !builder.endsWith("Mr")) || char == '\n') break
                 }
                 reader.close()
                 if (builder.isNotEmpty()) return builder.toString()
