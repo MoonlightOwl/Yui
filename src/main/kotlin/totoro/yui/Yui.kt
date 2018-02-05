@@ -89,8 +89,9 @@ object Yui {
         client.registerAction(SimpleAction(listOf("ball", "?", "8", "8?"), (Dict.Yeah + Dict.Nope + Dict.Maybe)))
         client.registerAction(BroteAction())
         client.registerAction(FishAction())
-        client.registerAction(SmileAction())
         client.registerAction(NeverGonnaAction())
+        client.registerAction(CitationAction())
+        client.registerAction(SmileAction())
         client.registerAction(SimpleAction(listOf("anarchy", "rules", "constitution"), Dict.of(
                 "https://git.io/vwLXq", "sabotage the system!", "no gods, no masters!", "raise hell!",
                 "get ready for anarchy!", "welcome to #cc.ru", "there's no government", "don't forget to " +

@@ -7,8 +7,10 @@
 build/
 out/
 
-# Test database
-*.db
-
 # Configuration files
 config.properties
+
+# Additional resources
+*.db
+books/
+
