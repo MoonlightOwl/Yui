@@ -39,5 +39,5 @@ class Dict<T>(val variants: List<T>) {
     operator fun invoke(n: Int) = pick(n)
 
     fun pick() = variants[Yui.Random.nextInt(variants.size)]
-    fun pick(n: Int) = (0..n).map { pick() }
+    fun pick(n: Int) = (1..n).map { pick() }
 }
