@@ -76,6 +76,7 @@ object Yui {
         client.registerAction(T9Action())
         client.registerAction(WordAction())
         client.registerAction(XkcdAction())
+        client.registerAction(WeatherAction())
         client.registerAction(TimeAction())
         client.registerAction(PhoneticsAction())
         client.registerAction(UnicodeAction())
