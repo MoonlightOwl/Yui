@@ -16,7 +16,7 @@ import javax.net.ssl.*
 
 object Yui {
     // do not forget to change version in build.gradle
-    private const val Version = "0.4.4"
+    private const val Version = "0.4.5"
     val Random = Random(System.currentTimeMillis())
 
     fun run() {
