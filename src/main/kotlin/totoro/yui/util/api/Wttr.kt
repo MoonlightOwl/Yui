@@ -18,10 +18,12 @@ object Wttr {
                         val loc = lines[0].split(':')[1].trim()
                         val condition = lines[2].drop(15).trim()
                         val temperature = lines[3].drop(15).trim()
-                        val wind = lines[4].drop(15).trim()
+                        val windKmH = lines[4].drop(15).trim()
+                        val windMSec = windKmH.take(2) +
+                                (Math.round((windKmH.drop(2).dropLast(5).toIntOrNull()?.times(0.277778) ?: -1.0) * 100.0) / 100.0).toString() + " m/s"
                         val visibility = lines[5].drop(15).trim()
                         val precipitation = lines[6].drop(15).trim()
-                        success(Weather(loc, condition, temperature, wind, visibility, precipitation))
+                        success(Weather(loc, condition, temperature, windMSec, visibility, precipitation))
                     }
                 }
             }
