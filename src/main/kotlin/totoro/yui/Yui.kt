@@ -141,6 +141,8 @@ object Yui {
                 "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo' ")))
         client.registerAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall", "news"),
                 Dict.of("https://vk.com/hashccru")))
+        client.registerAction(SimpleAction(listOf("logs", "log", "history"),
+                Dict.of("https://logs.fomalhaut.me/")))
         client.registerAction(SimpleAction(listOf("h", "help"), Dict.Refuse + Dict.of(
                 "please, somebody, give this man some help!", "sorry, I cannot help",
                 "a little help definitely would not hurt")))
