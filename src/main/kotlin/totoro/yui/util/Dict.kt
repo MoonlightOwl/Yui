@@ -5,8 +5,8 @@ import totoro.yui.Yui
 @Suppress("MemberVisibilityCanBePrivate")
 class Dict<T>(val variants: List<T>) {
     companion object {
-        val Kawaii = Dict.of("kawaii", ":3", "nya", "\u000304♥\u000F", "(〜￣▽￣)〜")
-        val Hello = Dict.of("o/", "oi", "ahoy", "hey", "hi", "hello", "aloha",
+        val Kawaii = Dict.of("kawaii", ":3", "nya", "${F.Red}♥${F.Reset}", "(〜￣▽￣)〜")
+        val Hello = Dict.of("o/", "oi", "ahoy", "hey", "hi", "hello", "aloha", "안녕", "おはよう",
                 "anyoung", "ohayou", "ohayou gozaimasu", "nyanpasu~", "nyanpasu", "howdy", "wazzup", "shalom")
         val Bye = Dict.of("bye", "goodbye", "farewell", "au revoir", "o/", "ciao", "sayonara", "shalom",
                 "bon voyage", "auf Wiedersehen", "aloha", "have a good day", "take care", "bye bye", "later",
