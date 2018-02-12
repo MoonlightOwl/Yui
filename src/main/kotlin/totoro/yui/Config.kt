@@ -13,6 +13,7 @@ class Config(private val filepath: String) {
     var pass: String? = null
     var blackcommands: List<String> = listOf()
     var blackusers: List<String> = listOf()
+    var pm: Boolean = true
 
     fun load() {
         try {
@@ -24,6 +25,7 @@ class Config(private val filepath: String) {
                 pass = getString("pass", "")
                 blackcommands = getList("blackcommands", listOf())
                 blackusers = getList("blackusers", listOf())
+                pm = getBoolean("pm", true)
             }
         } catch (e: Exception) {
             Log.warn("Cannot load properties file, seting default values.")
@@ -33,14 +35,14 @@ class Config(private val filepath: String) {
     }
 
     private fun getString(key: String, default: String): String {
-        return if (prop.containsKey(key))
-            prop.getProperty(key)
-        else
-            default
+        return prop.getProperty(key) ?: default
     }
     private fun getList(key: String, default: List<String>): List<String> {
+        return prop.getProperty(key)?.split(splitRegex) ?: default
+    }
+    private fun getBoolean(key: String, default: Boolean): Boolean {
         return if (prop.containsKey(key))
-            prop.getProperty(key).split(splitRegex)
+            prop.getProperty(key) == "true"
         else
             default
     }

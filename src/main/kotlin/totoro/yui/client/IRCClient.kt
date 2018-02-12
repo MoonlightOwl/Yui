@@ -3,6 +3,8 @@ package totoro.yui.client
 import net.engio.mbassy.listener.Handler
 import org.kitteh.irc.client.library.Client
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent
+import org.kitteh.irc.client.library.event.channel.UnexpectedChannelLeaveViaKickEvent
+import org.kitteh.irc.client.library.event.channel.UnexpectedChannelLeaveViaPartEvent
 import org.kitteh.irc.client.library.event.client.ClientConnectionClosedEvent
 import org.kitteh.irc.client.library.event.client.ClientConnectionEstablishedEvent
 import org.kitteh.irc.client.library.event.client.ClientNegotiationCompleteEvent
@@ -32,8 +34,8 @@ class IRCClient(private val config: Config) {
     private val actions = ArrayList<Action>()
 
     init {
-        client.eventManager.registerEventListener(this)
         config.chan.forEach { client.addChannel(it) }
+        client.eventManager.registerEventListener(this)
     }
 
     fun connect() {
@@ -52,7 +54,7 @@ class IRCClient(private val config: Config) {
     }
 
     fun isBroteOnline(): Boolean =
-            config.chan.map { client.getChannel(it) }.flatMap { it.get().nicknames }.contains("brote")
+            config.chan.map { client.getChannel(it) }.flatMap { it.get().nicknames }.any { it == "brote" }
 
     fun broadcast(message: String) {
         config.chan.forEach { client.sendMessage(it, message) }
@@ -90,19 +92,27 @@ class IRCClient(private val config: Config) {
 
 
     @Handler
-    fun meow(event: ClientNegotiationCompleteEvent) = when (event.client.nick) {
-        nick -> Log.info("I'm connected (today I'm $nick)!")
-        else -> Log.info("[${event.client.nick} has joined]")
-    }
+    fun meow(event: ClientNegotiationCompleteEvent) =
+        Log.info("I'm ready to chat (today I'm $nick)!")
 
     @Handler
     fun ready(event: ClientConnectionEstablishedEvent) =
-            Log.info("I'm ready to chat!")
+        Log.info("I'm connected!")
 
     @Handler
-    fun kawaii(event: ClientConnectionClosedEvent) = when (event.client.nick) {
-        nick -> Log.info("I'm disconnected! ${Dict.Upset()}")
-        else -> Log.info("[${event.client.nick} has quit]")
+    fun kawaii(event: ClientConnectionClosedEvent) =
+        Log.info("I'm disconnected! ${Dict.Upset()}")
+
+    @Handler
+    fun baka(event: UnexpectedChannelLeaveViaKickEvent) = {
+        Log.info("I was kicked! ${Dict.Offended}")
+        event.channel.join()
+    }
+
+    @Handler
+    fun baka(event: UnexpectedChannelLeaveViaPartEvent) = {
+        Log.info("I did leave, but I do not remember why...")
+        event.channel.join()
     }
 
     @Handler
@@ -128,8 +138,10 @@ class IRCClient(private val config: Config) {
 
     @Handler
     fun private(event: PrivateMessageEvent) {
-        Log.incoming("[PM] ${event.actor.nick}: ${event.message}")
-        if (!process(event.actor.nick, event.actor.nick, event.message, true))
-            history.add(event.actor.nick, event.actor.nick, event.message)
+        if (config.pm) {
+            Log.incoming("[PM] ${event.actor.nick}: ${event.message}")
+            if (!process(event.actor.nick, event.actor.nick, event.message, true))
+                history.add(event.actor.nick, event.actor.nick, event.message)
+        }
     }
 }
