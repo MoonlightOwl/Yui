@@ -115,6 +115,7 @@ object Yui {
         client.registerAction(SimpleAction(listOf("money", "balance", "uu"), Dict.of("https://youtu.be/vm2RAFv4pwA")))
         client.registerAction(SimpleAction(listOf("!^mooo*$", "cow", "cowpowers", "cowsay", "cowsays"),
                 Dict.of("to moo or not to moo, that is the question")))
+        client.registerAction(SimpleAction(listOf("disconnect"), Dict.of("disconnect yourself") + Dict.Nope))
         client.registerAction(SimpleAction(listOf("exit", "quit"),
                 Dict.of("try /quit", "there's no exit here") + Dict.Nope + Dict.Rip + Dict.Offended))
         client.registerAction(SimpleAction(listOf("nohello"), Dict.of("http://www.nohello.com/")))
@@ -129,7 +130,8 @@ object Yui {
         client.registerAction(SimpleAction(listOf("calmdown", "cooldown"),
                 Dict.of("https://meduza.io/feature/2017/07/03/vse-besit-kak-perestat-besitsya-po-lyubomu-povodu-instruktsiya")))
         client.registerAction(SimpleAction(listOf("powered", "poweredby", "credits"),
-                Dict.of("i'm created with the power of Kotlin, Kitteh IRC lib, Debian and also the forest spirit power :3")))
+                Dict.of("i'm created with the power of Kotlin, Kitteh IRC lib, Debian and also the forest spirit power :3",
+                        "i'm a product of some creative meddling with letters and digits")))
         client.registerAction(InstallAction())
         client.registerAction(SimpleAction(listOf("upgrade"), Dict.of("https://www.youtube.com/watch?v=rzLSmY7c9dY")))
         client.registerAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
@@ -144,14 +146,15 @@ object Yui {
         client.registerAction(SimpleAction(listOf("logs", "log", "history"),
                 Dict.of("https://logs.fomalhaut.me/")))
         client.registerAction(SimpleAction(listOf("h", "help"), Dict.Refuse + Dict.of(
-                "please, somebody, give this man some help!", "sorry, I cannot help",
+                "please, somebody give this man some help!", "sorry, I cannot help",
                 "a little help definitely would not hurt")))
         client.registerAction(SimpleAction(listOf("source", "sources", "src"), Dict.of(
                 "hey! it's indecent - to ask such things from a girl",
                 "hey! it's indecent - to ask such things from a bot",
                 "I'd prefer not to answer that", "that's too private",
                 "do you even know Kotlin?", "show me your own sources first",
-                "let’s talk about something else", "talk to my lawyer")))
+                "let’s talk about something else", "ask totoro",
+                "'nothing' is the source of everything, and 'everything' will become nothing one day")))
         client.registerAction(SimpleAction(listOf("birth", "birthday", "bd"), Dict.of("6/6/17 at 12:07 AM UTC+02")))
         client.registerAction(LuckyAction())
         client.registerAction(KotlinAction())
