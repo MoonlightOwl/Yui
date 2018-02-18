@@ -52,7 +52,8 @@ object Yui {
 
         // register action processors
         val client = IRCClient(config)
-        client.registerMessageAction(TitleAction())
+        client.registerMessageAction(TitleAction.instance)
+        client.registerMessageAction(HookAction.instance)
         client.registerCommandAction(EmptyCommandAction())
         client.registerCommandAction(SimpleAction(Dict.Hello.variants, Dict.Greets))
         client.registerCommandAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
@@ -69,11 +70,12 @@ object Yui {
         client.registerCommandAction(ThesaurusAction())
         client.registerCommandAction(AntonymsAction())
         client.registerCommandAction(StatsAction())
+        client.registerCommandAction(TranslitAction())
+        client.registerCommandAction(T9Action())
+        client.registerCommandAction(HookAction.instance)
         client.registerCommandAction(PlasmaAction())
         client.registerCommandAction(AnimeAction())
         client.registerCommandAction(WikiAction())
-        client.registerCommandAction(TranslitAction())
-        client.registerCommandAction(T9Action())
         client.registerCommandAction(WordAction())
         client.registerCommandAction(XkcdAction())
         client.registerCommandAction(WeatherAction())
@@ -119,8 +121,6 @@ object Yui {
         client.registerCommandAction(SimpleAction(listOf("exit", "quit"),
                 Dict.of("try /quit", "there's no exit here") + Dict.Nope + Dict.Rip + Dict.Offended))
         client.registerCommandAction(SimpleAction(listOf("nohello"), Dict.of("http://www.nohello.com/")))
-        client.registerCommandAction(SimpleAction(listOf("roll", "rr"),
-                Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "miss!", "miss!")))
         client.registerCommandAction(SimpleAction(listOf("cat", "kote", "!^meoo*w$", "catpowers", "catsay", "catsays"),
                 Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow", "=^._.^=", "/ᐠ｡ꞈ｡ᐟ\\")))
         client.registerCommandAction(TotoroAction())
@@ -155,8 +155,10 @@ object Yui {
                 "do you even know Kotlin?", "show me your own sources first",
                 "let’s talk about something else", "ask totoro",
                 "'nothing' is the source of everything, and 'everything' will become nothing one day")))
-        client.registerCommandAction(TitleAction())
+        client.registerCommandAction(TitleAction.instance)
         client.registerCommandAction(SimpleAction(listOf("birth", "birthday", "bd"), Dict.of("6/6/17 at 12:07 AM UTC+02")))
+        client.registerCommandAction(SimpleAction(listOf("roll", "rr"),
+                Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "miss!", "miss!")))
         client.registerCommandAction(LuckyAction())
         client.registerCommandAction(KotlinAction())
         // if the command does not ring any bells, then show uncertainty

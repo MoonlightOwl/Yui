@@ -15,5 +15,5 @@ interface MessageAction {
      * If true, it must `consume` the message, and return null.
      * Otherwise, it must return the same message back, so the next action processor in the queue can process it.
      */
-    fun process(client: IRCClient, channel: String, message: String): String?
+    fun process(client: IRCClient, channel: String, user: String, message: String): String?
 }

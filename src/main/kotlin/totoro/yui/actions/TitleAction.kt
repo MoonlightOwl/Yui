@@ -11,6 +11,10 @@ import totoro.yui.util.api.Title
  */
 
 class TitleAction : SensitivityAction("title"), MessageAction {
+    companion object {
+        val instance: TitleAction by lazy { TitleAction() }
+    }
+
     private val urlRegex = ".*https?://.*\\..*".toRegex()
 
     private fun printAllTitles(phrases: List<String>, channel: String, client: IRCClient): Boolean {
@@ -19,7 +23,7 @@ class TitleAction : SensitivityAction("title"), MessageAction {
         return titles.isNotEmpty()
     }
 
-    override fun process(client: IRCClient, channel: String, message: String): String? {
+    override fun process(client: IRCClient, channel: String, user: String, message: String): String? {
         return if (!client.isBroteOnline() && message.contains("http")) {
             if (printAllTitles(message.split(' '), channel, client)) null
             else message

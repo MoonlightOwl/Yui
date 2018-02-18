@@ -112,7 +112,7 @@ class IRCClient(private val config: Config) {
         } else {
             // if the message cannot be interpreted as a correct command then we will try common message processors
             for (action in messageActions) {
-                if (action.process(this, chan, message) == null) return true
+                if (action.process(this, chan, user, message) == null) return true
             }
         }
         return false
