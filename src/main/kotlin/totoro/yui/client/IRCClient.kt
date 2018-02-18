@@ -8,6 +8,7 @@ import org.kitteh.irc.client.library.event.channel.UnexpectedChannelLeaveViaPart
 import org.kitteh.irc.client.library.event.client.ClientConnectionClosedEvent
 import org.kitteh.irc.client.library.event.client.ClientConnectionEstablishedEvent
 import org.kitteh.irc.client.library.event.client.ClientNegotiationCompleteEvent
+import org.kitteh.irc.client.library.event.client.ClientReceiveMotdEvent
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent
 import totoro.yui.Config
 import totoro.yui.Log
@@ -16,11 +17,11 @@ import totoro.yui.actions.MessageAction
 import totoro.yui.util.Dict
 
 
-@Suppress("unused", "UNUSED_PARAMETER")
+@Suppress("unused", "UNUSED_PARAMETER", "MemberVisibilityCanBePrivate")
 class IRCClient(private val config: Config) {
-    private val dict = Dict.of("yui`", "yuki`", "yumi`", "ayumi`")
+    private val coolNicknames = Dict.of("yui`", "yuki`", "yumi`", "ayumi`")
 
-    private val nick = dict()
+    private val nick = coolNicknames()
     private val realname = "Yui the Bot"
 
     val history = History(100)
@@ -35,10 +36,13 @@ class IRCClient(private val config: Config) {
     private val commandActions = ArrayList<CommandAction>()
     private val messageActions = ArrayList<MessageAction>()
 
+    private var onceConnected: (() -> Unit)? = null
+
     init {
         config.chan.forEach { client.addChannel(it) }
         client.eventManager.registerEventListener(this)
     }
+
 
     fun connect() {
         client.connect()
@@ -61,6 +65,11 @@ class IRCClient(private val config: Config) {
             client.sendMessage(chan, it)
             Log.outgoing("[$chan] $it")
         }
+    }
+
+    fun start(onceConnected: () -> Unit) {
+        connect()
+        this.onceConnected = onceConnected
     }
 
 
@@ -109,6 +118,14 @@ class IRCClient(private val config: Config) {
         return false
     }
 
+
+    @Handler
+    fun motd(event: ClientReceiveMotdEvent) {
+        if (onceConnected != null) {
+            onceConnected?.invoke()
+            onceConnected = null
+        }
+    }
 
     @Handler
     fun meow(event: ClientNegotiationCompleteEvent) =

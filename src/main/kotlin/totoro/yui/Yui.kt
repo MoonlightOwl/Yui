@@ -163,9 +163,10 @@ object Yui {
         client.registerCommandAction(UnsureAction())
 
         // let's go!
-        client.connect()
-        client.login(config.pass)
-        client.broadcast(Dict.Greets())
+        client.start {
+            client.login(config.pass)
+            client.broadcast(Dict.Greets())
+        }
     }
 }
 
