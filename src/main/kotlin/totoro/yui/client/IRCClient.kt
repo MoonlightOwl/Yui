@@ -11,7 +11,8 @@ import org.kitteh.irc.client.library.event.client.ClientNegotiationCompleteEvent
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent
 import totoro.yui.Config
 import totoro.yui.Log
-import totoro.yui.actions.Action
+import totoro.yui.actions.CommandAction
+import totoro.yui.actions.MessageAction
 import totoro.yui.util.Dict
 
 
@@ -31,7 +32,8 @@ class IRCClient(private val config: Config) {
             .serverHost(config.host)
             .build()
 
-    private val actions = ArrayList<Action>()
+    private val commandActions = ArrayList<CommandAction>()
+    private val messageActions = ArrayList<MessageAction>()
 
     init {
         config.chan.forEach { client.addChannel(it) }
@@ -49,13 +51,6 @@ class IRCClient(private val config: Config) {
         }
     }
 
-    fun registerAction(action: Action) {
-        actions.add(action)
-    }
-
-    fun isBroteOnline(): Boolean =
-            config.chan.map { client.getChannel(it) }.flatMap { it.get().nicknames }.any { it == "brote" }
-
     fun broadcast(message: String) {
         config.chan.forEach { client.sendMessage(it, message) }
         Log.outgoing(message)
@@ -68,23 +63,47 @@ class IRCClient(private val config: Config) {
         }
     }
 
-    private fun process(chan: String, user: String, message: String, prefixed: Boolean): Boolean {
-        // check user blacklist
-        if (prefixed && config.blackusers.contains(user))
-            send(chan, "$user: totoro says you are baka " + Dict.Offended())
-        else {
-            val command = Command(chan, user, message, prefixed)
-            // check commands blacklist
-            if (command.name in config.blackcommands && user !in config.admins)
-                send(chan, "totoro says - don't use the ~${command.name} command " + Dict.Upset())
+
+    fun registerCommandAction(action: CommandAction) {
+        commandActions.add(action)
+    }
+    fun registerMessageAction(action: MessageAction) {
+        messageActions.add(action)
+    }
+
+    fun isBroteOnline(): Boolean =
+            config.chan.map { client.getChannel(it) }.flatMap { it.get().nicknames }.any { it == "brote" }
+
+
+    private fun processMessage(chan: String, user: String, message: String) {
+        Log.incoming("[${ if (chan == user) "PM" else chan }] $user: $message")
+        if (!tryActionProcessors(chan, user, message))
+            history.add(chan, user, message)
+    }
+    private fun tryActionProcessors(chan: String, user: String, message: String): Boolean {
+        val command = Command.parse(message, chan, user, nick)
+        if (command != null) {
+            // if the command was parsed successfully we will try to process it via command processors
+            if (config.blackusers.contains(user))
+                send(chan, "$user: totoro says you are baka " + Dict.Offended())
             else {
-                // call registered action processors
-                @Suppress("LoopToCallChain")
-                for (action in actions) {
-                    // command can be consumed by one of processors
-                    // in this case we do not need to try the rest of actions
-                    if (action.process(this, command) == null) return true
+                // check commands blacklist
+                if (command.name in config.blackcommands && user !in config.admins)
+                    send(chan, "totoro says - don't use the ~${command.name} command " + Dict.Upset())
+                else {
+                    // call registered action processors
+                    @Suppress("LoopToCallChain")
+                    for (action in commandActions) {
+                        // command can be consumed by one of processors
+                        // in this case we do not need to try the rest of actions
+                        if (action.process(this, command) == null) return true
+                    }
                 }
+            }
+        } else {
+            // if the message cannot be interpreted as a correct command then we will try common message processors
+            for (action in messageActions) {
+                if (action.process(this, chan, message) == null) return true
             }
         }
         return false
@@ -117,31 +136,13 @@ class IRCClient(private val config: Config) {
 
     @Handler
     fun incoming(event: ChannelMessageEvent) {
-        Log.incoming("[${event.channel.name}] ${event.actor.nick}: ${event.message}")
-        // detect and process commands
-        if (!when {
-            event.message.startsWith("~") ->
-                process(event.channel.name, event.actor.nick, event.message.drop(1), true)
-            event.message.startsWith("$nick:") ->
-                process(event.channel.name, event.actor.nick, event.message.drop(nick.length + 1), true)
-            event.message.startsWith("$nick,") ->
-                process(event.channel.name, event.actor.nick, event.message.drop(nick.length + 1), true)
-            event.message.startsWith(nick) ->
-                process(event.channel.name, event.actor.nick, event.message.drop(nick.length), true)
-        // special case, when we must show url titles instead of brote
-            event.message.contains("http") && !isBroteOnline() ->
-                process(event.channel.name, event.actor.nick, event.message, false)
-        // if this was not a command - then log to the history
-            else -> false
-        }) history.add(event.channel.name, event.actor.nick, event.message)
+        processMessage(event.channel.name, event.actor.nick, event.message)
     }
 
     @Handler
     fun private(event: PrivateMessageEvent) {
         if (config.pm) {
-            Log.incoming("[PM] ${event.actor.nick}: ${event.message}")
-            if (!process(event.actor.nick, event.actor.nick, event.message, true))
-                history.add(event.actor.nick, event.actor.nick, event.message)
+            processMessage(event.actor.nick, event.actor.nick, event.message)
         }
     }
 }

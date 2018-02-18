@@ -3,7 +3,11 @@ package totoro.yui.actions
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
 
-abstract class SensitivityAction(protected val sensitivities: List<String>) : Action {
+/**
+ * CommandAction extension that takes care of matching the command name
+ */
+
+abstract class SensitivityAction(protected val sensitivities: List<String>) : CommandAction {
     /**
      * Sensitivity pattern can be a simple string (without whitespace characters),
      * or a regex pattern. In the last case the string must begin with `!` sign.
@@ -19,12 +23,9 @@ abstract class SensitivityAction(protected val sensitivities: List<String>) : Ac
      * Otherwise - returns the command, so the next action handler in queue can try it.
      */
     override fun process(client: IRCClient, command: Command): Command? {
-        return if (!command.prefixed) null
-        else {
-            val matches = strings.contains(command.name) || regexes.any { it.matches(command.name.orEmpty()) }
-            val success = matches && handle(client, command)
-            if (success) null else command
-        }
+        val matches = strings.contains(command.name) || regexes.any { it.matches(command.name.orEmpty()) }
+        val success = matches && handle(client, command)
+        return if (success) null else command
     }
 
     /**
