@@ -2,6 +2,8 @@ package totoro.yui.actions
 
 import totoro.yui.client.Command
 import totoro.yui.client.IRCClient
+import totoro.yui.util.Language
+import totoro.yui.util.LanguageHelper
 
 
 class TranslitAction : SensitivityAction("tt", "tr", "trans", "translit", "transliterate") {
@@ -27,9 +29,7 @@ class TranslitAction : SensitivityAction("tt", "tr", "trans", "translit", "trans
     private fun transliterate(phrase: String): String {
         if (phrase.isEmpty()) return phrase
         // detect which way we need to transliterate this string
-        val rules = phrase[0].let {
-            if (it in reversed || it.toLowerCase() in reversed) reversed else straight
-        }
+        val rules = if (LanguageHelper.detect(phrase) == Language.ENGLISH) straight else reversed
         // convert
         return phrase.map {
             when {
