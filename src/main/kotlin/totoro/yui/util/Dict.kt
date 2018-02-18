@@ -17,7 +17,7 @@ class Dict<T>(val variants: List<T>) {
                 "sure enough", "surely", "certainly", "naturally", "absolutely", "yea", "yup")
         val Maybe = Dict.of("maybe", "perhaps", "possibly", "it could be", "mayhap", "most likely", "there is a chance",
                 "you don't want to know this", "you can say so", "depending on circumstances")
-        val NotSure = Dict.of("?", "huh?", "i don't understand", "i don't know", "...", ":<",
+        val NotSure = Dict.of("?", "huh?", "i don't understand", "i don't know", "...", ":<", "ehhhhhh~",
                 "gimme something to work with", "what is this?", "wtf?", "desu", "rippu desu")
         val Excited = Dict.of("doki doki shiteru", "\\o/", "yay", "nice")
         val Upset = Dict.of(":<", "...", "v_v", "-_-")

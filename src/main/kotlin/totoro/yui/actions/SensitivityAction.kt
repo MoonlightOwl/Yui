@@ -31,6 +31,7 @@ abstract class SensitivityAction(protected val sensitivities: List<String>) : Co
     /**
      * This function must be overrided in any child action class.
      * It is responsible for real actions in behalf of the command.
+     * @return true if the command was handled successfully, and false otherwise
      */
     abstract fun handle(client: IRCClient, command: Command): Boolean
 }
