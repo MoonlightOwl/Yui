@@ -62,7 +62,7 @@ object Yui {
         client.registerCommandAction(CoinAction())
         client.registerCommandAction(SearchAction())
         client.registerCommandAction(SimpleAction(listOf("v", "version"), Dict.of(Version)))
-        client.registerCommandAction(SimpleAction(listOf("cookie", "cake"),
+        client.registerCommandAction(SimpleAction(listOf("cookie", "cake", "banana"),
                 Dict.Kawaii + Dict.Excited + Dict.Thanks + Dict.of("oishii", "yummy")))
         client.registerCommandAction(LuaAction())
         client.registerCommandAction(BackronymAction())
