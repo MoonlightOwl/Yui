@@ -78,6 +78,7 @@ object Yui {
         client.registerCommandAction(WikiAction())
         client.registerCommandAction(WordAction())
         client.registerCommandAction(XkcdAction())
+        client.registerCommandAction(DiceAction())
         client.registerCommandAction(WeatherAction())
         client.registerCommandAction(TimeAction())
         client.registerCommandAction(PhoneticsAction())

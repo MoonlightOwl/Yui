@@ -5,7 +5,7 @@ import totoro.yui.client.IRCClient
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class TimeAction : SensitivityAction("t", "time", "d", "date") {
+class TimeAction : SensitivityAction("t", "time", "date") {
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
 
     override fun handle(client: IRCClient, command: Command): Boolean {

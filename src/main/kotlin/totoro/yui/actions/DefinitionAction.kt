@@ -5,7 +5,7 @@ import totoro.yui.client.IRCClient
 import totoro.yui.util.F
 import totoro.yui.util.api.Datamuse
 
-class DefinitionAction : SensitivityAction("d", "def", "define", "definition",
+class DefinitionAction : SensitivityAction("def", "define", "definition",
                                           "whatis", "wtfis", "what", "wtf") {
     override fun handle(client: IRCClient, command: Command): Boolean {
         return if (command.args.isNotEmpty()) {
