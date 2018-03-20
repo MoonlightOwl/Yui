@@ -141,7 +141,8 @@ object Yui {
                 "E2066: Invalid MOM inheritance", "E2502: Error resolving #import: Rust is too rusted",
                 "E2497: No GUID associated with type: 'fish'", "E2427: 'fork' cannot be a template function",
                 "E2252: 'catch' expected", "E2323: Illegal number suffix", "E2370: Simple type name expected",
-                "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo' ")))
+                "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo'",
+                "irc.rs:4:20: missing a bunch of opening brackets")))
         client.registerCommandAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall", "news"),
                 Dict.of("https://vk.com/hashccru")))
         client.registerCommandAction(SimpleAction(listOf("logs", "log", "history"),
