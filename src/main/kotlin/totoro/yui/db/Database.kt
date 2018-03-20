@@ -1,9 +1,9 @@
 package totoro.yui.db
 
+import org.sqlite.JDBC
 import totoro.yui.Log
 import java.sql.Connection
 import java.sql.DriverManager
-
 
 @Suppress("unused")
 class Database(private val filename: String) {
@@ -13,6 +13,7 @@ class Database(private val filename: String) {
 
     fun connect() {
         try {
+            DriverManager.registerDriver(JDBC())
             connection = DriverManager.getConnection("jdbc:sqlite:$filename")
             createTables(connection)
             Log.info("Succesfully connected to the database: $filename")
