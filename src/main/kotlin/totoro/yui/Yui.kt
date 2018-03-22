@@ -136,13 +136,13 @@ object Yui {
         client.registerCommandAction(InstallAction())
         client.registerCommandAction(SimpleAction(listOf("upgrade"), Dict.of("https://www.youtube.com/watch?v=rzLSmY7c9dY")))
         client.registerCommandAction(SimpleAction(listOf("troll", "arch", "trolling"), Dict.of("take this: `pacman -Syu`")))
-        client.registerCommandAction(SimpleAction(listOf("compile", "make", "cmake", "gcc", "build"), Dict.of(
+        client.registerCommandAction(SimpleAction(listOf("compile", "make", "cmake", "gcc", "build", "cargo", "gradle"), Dict.of(
                 "irc.cpp:8:28: missing terminating \" character", "moo.cpp: ld returned 1 exit status",
-                "E2066: Invalid MOM inheritance", "E2502: Error resolving #import: Rust is too rusted",
-                "E2497: No GUID associated with type: 'fish'", "E2427: 'fork' cannot be a template function",
-                "E2252: 'catch' expected", "E2323: Illegal number suffix", "E2370: Simple type name expected",
-                "rip.cpp:12:1: null pointer assignment", "E2014: Member is ambiguous: 'gentoo' and 'rippo'",
-                "irc.rs:4:20: missing a bunch of opening brackets")))
+                "error[E2066]: Invalid MOM inheritance", "error[E2502]: Error resolving #import: Rust is too rusted",
+                "error[E2497]: No GUID associated with type: 'fish'", "error[E2427]: 'fork' cannot be a template function",
+                "error[E2252]: 'catch' expected", "error[E2323]: Illegal number suffix", "error[E2370]: Simple type name expected",
+                "rip.cpp:12:1: null pointer assignment", "error[E2014]: Member is ambiguous: 'gentoo' and 'rippo'",
+                "irc.rs:4:20: missing a bunch of opening brackets", "error[E0463]: can't find crate for `uu_contrib`")))
         client.registerCommandAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall", "news"),
                 Dict.of("https://vk.com/hashccru")))
         client.registerCommandAction(SimpleAction(listOf("logs", "log", "history"),
