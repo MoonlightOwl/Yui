@@ -42,8 +42,7 @@ object Yui {
 
 
         // load configuration if available
-        val config = Config("config.properties")
-        config.load()
+        Config.load("config.properties")
 
         // connect to database
         val database = Database("yui.db")
@@ -51,7 +50,7 @@ object Yui {
 
 
         // register action processors
-        val client = IRCClient(config)
+        val client = IRCClient()
         client.registerMessageAction(TitleAction.instance)
         client.registerMessageAction(HookAction.instance)
         client.registerMessageAction(QuoteAction.instance(database))
@@ -169,7 +168,7 @@ object Yui {
 
         // let's go!
         client.start {
-            client.login(config.pass)
+            client.login(Config.pass)
             client.broadcast(Dict.Greets())
         }
     }

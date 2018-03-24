@@ -37,7 +37,7 @@ class QuoteAction(private val database: Database) : SensitivityAction("q", "quot
                 var text = quote?.let { "${F.Yellow}#${it.id}${F.Reset}: ${it.text}" } ?: "no quotes today " + Dict.Kawaii()
                 val numberOfLines = text.count { it == '\n' }
                 if (numberOfLines > outputLinesLimit) text = text.split('\n').take(outputLinesLimit).joinToString("\n") + "\n..."
-                client.send(command.chan, text)
+                client.sendMultiline(command.chan, text)
             }
         } else {
             // process multi-line quotes creation requests

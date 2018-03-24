@@ -1,9 +1,10 @@
 package totoro.yui
 
+import totoro.yui.util.LogLevel
 import java.io.FileInputStream
 import java.util.*
 
-class Config(private val filepath: String) {
+object Config {
     private val splitRegex = Regex("\\s*,\\s*")
     private val prop = Properties()
 
@@ -14,8 +15,9 @@ class Config(private val filepath: String) {
     var blackcommands: List<String> = listOf()
     var blackusers: List<String> = listOf()
     var pm: Boolean = true
+    var loglevel: LogLevel = LogLevel.DEBUG
 
-    fun load() {
+    fun load(filepath: String) {
         try {
             FileInputStream(filepath).use {
                 prop.load(it)
@@ -26,6 +28,13 @@ class Config(private val filepath: String) {
                 blackcommands = getList("blackcommands", listOf())
                 blackusers = getList("blackusers", listOf())
                 pm = getBoolean("pm", true)
+                val rawLogLevel = getString("loglevel", "debug").toLowerCase()
+                loglevel = when (rawLogLevel) {
+                    "d", "debug" -> LogLevel.DEBUG
+                    "i", "info" -> LogLevel.INFO
+                    "w", "warning", "warn" -> LogLevel.WARNING
+                    else -> LogLevel.ERROR
+                }
             }
         } catch (e: Exception) {
             Log.warn("Cannot load properties file, seting default values.")

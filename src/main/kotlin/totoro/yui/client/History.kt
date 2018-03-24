@@ -1,7 +1,6 @@
 package totoro.yui.client
 
 import totoro.yui.util.LimitedList
-import kotlin.collections.HashMap
 
 /**
  * Stores some amount of last chat messages for actions to use them.

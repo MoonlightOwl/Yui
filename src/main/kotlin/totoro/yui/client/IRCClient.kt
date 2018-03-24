@@ -18,7 +18,7 @@ import totoro.yui.util.Dict
 
 
 @Suppress("unused", "UNUSED_PARAMETER", "MemberVisibilityCanBePrivate")
-class IRCClient(private val config: Config) {
+class IRCClient {
     private val coolNicknames = Dict.of("yui`", "yuki`", "yumi`", "ayumi`")
 
     private val nick = coolNicknames()
@@ -30,7 +30,7 @@ class IRCClient(private val config: Config) {
             .user(nick)
             .name(nick)
             .realName(realname)
-            .serverHost(config.host)
+            .serverHost(Config.host)
             .build()
 
     private val commandActions = ArrayList<CommandAction>()
@@ -39,7 +39,7 @@ class IRCClient(private val config: Config) {
     private var onceConnected: (() -> Unit)? = null
 
     init {
-        config.chan.forEach { client.addChannel(it) }
+        Config.chan.forEach { client.addChannel(it) }
         client.eventManager.registerEventListener(this)
     }
 
@@ -56,7 +56,7 @@ class IRCClient(private val config: Config) {
     }
 
     fun broadcast(message: String) {
-        config.chan.forEach { client.sendMessage(it, message) }
+        Config.chan.forEach { client.sendMessage(it, message) }
         Log.outgoing(message)
     }
 
@@ -85,7 +85,7 @@ class IRCClient(private val config: Config) {
     }
 
     fun isBroteOnline(): Boolean =
-            config.chan.map { client.getChannel(it) }.flatMap { it.get().nicknames }.any { it == "brote" }
+            Config.chan.map { client.getChannel(it) }.flatMap { it.get().nicknames }.any { it == "brote" }
 
 
     private fun processMessage(chan: String, user: String, message: String) {
@@ -97,11 +97,11 @@ class IRCClient(private val config: Config) {
         val command = Command.parse(message, chan, user, nick)
         if (command != null) {
             // if the command was parsed successfully we will try to process it via command processors
-            if (config.blackusers.contains(user))
+            if (Config.blackusers.contains(user))
                 send(chan, "$user: totoro says you are baka " + Dict.Offended())
             else {
                 // check commands blacklist
-                if (command.name in config.blackcommands && user !in config.admins)
+                if (command.name in Config.blackcommands && user !in Config.admins)
                     send(chan, "totoro says - don't use the ~${command.name} command " + Dict.Upset())
                 else {
                     // call registered action processors
@@ -162,7 +162,7 @@ class IRCClient(private val config: Config) {
 
     @Handler
     fun private(event: PrivateMessageEvent) {
-        if (config.pm) {
+        if (Config.pm) {
             processMessage(event.actor.nick, event.actor.nick, event.message)
         }
     }
