@@ -6,7 +6,7 @@ import java.sql.Connection
 class QuotesTable(private val connection: Connection) {
     private val table = "quotes"
 
-    fun create() {
+    fun init() {
         query("create table if not exists $table (text string)")
     }
 

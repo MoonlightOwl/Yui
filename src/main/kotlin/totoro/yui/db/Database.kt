@@ -15,7 +15,7 @@ class Database(private val filename: String) {
         try {
             DriverManager.registerDriver(JDBC())
             connection = DriverManager.getConnection("jdbc:sqlite:$filename")
-            createTables(connection)
+            initTables(connection)
             Log.info("Succesfully connected to the database: $filename")
         } catch (e: Exception) {
             Log.error("Cannot establish connection to the database!")
@@ -23,10 +23,10 @@ class Database(private val filename: String) {
         }
     }
 
-    private fun createTables(connection: Connection?) {
+    private fun initTables(connection: Connection?) {
         if (connection != null) {
             quotes = QuotesTable(connection)
-            quotes?.create()
+            quotes?.init()
         } else {
             Log.error("WTF? Database connection appears to be broken...")
         }
