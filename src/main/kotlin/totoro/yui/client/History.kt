@@ -1,6 +1,6 @@
 package totoro.yui.client
 
-import java.util.*
+import totoro.yui.util.LimitedList
 import kotlin.collections.HashMap
 
 /**
@@ -11,12 +11,11 @@ import kotlin.collections.HashMap
 class History(private val size: Int) {
     class Record(val user: String, val message: String)
 
-    private val history = HashMap<String, LinkedList<Record>>()
+    private val history = HashMap<String, LimitedList<Record>>()
 
     fun add(chan: String, user: String, message: String) {
-        if (!history.contains(chan)) history[chan] = LinkedList()
+        if (!history.contains(chan)) history[chan] = LimitedList(size)
         history[chan]?.addLast(Record(user, message))
-        if (history[chan]?.size ?: 0 > size) history[chan]?.removeFirst()
     }
 
     fun get(chan: String, index: Int) = history[chan]?.get(index)
