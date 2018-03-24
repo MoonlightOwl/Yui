@@ -26,7 +26,7 @@ class WikiAction : SensitivityAction("w", "wiki", "wikipedia", "!^w:..$", "!^wik
         Wiki.search(content, country,
                 { article ->
                     client.send(channel, F.Yellow + article.title + F.Reset + " / " + article.url)
-                    client.send(channel, F.Italic + article.snippet + F.Reset)
+                    client.sendMultiline(channel, F.Italic + article.snippet + F.Reset)
                 },
                 {
                     client.send(channel, F.Gray + "cannot find anything on the topic" + F.Reset)

@@ -18,7 +18,7 @@ class AnimeAction : SensitivityAction("a", "anime", "oneme", "animu", "onemu", "
                     "/ ${anime.rating} " +
                     "/ https://kitsu.io/anime/${anime.slug}"
             )
-            client.send(command.chan,
+            client.sendMultiline(command.chan,
                     F.Italic + "(" +
                     (if (anime.synopsis.length > 350) anime.synopsis.take(350) + "..." else anime.synopsis) +
                     ")" + F.Reset
