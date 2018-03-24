@@ -54,6 +54,7 @@ object Yui {
         val client = IRCClient(config)
         client.registerMessageAction(TitleAction.instance)
         client.registerMessageAction(HookAction.instance)
+        client.registerMessageAction(QuoteAction.instance(database))
         client.registerCommandAction(EmptyCommandAction())
         client.registerCommandAction(SimpleAction(Dict.Hello.variants, Dict.Greets))
         client.registerCommandAction(SimpleAction(Dict.Kawaii.variants, Dict.Kawaii))
@@ -110,7 +111,7 @@ object Yui {
         client.registerCommandAction(PirateAction())
         client.registerCommandAction(RipOrNotAction())
         client.registerCommandAction(CirclifyAction())
-        client.registerCommandAction(QuoteAction(database))
+        client.registerCommandAction(QuoteAction.instance(database))
         client.registerCommandAction(SimpleAction(listOf("call", "phone"), Dict.of(
                 "hang on a moment, I’ll put you through", "beep-beep-beep...", "rip", "☎",
                 "sorry, the balance is not enough", "i’m afraid the line is quite bad",
