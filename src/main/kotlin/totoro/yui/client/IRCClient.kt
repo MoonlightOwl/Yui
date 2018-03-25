@@ -65,10 +65,14 @@ class IRCClient {
         Log.outgoing("[$chan] $message")
     }
 
-    fun sendMultiline(chan: String, message: String) {
-        message.split("\n", "\r").filter { it.isNotEmpty() }.map {
+    fun sendMultiline(chan: String, messages: List<String>) {
+        messages.filter { it.isNotEmpty() }.map {
             send(chan, it)
         }
+    }
+
+    fun sendMultiline(chan: String, message: String) {
+        sendMultiline(chan, message.split("\n", "\r"))
     }
 
     fun start(onceConnected: () -> Unit) {

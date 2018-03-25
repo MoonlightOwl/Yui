@@ -34,12 +34,23 @@ class QuoteAction(private val database: Database) : SensitivityAction("q", "quot
             } else {
                 // else - read a random quote from the database
                 val quote = database.quotes?.random()
-                var text = quote?.let { "${F.Yellow}#${it.id}${F.Reset}: ${it.text}" } ?: "no quotes today " + Dict.Kawaii()
-                val numberOfLines = text.count { it == '\n' }
-                if (numberOfLines > outputLinesLimit)
-                    text = text.split('\n').take(outputLinesLimit).joinToString("\n") +
-                            "\n... (https://quotes.fomalhaut.me/quote/${quote!!.id})"
-                client.sendMultiline(command.chan, text)
+                if (quote != null) {
+                    val numberOfLines = quote.text.count { it == '\n' } + 1
+                    val id = quote.id.toString()
+                    var lines = quote.text.split('\n').toMutableList()
+                    if (numberOfLines > 1) {
+                        val tab = " ".repeat((id.length + 3))
+                        lines = lines.mapIndexed { index, s -> if (index > 0) tab + s else s }.toMutableList()
+                        if (numberOfLines > outputLinesLimit) {
+                            lines = (lines.take(outputLinesLimit - 1) +
+                                    (tab + "... (https://quotes.fomalhaut.me/quote/${quote.id})")).toMutableList()
+                        }
+                    }
+                    lines[0] = "${F.Yellow}#$id${F.Reset}: ${lines[0]}"
+                    client.sendMultiline(command.chan, lines)
+                } else {
+                    client.send(command.chan, "no quotes today " + Dict.Kawaii())
+                }
             }
         } else {
             // process multi-line quotes creation requests
