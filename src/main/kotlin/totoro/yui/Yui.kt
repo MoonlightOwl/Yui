@@ -150,7 +150,7 @@ object Yui {
         client.registerCommandAction(SimpleAction(listOf("h", "help"), Dict.Refuse + Dict.of(
                 "please, somebody give this man some help!", "sorry, I cannot help",
                 "a little help definitely would not hurt")))
-        client.registerCommandAction(SimpleAction(listOf("source", "sources", "src"), Dict.of(
+        client.registerCommandAction(SimpleAction(listOf("source", "sources", "src", "github"), Dict.of(
                 "hey! it's indecent - to ask such things from a girl",
                 "hey! it's indecent - to ask such things from a bot",
                 "I'd prefer not to answer that", "that's too private",
@@ -159,6 +159,10 @@ object Yui {
                 "'nothing' is the source of everything, and 'everything' will become nothing one day")))
         client.registerCommandAction(TitleAction.instance)
         client.registerCommandAction(SimpleAction(listOf("birth", "birthday", "bd"), Dict.of("6/6/17 at 12:07 AM UTC+02")))
+        client.registerCommandAction(SimpleAction(listOf("napolitan", "naporitan", "napolitan!", "naporitan!"), Dict.of(
+                "https://www.youtube.com/watch?v=6lY730l84aI",
+                "https://www.youtube.com/watch?v=nJz57eIwRZo",
+                "https://www.youtube.com/watch?v=6TFeGkjN6Rc")))
         client.registerCommandAction(SimpleAction(listOf("roll", "rr"),
                 Dict.of("miss!", "miss!", "miss!", "miss!", "BANG!", "miss!", "miss!")))
         client.registerCommandAction(LuckyAction())
