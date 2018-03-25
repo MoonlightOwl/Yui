@@ -36,7 +36,9 @@ class QuoteAction(private val database: Database) : SensitivityAction("q", "quot
                 val quote = database.quotes?.random()
                 var text = quote?.let { "${F.Yellow}#${it.id}${F.Reset}: ${it.text}" } ?: "no quotes today " + Dict.Kawaii()
                 val numberOfLines = text.count { it == '\n' }
-                if (numberOfLines > outputLinesLimit) text = text.split('\n').take(outputLinesLimit).joinToString("\n") + "\n..."
+                if (numberOfLines > outputLinesLimit)
+                    text = text.split('\n').take(outputLinesLimit).joinToString("\n") +
+                            "\n... (https://quotes.fomalhaut.me/quote/${quote!!.id})"
                 client.sendMultiline(command.chan, text)
             }
         } else {
