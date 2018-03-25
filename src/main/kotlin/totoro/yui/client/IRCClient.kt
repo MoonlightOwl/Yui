@@ -89,7 +89,11 @@ class IRCClient {
     }
 
     fun isBroteOnline(): Boolean =
-            Config.chan.map { client.getChannel(it) }.flatMap { it.get().nicknames }.any { it == "brote" }
+            Config.chan
+                    .map { client.getChannel(it) }
+                    .filter { it.isPresent }
+                    .flatMap { it.get().nicknames }
+                    .any { it == "brote" }
 
 
     private fun processMessage(chan: String, user: String, message: String) {
