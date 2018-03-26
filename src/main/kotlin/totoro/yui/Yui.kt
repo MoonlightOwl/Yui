@@ -147,6 +147,8 @@ object Yui {
                 Dict.of("https://vk.com/hashccru")))
         client.registerCommandAction(SimpleAction(listOf("logs", "log", "history"),
                 Dict.of("https://logs.fomalhaut.me/")))
+        client.registerCommandAction(SimpleAction(listOf("quotes"),
+                Dict.of("https://quotes.fomalhaut.me/")))
         client.registerCommandAction(SimpleAction(listOf("h", "help"), Dict.Refuse + Dict.of(
                 "please, somebody give this man some help!", "sorry, I cannot help",
                 "a little help definitely would not hurt")))

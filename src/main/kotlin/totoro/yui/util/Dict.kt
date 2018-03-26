@@ -19,7 +19,7 @@ class Dict<T>(val variants: List<T>) {
                 "you don't want to know this", "you can say so", "depending on circumstances")
         val NotSure = Dict.of("?", "huh?", "i don't understand", "i don't know", "...", ":<", "ehhhhhh~",
                 "gimme something to work with", "what is this?", "wtf?", "desu", "rippu desu")
-        val Excited = Dict.of("doki doki shiteru", "\\o/", "yay", "nice")
+        val Excited = Dict.of("doki doki shiteru", "\\o/", "yay", "nice", "suki desu!", "daisuki desu!")
         val Upset = Dict.of(":<", "...", "v_v", "-_-")
         val Offended = Dict.of("baka") + Upset
         val Thanks = Dict.of("thanks", "thanks", "thank you", "thx", "thanks a lot", "cheers", "arigatou")
