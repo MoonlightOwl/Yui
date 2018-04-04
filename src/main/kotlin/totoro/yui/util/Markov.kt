@@ -35,7 +35,7 @@ object Markov {
             if (logsDir.exists()) {
                 var files = logsDir.listFiles().sorted()
                 val firstUnread = database.markov?.getFromConfig("first_unread")
-                if (firstUnread != null) files = files.dropWhile { it.name != firstUnread }
+                if (firstUnread != null && firstUnread != "null") files = files.dropWhile { it.name != firstUnread }
                 if (files.isNotEmpty()) {
                     // we will leave the last file because it's probably the today's log, and isn't finished yet
                     val theLastOne = files.last()
@@ -47,9 +47,10 @@ object Markov {
                         reader.useLines { lines -> lines.forEach { line ->
                             if (line.contains('>') && !line.contains("***")) {
                                 val words = splitToWords(line)
+                                val author = line.substring(line.indexOf('<') + 1, line.indexOf('>'))
                                 if (words.isNotEmpty() && (Config.markovAllowShortLines || words.size > 1)) {
                                     sequencesBy(Config.markovOrder, words, { chain, word ->
-                                        database.markov?.addBatch(chain.replace("'", "''"), word.replace("'", "''"))
+                                        database.markov?.addBatch(chain.replace("'", "''"), word.replace("'", "''"), author)
                                     })
                                 }
                             }
@@ -86,6 +87,10 @@ object Markov {
      */
     fun suggest(database: Database, chain: String): String {
         val suggestion = database.markov?.random(chain)
+        return suggestion?.word?.replace("''", "'") ?: ending
+    }
+    fun suggest(database: Database, chain: String, author: String): String {
+        val suggestion = database.markov?.random(chain, author)
         return suggestion?.word?.replace("''", "'") ?: ending
     }
 }

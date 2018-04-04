@@ -20,7 +20,8 @@ class MarkovAction(private val database: Database) : SensitivityAction("m", "mar
     )
 
     override fun handle(client: IRCClient, command: Command): Boolean {
-        when (command.args.firstOrNull()) {
+        val argument = command.args.firstOrNull()
+        when (argument) {
             "update" -> update(client, command, false)
             "regenerate" -> {
                 if (Config.admins.contains(command.user))
@@ -33,7 +34,10 @@ class MarkovAction(private val database: Database) : SensitivityAction("m", "mar
                 var attempt = 0
                 while (true) {
                     val chain = phrase.takeLast(Config.markovOrder).joinToString(Markov.chainDelimiter)
-                    val suggestion = Markov.suggest(database, chain)
+                    val suggestion = if (argument == null)
+                        Markov.suggest(database, chain)
+                    else
+                        Markov.suggest(database, chain, argument)
                     if (suggestion == Markov.ending) {
                         if (attempt >= maxNumberOfAttemts || phrase.size >= recommendedMinimalPhraseLength) break
                         attempt += 1
