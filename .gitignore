@@ -6,7 +6,7 @@
 # Builds
 build/
 out/
-*.jar
+/*.jar
 
 # Configuration files
 config.properties
