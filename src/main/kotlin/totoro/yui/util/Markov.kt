@@ -1,0 +1,76 @@
+package totoro.yui.util
+
+import totoro.yui.Config
+import totoro.yui.db.Database
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStreamReader
+
+
+@Suppress("unused")
+object Markov {
+    private val splitPatternAllNonLetters = "[^\\p{L}0-9']+".toRegex()
+    private val splitPatternOnlySpaces = "\\s".toRegex()
+
+    const val beginning = "^"
+    const val chainDelimiter = " "
+    const val ending = "$"
+
+    /**
+     * Read all files from the logs directory and build the probability tables
+     */
+    fun update(database: Database): Boolean {
+        if (!Config.markovPath.isNullOrEmpty()) {
+            val logsDir = File(Config.markovPath)
+            if (logsDir.exists()) {
+                database.markov?.truncate()
+                val files = logsDir.listFiles()
+                if (files.isNotEmpty()) {
+                    files.map { file ->
+                        val stream = FileInputStream(file)
+                        val reader = BufferedReader(InputStreamReader(stream, "UTF-8"))
+                        database.markov?.prepareBatch()
+                        reader.useLines { lines -> lines.forEach { line ->
+                            if (line.contains('>') && !line.contains("***")) {
+                                val words = splitToWords(line)
+                                if (words.isNotEmpty() && (Config.markovAllowShortLines || words.size > 1)) {
+                                    sequencesBy(Config.markovOrder, words, { chain, word ->
+                                        database.markov?.addBatch(chain.replace("'", "''"), word.replace("'", "''"))
+                                    })
+                                }
+                            }
+                        }}
+                        reader.close()
+                        database.markov?.commitBatch()
+                    }
+                }
+                return true
+            }
+        }
+        return false
+    }
+    private fun splitToWords(line: String): List<String> =
+            listOf(beginning) +
+            line.drop(line.indexOf('>') + 1)
+                    .split(if (Config.markovAllowNonLetters) splitPatternOnlySpaces else splitPatternAllNonLetters)
+                    .filter { !it.isEmpty() } +
+            ending
+    private fun sequencesBy(order: Int, words: List<String>, block: (String, String) -> Unit) {
+        for (i in (-order + 1) until (words.size - order)) {
+            val key = (i..(i + order - 1))
+                    .mapNotNull { words.getOrNull(it)?.toLowerCase() }
+                    .joinToString(chainDelimiter)
+            val value = words[i + order].toLowerCase()
+            block(key, value)
+        }
+    }
+
+    /**
+     * Suggest the next word based on given chain
+     */
+    fun suggest(database: Database, chain: String): String {
+        val suggestion = database.markov?.random(chain)
+        return suggestion?.word?.replace("''", "'") ?: ending
+    }
+}

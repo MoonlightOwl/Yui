@@ -10,6 +10,7 @@ class Database(private val filename: String) {
     private var connection: Connection? = null
 
     var quotes: QuotesTable? = null
+    var markov: MarkovTable? = null
 
     fun connect() {
         try {
@@ -27,6 +28,8 @@ class Database(private val filename: String) {
         if (connection != null) {
             quotes = QuotesTable(connection)
             quotes?.init()
+            markov = MarkovTable(connection)
+            markov?.init()
         } else {
             Log.error("WTF? Database connection appears to be broken...")
         }

@@ -104,13 +104,14 @@ object Yui {
                 "i suppose what I believe in is peaceful anarchy", "if I can't dance to it, it's not " +
                 "my revolution", "what is important is to spread confusion, not eliminate it", "in a world " +
                 "like this one, only the random makes sense", "anarchism is democracy taken seriously")))
+        client.registerCommandAction(MarkovAction(database))
+        client.registerCommandAction(QuoteAction.instance(database))
+        client.registerCommandAction(WPAction())
         client.registerCommandAction(ChuckAction())
         client.registerCommandAction(SimpleAction(listOf("fork", "pitchfork", "---E"), Dict.of("---E")))
-        client.registerCommandAction(WPAction())
         client.registerCommandAction(PirateAction())
         client.registerCommandAction(RipOrNotAction())
         client.registerCommandAction(CirclifyAction())
-        client.registerCommandAction(QuoteAction.instance(database))
         client.registerCommandAction(SimpleAction(listOf("call", "phone"), Dict.of(
                 "hang on a moment, I’ll put you through", "beep-beep-beep...", "rip", "☎",
                 "sorry, the balance is not enough", "i’m afraid the line is quite bad",
@@ -126,7 +127,7 @@ object Yui {
                 Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow", "=^._.^=", "/ᐠ｡ꞈ｡ᐟ\\")))
         client.registerCommandAction(TotoroAction())
         client.registerCommandAction(PjylsAction())
-        client.registerCommandAction(SimpleAction(listOf("flip", "table"),
+        client.registerCommandAction(SimpleAction(listOf("flip", "table", "drop"),
                 Dict.of("(╯°□°）╯︵ ┻━┻", "(ノಠ益ಠ)ノ彡┻━┻", "(╯°□°）╯︵ ┻━┻")))
         client.registerCommandAction(SimpleAction(listOf("calmdown", "cooldown"),
                 Dict.of("https://meduza.io/feature/2017/07/03/vse-besit-kak-perestat-besitsya-po-lyubomu-povodu-instruktsiya")))
@@ -143,7 +144,7 @@ object Yui {
                 "error[E2252]: 'catch' expected", "error[E2323]: Illegal number suffix", "error[E2370]: Simple type name expected",
                 "rip.cpp:12:1: null pointer assignment", "error[E2014]: Member is ambiguous: 'gentoo' and 'rippo'",
                 "irc.rs:4:20: missing a bunch of opening brackets", "error[E0463]: can't find crate for `uu_contrib`")))
-        client.registerCommandAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall", "news"),
+        client.registerCommandAction(SimpleAction(listOf("vk", "vkontakte", "group", "public", "wall"),
                 Dict.of("https://vk.com/hashccru")))
         client.registerCommandAction(SimpleAction(listOf("logs", "log", "history"),
                 Dict.of("https://logs.fomalhaut.me/")))

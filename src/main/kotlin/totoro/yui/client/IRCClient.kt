@@ -105,11 +105,11 @@ class IRCClient {
         val command = Command.parse(message, chan, user, nick)
         if (command != null) {
             // if the command was parsed successfully we will try to process it via command processors
-            if (Config.blackusers.contains(user))
+            if (Config.blackUsers.contains(user))
                 send(chan, "$user: totoro says you are baka " + Dict.Offended())
             else {
                 // check commands blacklist
-                if (command.name in Config.blackcommands && user !in Config.admins)
+                if (command.name in Config.blackCommands && user !in Config.admins)
                     send(chan, "totoro says - don't use the ~${command.name} command " + Dict.Upset())
                 else {
                     // call registered action processors

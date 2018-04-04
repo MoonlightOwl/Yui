@@ -6,6 +6,7 @@
 # Builds
 build/
 out/
+*.jar
 
 # Configuration files
 config.properties
@@ -13,4 +14,4 @@ config.properties
 # Additional resources
 *.db
 books/
-
+logs/
