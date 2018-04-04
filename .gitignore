@@ -13,5 +13,7 @@ config.properties
 
 # Additional resources
 *.db
+*.db-journal
 books/
 logs/
+backups/

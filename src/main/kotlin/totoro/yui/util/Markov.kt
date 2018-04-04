@@ -18,16 +18,29 @@ object Markov {
     const val ending = "$"
 
     /**
+     * First remove all chains data and the regenerate it anew
+     */
+    fun regenerate(database: Database, progress: (String, Float) -> Unit): Boolean {
+        database.markov?.truncate()
+        database.markov?.setToConfig("first_unread", null)
+        return update(database, progress)
+    }
+
+    /**
      * Read all files from the logs directory and build the probability tables
      */
-    fun update(database: Database): Boolean {
+    fun update(database: Database, progress: (String, Float) -> Unit): Boolean {
         if (!Config.markovPath.isNullOrEmpty()) {
             val logsDir = File(Config.markovPath)
             if (logsDir.exists()) {
-                database.markov?.truncate()
-                val files = logsDir.listFiles()
+                var files = logsDir.listFiles().sorted()
+                val firstUnread = database.markov?.getFromConfig("first_unread")
+                if (firstUnread != null) files = files.dropWhile { it.name != firstUnread }
                 if (files.isNotEmpty()) {
-                    files.map { file ->
+                    // we will leave the last file because it's probably the today's log, and isn't finished yet
+                    val theLastOne = files.last()
+                    files = files.dropLast(1)
+                    files.forEachIndexed { index, file ->
                         val stream = FileInputStream(file)
                         val reader = BufferedReader(InputStreamReader(stream, "UTF-8"))
                         database.markov?.prepareBatch()
@@ -41,9 +54,11 @@ object Markov {
                                 }
                             }
                         }}
-                        reader.close()
                         database.markov?.commitBatch()
+                        reader.close()
+                        progress(file.name, index.toFloat() / files.size)
                     }
+                    database.markov?.setToConfig("first_unread", theLastOne.name)
                 }
                 return true
             }

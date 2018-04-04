@@ -33,7 +33,7 @@ open class Table(protected val connection: Connection, protected val table: Stri
         return keys
     }
 
-    fun truncate() {
+    open fun truncate() {
         update("delete from $table;").close()
     }
 }

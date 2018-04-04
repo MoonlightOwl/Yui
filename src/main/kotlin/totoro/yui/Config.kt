@@ -17,7 +17,7 @@ object Config {
     var pm: Boolean = true
     var logLevel: LogLevel = LogLevel.DEBUG
     var markovPath: String? = null
-    var markovOrder: Int = 2
+    var markovOrder: Int = 1
     var markovAllowNonLetters = true
     var markovAllowShortLines = false
 
