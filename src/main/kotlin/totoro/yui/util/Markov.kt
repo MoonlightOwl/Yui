@@ -33,7 +33,7 @@ object Markov {
         if (!Config.markovPath.isNullOrEmpty()) {
             val logsDir = File(Config.markovPath)
             if (logsDir.exists()) {
-                var files = logsDir.listFiles().sorted()
+                var files = logsDir.listFiles().filter { !it.isDirectory }.sorted()
                 val firstUnread = database.markov?.getFromConfig("first_unread")
                 if (firstUnread != null && firstUnread != "null") files = files.dropWhile { it.name != firstUnread }
                 if (files.isNotEmpty()) {
