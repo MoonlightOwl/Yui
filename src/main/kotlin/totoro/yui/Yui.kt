@@ -160,6 +160,7 @@ object Yui {
                 "do you even know Kotlin?", "show me your own sources first",
                 "let’s talk about something else", "ask totoro",
                 "'nothing' is the source of everything, and 'everything' will become nothing one day")))
+        client.registerCommandAction(SimpleAction(listOf("git"), Dict.of("https://git-scm.com/")))
         client.registerCommandAction(TitleAction.instance)
         client.registerCommandAction(SimpleAction(listOf("birth", "birthday", "bd"), Dict.of("6/6/17 at 12:07 AM UTC+02")))
         client.registerCommandAction(SimpleAction(listOf("napolitan", "naporitan", "napolitan!", "naporitan!"), Dict.of(

@@ -11,7 +11,7 @@ import java.net.URLEncoder
 object Datamuse {
     private const val charset = "UTF-8"
 
-    fun definition(word: String, partOfSpeech: List<String>): Definition? {
+    fun definition(word: String, partOfSpeech: List<String>, exclude: List<String>): Definition? {
         val raw = URL("https://api.datamuse.com/words?sp=${URLEncoder.encode(word, charset)}&md=d").readText()
         @Suppress("UNCHECKED_CAST")
         val array = Parser().parse(StringBuilder(raw)) as JsonArray<JsonObject>
@@ -23,7 +23,7 @@ object Datamuse {
                 val filteredDefs = (
                     if (partOfSpeech.isEmpty()) defs
                     else defs.filter { def -> partOfSpeech.any { part -> def.startsWith(part) } }
-                )
+                ).filterNot { exclude.any { def -> it.endsWith(def) } }
                 if (filteredDefs.isNotEmpty()) {
                     val def = filteredDefs[Math.round(Math.random() * (filteredDefs.size - 1)).toInt()]
                             .split("\t")

@@ -45,7 +45,7 @@ object Config {
                 markovAllowShortLines = getBoolean("markov_allow_short_lines", false)
             }
         } catch (e: Exception) {
-            Log.warn("Cannot load properties file, seting default values.")
+            Log.warn("Cannot load the configuration file, seting default values.")
             host = "irc.esper.net"
             chan = listOf("#meowbeast")
         }
