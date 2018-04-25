@@ -126,6 +126,7 @@ object Yui {
         client.registerCommandAction(SimpleAction(listOf("cat", "kote", "!^meoo*w$", "catpowers", "catsay", "catsays"),
                 Dict.of("~(=^–^)", ":3", "=’①。①’=", "meow", "meooow", "=^._.^=", "/ᐠ｡ꞈ｡ᐟ\\")))
         client.registerCommandAction(TotoroAction())
+        client.registerCommandAction(ImgurAction())
         client.registerCommandAction(PjylsAction())
         client.registerCommandAction(SimpleAction(listOf("flip", "table", "drop"),
                 Dict.of("(╯°□°）╯︵ ┻━┻", "(ノಠ益ಠ)ノ彡┻━┻", "(╯°□°）╯︵ ┻━┻")))
