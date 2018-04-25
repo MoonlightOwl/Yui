@@ -12,7 +12,7 @@ import java.util.*
  * When the target writes any message to the channel, the user will receive a notification.
  */
 
-class HookAction : SensitivityAction("hook"), MessageAction {
+class HookAction : SensitivityAction("hook", "unhook"), MessageAction {
     companion object {
         val instance: HookAction by lazy { HookAction() }
     }
@@ -51,10 +51,17 @@ class HookAction : SensitivityAction("hook"), MessageAction {
 
     override fun handle(client: IRCClient, command: Command): Boolean {
         if (command.args.isNotEmpty()) {
-            add(command.user, command.args.first(), command.content.dropWhile { !it.isWhitespace() }.trim())
-            client.send(command.chan, confirmations())
+            if (command.name == "hook") {
+                add(command.user, command.args.first(), command.content.dropWhile { !it.isWhitespace() }.trim())
+                client.send(command.chan, confirmations())
+            } else {
+                command.args.forEach {
+                    remove(command.user, it)
+                }
+                client.send(command.chan, Dict.AcceptTask())
+            }
         } else {
-            client.send(command.chan, "${F.Gray}who do you want me to hook?${F.Reset}")
+            client.send(command.chan, "${F.Gray}who do you want me to ${command.name}?${F.Reset}")
         }
         return true
     }
