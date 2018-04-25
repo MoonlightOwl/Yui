@@ -28,12 +28,14 @@ class Dict<T>(val variants: List<T>) {
                 "life is too short to do things you don't love", "i would love to, but unfortunately... no",
                 "alas, such a task is no match for my incompetency", "i shall not", "i think not", "offer declined",
                 "I’m trying to see how long I can go without saying yes")
-        val AcceptTask = Dict.of("okey", "consider it done", "no problem", "sure", "got it", "right away")
+        val AcceptTask = Dict.of("okey", "consider it done", "no problem", "sure", "got it", "right away",
+                "leave it to me")
         val Rip = Dict.of("rip", "rippo", "rust in peppers", "✝", "✞", "ＲＩＰ", "rip irc")
 
         fun <T> of(vararg variants: T): Dict<T> = Dict(variants.asList())
     }
 
+    operator fun plus(element: String) = Dict(variants + element)
     operator fun plus(new: List<T>) = Dict(variants + new)
     operator fun plus(other: Dict<T>) = Dict(variants + other.variants)
 
