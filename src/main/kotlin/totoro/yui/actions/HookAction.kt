@@ -18,22 +18,22 @@ class HookAction : SensitivityAction("hook"), MessageAction {
     }
 
     private val sizeLimit = 100
-    private val hooks: LimitedHashMap<String, LinkedList<String>> = LimitedHashMap(sizeLimit)
+    private val hooks: LimitedHashMap<String, LinkedList<Pair<String, String?>>> = LimitedHashMap(sizeLimit)
     private val confirmations = Dict.AcceptTask + Dict.of("ok, i'll watch him", "i'll notify you")
 
-    private fun add(user: String, target: String): Boolean {
+    private fun add(user: String, target: String, message: String?): Boolean {
         if (!hooks.containsKey(target)) hooks[target] = LinkedList()
         val hunters = hooks[target]
         return if (hunters != null) {
             if (hunters.size > sizeLimit) hunters.drop(1)
-            hunters.add(user)
+            hunters.add(Pair(user, message))
             true
         } else false
     }
     private fun remove(user: String, target: String) {
         if (hooks.containsKey(target)) {
             val hunters = hooks[target]
-            hunters?.remove(user)
+            hunters?.removeIf { it.first == user }
             if (hunters?.isEmpty() != false) hooks.remove(target)
         }
     }
@@ -41,8 +41,9 @@ class HookAction : SensitivityAction("hook"), MessageAction {
     override fun process(client: IRCClient, channel: String, user: String, message: String): String? {
         return if (hooks.containsKey(user)) {
             hooks[user]?.forEach {
-                client.send(channel, "$it: alarm! $user is here!")
-                remove(it, user)
+                client.send(channel, "${it.first}: alarm! $user is here!")
+                if (!it.second.isNullOrEmpty()) client.send(channel, "$user: ${it.second}")
+                remove(it.first, user)
             }
             null
         } else message
@@ -50,10 +51,10 @@ class HookAction : SensitivityAction("hook"), MessageAction {
 
     override fun handle(client: IRCClient, command: Command): Boolean {
         if (command.args.isNotEmpty()) {
-            command.args.forEach { add(command.user, it) }
+            add(command.user, command.args.first(), command.content.dropWhile { !it.isWhitespace() }.trim())
             client.send(command.chan, confirmations())
         } else {
-            client.send(command.chan, "${F.Gray}who you want me to hook?${F.Reset}")
+            client.send(command.chan, "${F.Gray}who do you want me to hook?${F.Reset}")
         }
         return true
     }
