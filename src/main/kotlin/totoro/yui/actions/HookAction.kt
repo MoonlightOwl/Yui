@@ -41,8 +41,10 @@ class HookAction : SensitivityAction("hook", "unhook"), MessageAction {
     override fun process(client: IRCClient, channel: String, user: String, message: String): String? {
         return if (hooks.containsKey(user)) {
             hooks[user]?.forEach {
-                client.send(channel, "${it.first}: alarm! $user is here!")
-                if (!it.second.isNullOrEmpty()) client.send(channel, "$user: ${it.second}")
+                if (it.second.isNullOrEmpty())
+                    client.send(channel, "${it.first}: ${F.Yellow}alarm! <$user> is here!${F.Reset}")
+                else
+                    client.send(channel, "<${it.first}> to <$user>: ${F.Yellow}${it.second}${F.Reset}")
                 remove(it.first, user)
             }
             null
